@@ -1,3 +1,4 @@
+package com.demo.entities;
 <%@page import="com.demo.entities.Motoline"%>
 <%@page import="com.demo.models.MotolineModel"%>
 <%@page import="com.demo.entities.Brand"%>
@@ -230,6 +231,25 @@
                                             </div>
                                         </div>
                                     </div>
+                                     <div class="row">
+                                        <div class="col-md-4 ml-5">
+                                            <div class="form-group">
+                                            <label for="exampleInputFile">Thêm Ảnh Thông Tin Xe</label>
+                                            <div class="input-group">
+                                              <div class="custom-file">
+                                                <input type="file" name="listImage" class="custom-file-input" id="exampleInputFile" multiple="multiple">
+                                                <label class="custom-file-label" for="exampleInputFile">Chọn Ảnh</label>
+                                              </div>
+                                              <div class="input-group-append">
+                                                <span class="input-group-text">Tải Lên</span>
+                                              </div>
+                                            </div>
+                                           
+                                          </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
                                         <div class="ml-5">
                                             <button type="submit" class="btn btn-primary">Thêm</button>
                                         </div>

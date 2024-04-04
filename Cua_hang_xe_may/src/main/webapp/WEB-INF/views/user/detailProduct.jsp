@@ -1,3 +1,4 @@
+<%@page import="com.demo.entities.Image"%>
 <%@page import="com.demo.helpers.ColorHelper"%>
 <%@page import="com.demo.entities.ProductColor"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
@@ -13,6 +14,8 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
    <%
+   List<Image> images = (List<Image>) request.getAttribute("images");
+   if(images == null) images = new ArrayList<>();
    List<CommentCustom> comments =(List<CommentCustom>) request.getAttribute("comments");
       if(comments == null) comments = new ArrayList<>();
       String id= request.getParameter("id");
@@ -217,38 +220,12 @@
         <div class="container pb-5">
             <h2 class="mb-4">Chi tiết</h2>
             <div class="owl-carousel related-carousel position-relative" style="padding: 0 30px;">
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" src="${pageContext.request.contextPath}assets/user/Image/Honda/denxe.jpg" alt="">
-                    <h4 class="text-uppercase mb-4">Đèn Xe</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <span> Chế độ đèn luôn sáng đảm bảo cho người sử dụng có tầm nhìn tốt nhất trong các trường hợp 
-                             đi trong điều kiện ánh sáng không đảm bảo</span>
-                    </div>
+            <% for(Image i: images) { %>
+                <div class="rent-item" >
+                    <img class="img-fluid mb-4" style="width: 100px" src="${pageContext.request.contextPath}/assets/user/Image/<%=i.getPhoto() %>" alt="">
+                    
                 </div>
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" src="${pageContext.request.contextPath}assets/user/Image/Honda/copxe.jpg" alt="">
-                    <h4 class="text-uppercase mb-4">Hộp đựng đồ dưới yên xe</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <span> Cho phép chứa tới 2 mũ bảo hiểm nửa đầu cùng nhiều vật dụng cá nhân khác
-                            mà vẫn giữ nguyên thiết kế thon gọn. </span>
-                    </div>
-                </div>
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" src="${pageContext.request.contextPath}assets/user/Image/Honda/donghoxe.jpg" alt="">
-                    <h4 class="text-uppercase mb-4">Đồng Hồ Xe</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <span> Mặt đồng hồ LCD kỹ thuật số với thiết kế hiện đại, gọn gàng, giúp tăng khả năng hiển thị và dễ dàng quan sát <br>
-                        </span>
-                    </div>
-                </div>
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" src="${pageContext.request.contextPath}assets/user/Image/Honda/smart key.jpg" alt="">
-                    <h4 class="text-uppercase mb-4">Smart Key</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <span> Việc xác định vị trí xe cùng chức năng báo động được tích hợp trên thiết bị điều khiển FOB 
-                            giúp tăng sự tiện lợi và an tâm cho khách hàng.</span>
-                    </div>
-                </div>
+                <% } %>
             
             </div>
         </div>

@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.demo.entities.Comment;
 import com.demo.entities.CommentCustom;
+import com.demo.entities.Image;
 import com.demo.entities.Product;
 import com.demo.entities.ProductColor;
 import com.demo.entities.ProductVersion;
 import com.demo.models.CommentModel;
+import com.demo.models.ImageModel;
 import com.demo.models.ProductModel;
 import com.google.gson.Gson;
 @WebServlet("/details")
@@ -53,13 +55,14 @@ public class DetailServlet extends HttpServlet {
 		CommentModel commentModel = new CommentModel();
 		String idProdut = request.getParameter("id") ;
 		int id = Integer.parseInt(idProdut);
-		
+		ImageModel imageModel = new ImageModel();
+		List<Image> images = imageModel.findByProductId(id);
 		System.out.println(idProdut);
 		Product product = productModel.findProductById(id);
 		System.out.println(product.toString());
 		if(product != null) {
 			request.setAttribute("product", product);
-			
+			request.setAttribute("images", images);
 		} else {
 			response.sendRedirect("motobike");
 		}
