@@ -1,6 +1,9 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -10,11 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.demo.entities.Image;
 import com.demo.entities.Product;
 import com.demo.entities.ProductColor;
 import com.demo.entities.ProductVersion;
 import com.demo.helpers.UploadFileHelper;
 import com.demo.models.ColorModel;
+import com.demo.models.ImageModel;
 import com.demo.models.ProductModel;
 import com.demo.models.VersionModel;
 @WebServlet("/admin/addnewproduct")
@@ -69,7 +74,8 @@ public class addNewProductsServlet extends HttpServlet {
 		ProductModel productModel = new ProductModel();
 		  String brandID = request.getParameter("brandId");
 		  String motolineID =  request.getParameter("motolineId"); // dong xe (tay ga, xe so, phan khoi lon)
-		  Part avatar = request.getPart("avatar") ; // anh dai dien cua san pham
+		  Part avatar = request.getPart("avatar") ;
+		  System.out.println(avatar);// anh dai dien cua san pham
 		  String name = request.getParameter("name"); // ten san pham
 		  String description = request.getParameter("description"); // mo ta san pham
 		  double price =Double.parseDouble(request.getParameter("price")) ; // gia
@@ -88,6 +94,9 @@ public class addNewProductsServlet extends HttpServlet {
 		  String compressionRatio= request.getParameter("compressionRatio");// tỉ số nén
 		  String engieType= request.getParameter("engieType");
 		  String newAvatarName = UploadFileHelper.uploadFile("assets/user/Image", request, avatar);
+		  
+		  List<Part> fileParts = request.getParts().stream().filter(part->"listImage".equals(part.getName())).collect(Collectors.toList());
+		 
 		  System.out.println(newAvatarName);
 		  Product product = new Product();
 		  product.setBrandID(Integer.parseInt(brandID));
@@ -95,28 +104,8 @@ public class addNewProductsServlet extends HttpServlet {
 		  product.setMotolineID(Integer.parseInt(motolineID));
 		  
 		  product.setName(new String(name.getBytes("ISO-8859-1"), "UTF-8"));
-		  product.setDescription(new String(description.getBytes("ISO-8859-1"), "UTF-8"));
-//		  product.setPrice(price);
-//		  product.setWeight(weight);
-//		  product.setSize(size);
-//		  product.setPetrolCapacity(petrolCapacity);
-//		  product.setSaddleHeight(saddleHeight);
-//		  product.setWheelSize(wheelSize);
-//		  product.setBeforeFork(beforeFork);
-//		  product.setAfterFork(afterFork);
-//		  product.setMaxiumCapacity(maxiumCapacity);
-//		  product.setOilCapacity(oilCapacity);
-//		  product.setFuelConsumption(fuelConsumption);
-//		  product.setCylinderCapacity(cylinderCapacity);
-//		  product.setMaxiumMoment(maxiumMoment);
-//		  product.setCompressionRatio(compressionRatio);
-//		  product.setEngieType(engieType);
-//		  product.setName(new String (name.getBytes("ISO-8859-1"),"UTF-8"));
+		  product.setDescription(new String(description.getBytes("ISO-8859-1"), "UTF-8"));		
 			product.setPrice(price);
-//			product.setBrandID(brandId);
-//			product.setMotolineID(motolineId);
-//			product.setDescription(new String(description.getBytes("ISO-8859-1"),"UTF-8"));
-			
 			product.setAvatar(newAvatarName);
 			product.setWeight(new String (weight.getBytes("ISO-8859-1"),"UTF-8"));
 			product.setSize(new String (size.getBytes("ISO-8859-1"),"UTF-8"));
@@ -134,10 +123,20 @@ public class addNewProductsServlet extends HttpServlet {
 			product.setMaxiumMoment(new String (maxiumCapacity.getBytes("ISO-8859-1"),"UTF-8"));
 			product.setCompressionRatio(new String (compressionRatio.getBytes("ISO-8859-1"),"UTF-8"));
 			product.setEngieType(new String (engieType.getBytes("ISO-8859-1"),"UTF-8"));
+			
+			
 		  if(productModel.create(product)) {
 			 VersionModel versionModel = new VersionModel();
 			 ProductVersion productversion = new ProductVersion();
-			 
+			 for (Part part2 : fileParts) {
+					String newName = UploadFileHelper.uploadFile("assets/user/Image", request, part2);
+					Image image = new Image();
+					image.setPhoto(newName);
+					image.setProductId(productModel.findLast().getId());
+					ImageModel imageModel = new ImageModel();
+					imageModel.create(image);
+					
+				}
 			 String name2 = "Phiên Bản Tiêu Chuẩn" ;
 			productversion.setVersionName(name2);
 			productversion.setPrice(price);
@@ -151,6 +150,7 @@ public class addNewProductsServlet extends HttpServlet {
 				 color.setPrice(price);
 				 color.setValue("black-white");
 				 color.setVersionID(versionModel.findLast().getId());
+				
 				 colorModel.create(color);
 			 }
 			 response.sendRedirect("addNewVersion");

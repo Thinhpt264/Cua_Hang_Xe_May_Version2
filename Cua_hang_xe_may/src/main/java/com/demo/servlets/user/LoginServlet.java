@@ -2,6 +2,8 @@ package com.demo.servlets.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.demo.entities.Account;
+import com.demo.entities.Log;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.helpers.MailHelper;
 import com.demo.helpers.RandomStringHelper;
 import com.demo.models.AccountModel;
+import com.demo.models.LogModel;
 import com.google.gson.Gson;
 @WebServlet("/login")
 /**
@@ -134,10 +140,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost_Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		LogModel logModel = new LogModel();
 		AccountModel accountModel = new AccountModel();
 		Account account = accountModel.findAccountByUsername(username);
 		if(accountModel.checkLogin(username, password)) {
+
+			logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"info" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), null, null));
 			if(account.getRole().equalsIgnoreCase("0") || account.getRole().equalsIgnoreCase("1")) {
+				
 				request.getSession().setAttribute("accountAdmin", accountModel.findAccountByUsername(username));
 				if(request.getSession().getAttribute("account")!= null) request.getSession().removeAttribute("account");
 				response.sendRedirect("admin/home");
