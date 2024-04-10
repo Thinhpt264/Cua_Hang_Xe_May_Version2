@@ -50,10 +50,8 @@ public class EmployeeServlet extends HttpServlet {
 		if(employeeModel.delete(id)) {
 			response.sendRedirect("employee");
 		}else {
-			
+			System.out.println("khong duoc");
 		}
-		
-		
 	}
 
 	/**

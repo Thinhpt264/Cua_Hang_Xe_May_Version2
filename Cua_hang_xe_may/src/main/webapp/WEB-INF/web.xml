@@ -226,6 +226,24 @@
    	<description></description>
    	<servlet-class>com.demo.servlets.user.LoginGoogleHandler</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>ImportProductServlet</servlet-name>
+   	<display-name>ImportProductServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.servlets.admin.ImportProductServlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>addNewImport</servlet-name>
+   	<display-name>addNewImport</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.servlets.admin.addNewImport</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>addNewImportServlet</servlet-name>
+   	<display-name>addNewImportServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.servlets.admin.addNewImportServlet</servlet-class>
+   </servlet>
   <servlet-mapping>
   	<servlet-name>HomeServlet</servlet-name>
   	<url-pattern>/HomeServlet</url-pattern>
@@ -365,5 +383,17 @@
   <servlet-mapping>
   	<servlet-name>LoginGoogleHandler</servlet-name>
   	<url-pattern>/LoginGoogleHandler</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ImportProductServlet</servlet-name>
+  	<url-pattern>/ImportProductServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>addNewImport</servlet-name>
+  	<url-pattern>/addNewImport</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>addNewImportServlet</servlet-name>
+  	<url-pattern>/addNewImportServlet</url-pattern>
   </servlet-mapping>
 </web-app>
