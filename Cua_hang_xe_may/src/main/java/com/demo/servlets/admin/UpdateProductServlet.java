@@ -65,7 +65,6 @@ public class UpdateProductServlet extends HttpServlet {
 		String size = request.getParameter("size");
 		String saddleHeight = request.getParameter("saddleHeight");
 		String petrolCapacity = request.getParameter("petrolCapacity");
-		String newAvatarName = UploadFileHelper.uploadFile("assets/user/Image", request, avatar);
 		String wheelSize = request.getParameter("wheelSize");
 		String beforeFork = request.getParameter("beforeFork");
 		String afterFork = request.getParameter("afterFork");
