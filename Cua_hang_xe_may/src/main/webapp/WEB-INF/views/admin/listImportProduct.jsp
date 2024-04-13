@@ -71,7 +71,9 @@
                          		for(WarehouseInvoice w: warehouseInvoices) {%>
                           		 <tr id="test" class="odd">
                                		<td class="dtr-control sorting_1" tabindex="0"><%=w.getId() %></td>
-                                    <td> <%=productModel.findProductColorById(w.getColorId()).getPrice()	 %> -                                                  
+                                    <td> <%=productModel.findProductById(productModel.findProductVersionById(productModel.findProductColorById(w.getColorId()).getVersionID()).getProductID()).getName()  %> -
+                                     <%=productModel.findProductVersionById(productModel.findProductColorById(w.getColorId()).getVersionID()).getVersionName()  %> -
+                                    <%=productModel.findProductColorById(w.getColorId()).getColor() %>                                                 
                                          </td>
 									<td><%= w.getPrice() %></td>
                                   	<td> <%= w.getQuantity() %> </td>
