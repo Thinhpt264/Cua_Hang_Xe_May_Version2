@@ -1,6 +1,16 @@
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.ResourceBundle"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <%
+    	HttpSession httpSession = request.getSession();
+    	String lang = "vi";
+    	if(httpSession.getAttribute("language") != null){
+    		lang = httpSession.getAttribute("language").toString();
+    	}
+    	ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(lang));
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,16 +27,14 @@
 	%>
 	<c:if test="<%= content1 == null %>">
 
-		<h3>Chúng tôi đã gửi 1 email chứa liên kết xác thực tài khoản của
-			bạn, hãy kiểm tra email và nhấp vào đường link liên kết để xác thực
-			tài khoản!</h3>
+		<h3><%=messages.getString("content_message")%>!</h3>
 		<br>
-		<a href="https://mail.google.com/mail/u/1/#inbox">Đến email</a>
+		<a href="https://mail.google.com/mail/u/1/#inbox"><%=messages.getString("den_email")%></a>
 	</c:if>
 	
 	<c:if test="<%= content1 != null %>">
 
-		<h3>Xác thực không thành công!</h3>
+		<h3><%=messages.getString("xac_thuc_khong_thanh_cong")%>!</h3>
 	</c:if>
 	
 
