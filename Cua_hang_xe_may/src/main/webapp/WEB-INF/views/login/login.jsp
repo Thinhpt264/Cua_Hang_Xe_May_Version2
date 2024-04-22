@@ -1,6 +1,16 @@
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.ResourceBundle"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
     <% %>
+    <%
+    	HttpSession httpSession = request.getSession();
+    	String lang = "vi";
+    	if(httpSession.getAttribute("language") != null){
+    		lang = httpSession.getAttribute("language").toString();
+    	}
+    	ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(lang));
+    %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +25,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/login/style.css">
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/home" style="text-decoration: none"> <i class="fa-solid fa-backward"></i> Trang Chủ</a>
+<a href="${pageContext.request.contextPath}/home" style="text-decoration: none"> <i class="fa-solid fa-backward"></i> <%=messages.getString("trang_chu")%></a>
 <a href="https://accounts.google.com/o/oauth2/auth?
 	scope=email&redirect_uri=http://localhost:8080/Cua_hang_xe_may/login-google&
 	response_type=code&client_id=885278340721-us6jlocdo6p1ql45ml84h1f1ikmbmj1v.apps.googleusercontent.com
@@ -23,15 +33,15 @@
 </a>
 <div class="wrapper">
       <div class="title-text">
-        <div class="title login">Đăng nhập</div>
-        <div class="title signup">Đăng kí</div>
+        <div class="title login"><%=messages.getString("dang_nhap")%></div>
+        <div class="title signup"><%=messages.getString("dang_ki")%></div>
       </div>
       <div class="form-container">
         <div class="slide-controls">
           <input type="radio" name="slide" id="login" checked>
           <input type="radio" name="slide" id="signup">
-          <label for="login" class="slide login">Đăng nhập</label>
-          <label for="signup" class="slide signup">Đăng kí</label>
+          <label for="login" class="slide login"><%=messages.getString("dang_nhap")%></label>
+          <label for="signup" class="slide signup"><%=messages.getString("dang_ki")%></label>
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
@@ -45,11 +55,11 @@
           <span style="color: red;"><%= msg1==null ? "" : msg1 %></span>
             <pre>
             </pre>
-            <div class="field">
-              <input type="text" name="username" placeholder="Tên đăng nhập " required>
+<div class="field">
+              <input type="text" name="username" placeholder="<%=messages.getString("ten_dang_nhap")%> " required>
             </div>
             <div class="field ">
-              <input id="input" class="form-control p-4 rounded" type="password" name="password" placeholder="Mật khẩu"  required >
+              <input id="input" class="form-control p-4 rounded" type="password" name="password" placeholder="<%=messages.getString("mat_khau")%>"  required >
                <span class="showOrHide" onclick="showPass()">
                                         <i class ="fa-solid fa-eye-slash" id="hide" style="display: none"></i>
                                         <i class ="fa-solid fa-eye" id="show"></i>
@@ -58,17 +68,17 @@
             
             <div class="field btn">
               <div class="btn-layer"></div>
-              <input type="submit" value="Bắt đầu">
+              <input type="submit" value="<%=messages.getString("bat_dau")%>">
             </div>
-             <div class="pass-link ml-5"><a href="${pageContext.request.contextPath}/login?action=forgotpassword">Quên mật khẩu?</a></div>
-            <div class="signup-link">Chưa có tài khoản <a href="">Đăng kí ngay!</a></div>
+             <div class="pass-link ml-5"><a href="${pageContext.request.contextPath}/login?action=forgotpassword"><%=messages.getString("quen_mat_khau")%>?</a></div>
+            <div class="signup-link"><%=messages.getString("chua_co_tai_khoan")%> <a href=""><%=messages.getString("dang_ki_ngay")%>!</a></div>
           </form>
           
           <form action="${pageContext.request.contextPath}/login?action=register" method="post" class="signup" >
           	<span style="color:red " id="message"></span>
             <div class="field">
              
-              <input type="text" id="username1" placeholder="Tên đăng nhập" name="username" required>
+              <input type="text" id="username1" placeholder="<%=messages.getString("ten_dang_nhap")%>" name="username" required>
              	 <script type="text/javascript">
             $('#username1').blur(function(){
             	 var username  = document.getElementById("username1").value;
@@ -112,20 +122,19 @@
         		});
             	})
             </script>
-            
-            <div class="field">
-              <input type="text" placeholder="Số điện thoại" name="phone" pattern="[0-9]{10,}" title="Vui lòng nhập số điện thoại trên 10 số" required>
+<div class="field">
+              <input type="text" placeholder="<%=messages.getString("so_dien_thoai")%>" name="phone" pattern="[0-9]{10,}" title="<%=messages.getString("content_sdt")%>" required>
             </div>
             <div class="field">
             
-              <input id="input1" type="password" placeholder="Mật khẩu" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Mật khẩu gồm 8 kí tự 1 chữ in hoa và 1 kí tự đặc biệt" required >
+              <input id="input1" type="password" placeholder="<%=messages.getString("mat_khau")%>" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="<%=messages.getString("content_mk")%>" required >
                <span class="showOrHide" onclick="showPass1()">
                                         <i class ="fa-solid fa-eye-slash" id="hide1" style="display: none"></i>
                                         <i class ="fa-solid fa-eye" id="show1"></i>
                                     </span>
             </div>
             <div class="field">
-              <input id="input2" type="password" placeholder="Xác nhận mật khẩu" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Mật khẩu gồm 8 kí tự 1 chữ in hoa và 1 kí tự đặc biệt" required>
+              <input id="input2" type="password" placeholder="<%=messages.getString("xac_nhan_mk")%>" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="<%=messages.getString("content_mk")%>" required>
                <span class="showOrHide" onclick="showPass2()">
                                         <i class ="fa-solid fa-eye-slash" id="hide2" style="display: none"></i>
                                         <i class ="fa-solid fa-eye" id="show2"></i>
@@ -133,9 +142,9 @@
             </div>
             <div class="field btn">
               <div class="btn-layer"></div>
-              <input type="submit" value="Đăng kí">
+              <input type="submit" value="<%=messages.getString("dang_ki")%>">
             </div>
-            <div class="signup-link">Bạn đã có tài khoàn?  <a href="">Đăng nhâp ở đây</a></div>
+            <div class="signup-link"><%=messages.getString("ban_co_tai_khoan")%>?  <a href=""><%=messages.getString("dang_nhap_o_day")%></a></div>
           </form>
           
         </div>
@@ -182,7 +191,7 @@
 <script>
     function showPass2() {
         var input = document.getElementById("input2");
-        var show = document.getElementById("show2");
+var show = document.getElementById("show2");
         var hide = document.getElementById("hide2");
         if (input.type === "password"   ){
             input.type = "text";

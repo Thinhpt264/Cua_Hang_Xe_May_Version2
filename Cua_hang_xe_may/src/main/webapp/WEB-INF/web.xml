@@ -244,6 +244,12 @@
    	<description></description>
    	<servlet-class>com.demo.servlets.admin.addNewImportServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>LanguageServlet</servlet-name>
+   	<display-name>LanguageServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.helpers.LanguageServlet</servlet-class>
+   </servlet>
   <servlet-mapping>
   	<servlet-name>HomeServlet</servlet-name>
   	<url-pattern>/HomeServlet</url-pattern>
@@ -395,5 +401,9 @@
   <servlet-mapping>
   	<servlet-name>addNewImportServlet</servlet-name>
   	<url-pattern>/addNewImportServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LanguageServlet</servlet-name>
+  	<url-pattern>/LanguageServlet</url-pattern>
   </servlet-mapping>
 </web-app>

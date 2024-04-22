@@ -1,7 +1,5 @@
 package com.demo.helpers;
 
-import org.eclipse.jdt.internal.compiler.batch.Main;
-
 import com.ip2location.IP2Location;
 import com.ip2location.IPResult;
 

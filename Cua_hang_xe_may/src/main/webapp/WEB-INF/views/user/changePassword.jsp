@@ -1,14 +1,27 @@
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.ResourceBundle"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored = "false"%>
-   <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+   
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+   
+   <%
+    	HttpSession httpSession = request.getSession();
+    	String lang =  httpSession.getAttribute("language").toString();
+    	if(httpSession.getAttribute("language") != null){
+    		lang = httpSession.getAttribute("language").toString();
+    	}
+    	ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(lang));
+    %>
 <div class="container-fluid py-5">
     <div class="container pb-3">
         <div class="container">
-            <h1 class="display-6 text-primary text-center">Đổi mật khẩu</h1>
+            <h1 class="display-6 text-primary text-center"><%= messages.getString("doi_mat_khau") %></h1>
         </div>
         <div class="row">
             <div class="col-lg-12 mb-2 register-container w-100 ">
-                <div class="contact-form bg-light mb-6 col-lg-8  ">
+                <div class="contact-form bg-light mb-6 col-lg-8  "> 
                     <img src="${pageContext.request.contextPath}/assets/user/Image/forgot-password.avif" alt="">
                 </div>
                 <div class="contact-form bg-light mb-6 col-lg-6" style="padding-top: 150px;">
@@ -24,10 +37,15 @@
 				        	%>
 				        	<span >
 				        		<%if(msg1 == null) { %>
-				        			<span > Hãy Nhập Mật Khẩu Của Bạn</span>
+				        			<span > <%= messages.getString("nhap_mat_khau") %></span>
 				        		<% }else if(msg1.equalsIgnoreCase("Mật Khẩu Không Đúng")) { %>
-				        			<span style='color:red;'> <%=msg1 %></span>
-				        		
+				        			 <% if(lang.equalsIgnoreCase("en") )  { %>
+				        					<span style='color:red;'> No incorect</span>
+				        			
+				        			<% } else if(lang.equalsIgnoreCase("vi")) { %>
+				        			 		<span style='color:red;'> <%=msg1 %></span>
+				        			 
+				        			 <% } %> 
 				        		<% }else { %>
 									<span style='color:green;'> <%=msg1 %></span>
 									
@@ -36,22 +54,22 @@
                             </div>
                             <c:if test="${sessionScope.accountforgot == null }">
                              <div class="col-10 form-group">
-                                <input  id="input" type="password" name="oldpass" class="form-control p-4 rounded " placeholder="Mật khẩu cũ" required="required" title="Mật khẩu gồm 8 kí tự 1 chữ in hoa và 1 kí tự đặc biệt ">
+                                <input  id="input" type="password" name="oldpass" class="form-control p-4 rounded " placeholder="<%= messages.getString("mat_khau_cu") %>" required="required" title="<%= messages.getString("content_mk") %> ">
                                 <span class="showOrHide" onclick="showPass()">
                                         <i class ="fa-solid fa-eye-slash" id="hide" style="display: none"></i>
-                                        <i class ="fa-solid fa-eye" id="show"></i>
+<i class ="fa-solid fa-eye" id="show"></i>
                                     </span>
                             	</div>
                             </c:if>
                             <div class="col-10 form-group">
-                                <input  id="input1" name="password" type="password" class="form-control p-4 rounded " placeholder="Mật khẩu mới" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Mật khẩu gồm 8 kí tự 1 chữ in hoa và 1 kí tự đặc biệt" required>
+                                <input  id="input1" name="password" type="password" class="form-control p-4 rounded " placeholder="<%= messages.getString("mat_khau_moi") %>" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="<%= messages.getString("content_mk") %>" required>
                                 <span class="showOrHide" onclick="showPass1()">
                                         <i class ="fa-solid fa-eye-slash" id="hide1" style="display: none"></i>
                                         <i class ="fa-solid fa-eye" id="show1"></i>
                                     </span>
                             </div>
                             <div class="col-10 form-group">
-                                <input  id="input2" type="password" class="form-control p-4 rounded " placeholder="Mật khẩu mới" required="required" title="Mật khẩu gồm 8 kí tự 1 chữ in hoa và 1 kí tự đặc biệt ">
+                                <input  id="input2" type="password" class="form-control p-4 rounded " placeholder="<%= messages.getString("mat_khau_moi") %>" required="required" title="<%= messages.getString("content_mk") %> ">
                                 <span class="showOrHide" onclick="showPass2()">
                                         <i class ="fa-solid fa-eye-slash" id="hide2" style="display: none"></i>
                                         <i class ="fa-solid fa-eye" id="show2"></i>
@@ -59,7 +77,7 @@
                             </div>
                         </div>
                         <div class="button-register ">
-                            <button class="btn btn-primary py-3 my-5 px-4" type="submit">Xác nhận thay đổi</button>
+                            <button class="btn btn-primary py-3 my-5 px-4" type="submit"><%= messages.getString("xac_nhan_thay_doi") %></button>
                         </div>
                     </form>
                 </div>
@@ -103,7 +121,7 @@
 <script>
     function showPass2() {
         var input = document.getElementById("input2");
-        var show = document.getElementById("show2");
+var show = document.getElementById("show2");
         var hide = document.getElementById("hide2");
         if (input.type === "password"){
             input.type = "text";
@@ -116,4 +134,3 @@
         }
     }
 </script>
-
