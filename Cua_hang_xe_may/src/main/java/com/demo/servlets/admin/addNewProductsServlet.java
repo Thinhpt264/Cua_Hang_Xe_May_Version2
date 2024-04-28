@@ -1,6 +1,9 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,14 +17,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.demo.entities.Image;
+import com.demo.entities.Log;
 import com.demo.entities.Product;
 import com.demo.entities.ProductColor;
 import com.demo.entities.ProductVersion;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.helpers.UploadFileHelper;
 import com.demo.models.ColorModel;
 import com.demo.models.ImageModel;
+import com.demo.models.LogModel;
 import com.demo.models.ProductModel;
 import com.demo.models.VersionModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/addnewproduct")
 @MultipartConfig(
 		
@@ -69,6 +77,9 @@ public class addNewProductsServlet extends HttpServlet {
 		}
 	}
 	protected void doPost_upLoad(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 PrintWriter writer = response.getWriter();
+			Gson gson = new Gson();
+			LogModel logModel = new LogModel();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		ProductModel productModel = new ProductModel();
@@ -126,6 +137,9 @@ public class addNewProductsServlet extends HttpServlet {
 			
 			
 		  if(productModel.create(product)) {
+			  Product productS =  productModel.findLast();
+			  String after = gson.toJson(productS);
+			  logModel.create(new Log(IPAddressUtil.getPublicIPAddress(), "info" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()) , null , after , 5 ));
 			 VersionModel versionModel = new VersionModel();
 			 ProductVersion productversion = new ProductVersion();
 			 for (Part part2 : fileParts) {

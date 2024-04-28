@@ -1,4 +1,5 @@
-
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.ResourceBundle"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.demo.entities.Item"%>
 <%@page import="java.util.List"%>
@@ -9,6 +10,14 @@
     <% 
     List<Item> cart = (List<Item>) request.getSession().getAttribute("cart");
     if(cart == null) cart = new ArrayList<>();
+    %>
+    <%
+    	HttpSession httpSession = request.getSession();
+    	String lang = "vi";
+    	if(httpSession.getAttribute("language") != null){
+    		lang = httpSession.getAttribute("language").toString();
+    	}
+    	ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(lang));
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +63,14 @@
                     </div>
                 </div>
                 <div class="col-md-6 text-center text-lg-right">
+                <ul>
+<li>
+                		<a href="${pageContext.request.contextPath}/lang?language=vi">Viet Nam</a>
+                	</li>
+                	<li>
+                		<a href="${pageContext.request.contextPath}/lang?language=en">English</a>
+                	</li>
+                </ul>
                     <div class="d-inline-flex align-items-center">
                     Hello ${sessionScope.account.username }
                         <a class="text-body px-3" href="https://www.facebook.com/">
@@ -89,24 +106,24 @@
                     <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     			
                         <div class="navbar-nav ml-auto py-0 bg-secondary">
-                        <a href="${pageContext.request.contextPath }/home" class="nav-item nav-link " id ="nav-first">Trang Chủ</a>
-                            <a href="${pageContext.request.contextPath }/about" class="nav-item nav-link">Giới Thiệu</a>
-                            <a href="${pageContext.request.contextPath }/service" class="nav-item nav-link">Dịch Vụ</a>
-                            <a href="${pageContext.request.contextPath }/contact" class="nav-item nav-link">Liên Hệ</a>
-                            <a href="${pageContext.request.contextPath }/motobike" class="nav-item nav-link">Xe Máy</a>
+                        <a href="${pageContext.request.contextPath }/home" class="nav-item nav-link " id ="nav-first"><%= messages.getString("trang_chu") %></a>
+                            <a href="${pageContext.request.contextPath }/about" class="nav-item nav-link"><%= messages.getString("gioi_thieu") %></a>
+                            <a href="${pageContext.request.contextPath }/service" class="nav-item nav-link"><%= messages.getString("dich_vu") %></a>
+                            <a href="${pageContext.request.contextPath }/contact" class="nav-item nav-link"><%= messages.getString("lien_he") %></a>
+<a href="${pageContext.request.contextPath }/motobike" class="nav-item nav-link"><%= messages.getString("xe_may") %></a>
                             <div class="nav-item dropdown">
                        
                                 <a href="login/index.html"  class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa-solid fa-user"></i></a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                 <c:if test="${sessionScope.account == null }">
-                        	        <a href="${pageContext.request.contextPath }/login" class="dropdown-item">Đăng nhập</a>
+                        	        <a href="${pageContext.request.contextPath }/login" class="dropdown-item"><%=messages.getString("dang_nhap")%></a>
                         	    </c:if>
                         	    <c:if test="${sessionScope.account != null }">
                         	       <a href="${pageContext.request.contextPath }/cart"  class="dropdown-item"><i style="font-size: 120%" class="fa-solid fa-bag-shopping"></i>( <%=cart.size() %>)</a> 
-                        	        <a href="${pageContext.request.contextPath }/information" class="dropdown-item">Thông tin tài khoàn</a>
-                                    <a href="${pageContext.request.contextPath }/changePassword" class="dropdown-item">Đổi mật khẩu</a>
+                        	        <a href="${pageContext.request.contextPath }/information" class="dropdown-item"><%=messages.getString("thong_tin_tai_khoan")%></a>
+                                    <a href="${pageContext.request.contextPath }/changePassword" class="dropdown-item"><%=messages.getString("doi_mat_khau")%></a>
                                     
-                                  	<a href="${pageContext.request.contextPath }/login?action=logout" class="dropdown-item"> Đăng Xuất <i class="fa-solid fa-arrow-right-from-bracket" style="margin-left: 5px"></i></a>
+                                  	<a href="${pageContext.request.contextPath }/login?action=logout" class="dropdown-item"> <%=messages.getString("dang_xuat")%><i class="fa-solid fa-arrow-right-from-bracket" style="margin-left: 5px"></i></a>
                         	    </c:if>
                                 </div>
                             </div>
@@ -131,36 +148,32 @@
     <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
         <div class="row pt-5">
             <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Địa chỉ</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>123 Lê Trọng Tấn , Chung cư An Bình
+                <h4 class="text-uppercase text-light mb-4"><%=messages.getString("dia_chi")%></h4>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i><%=messages.getString("content_diachi")%>
                 </p>
                 <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>123 Street, New York, USA</p>
                 <p class="mb-2"><i class="fa fa-phone-alt text-white mr-3"></i>+012 345 67890</p>
                 <p><i class="fa fa-envelope text-white mr-3"></i>info@example.com</p>
-                <h6 class="text-uppercase text-white py-2">Gặp chúng tôi qua</h6>
+                <h6 class="text-uppercase text-white py-2"><%=messages.getString("gap_chung_toi")%></h6>
                 <div class="d-flex justify-content-start">
-                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-youtube"></i></a>
+<a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-youtube"></i></a>
                     <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
                     <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-tiktok"></i></a>
                     <a class="btn btn-lg btn-dark btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Liên kết</h4>
+                <h4 class="text-uppercase text-light mb-4"><%=messages.getString("lien_ket")%></h4>
                 <div class="d-flex flex-column justify-content-start">
-                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Chính sách riêng
-                        tư</a>
-                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Điều khoản và
-                        điểu kiện</a>
-                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Đăng ký thành
-                        viên mới</a>
-                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Hoàn lại
-                        tiền</a>
-                    <a class="text-body" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Trợ giúp</a>
+                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("chinh_sach_rieng_tu")%></a>
+                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("dieu_khoan")%></a>
+                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("thanh_vien_moi")%></a>
+                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("hoan_tien")%></a>
+                    <a class="text-body" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("tro_giup")%></a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Sưu tầm xe</h4>
+                <h4 class="text-uppercase text-light mb-4"><%=messages.getString("suu_tam_xe")%></h4>
                 <div class="row mx-n1">
                     <div class="col-4 px-1 mb-2">
                         <a href=""><img class="w-100 h-100" src="${pageContext.request.contextPath}/assets/user/Image/Honda/winer.jpg" alt=""></a>
@@ -179,17 +192,17 @@
                     </div>
                     <div class="col-4 px-1 mb-2">
                         <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/Image/Honda/180588.jpg" alt=""></a>
-                    </div>
+</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Bản tin</h4>
+                <h4 class="text-uppercase text-light mb-4"><%=messages.getString("ban_tin")%></h4>
                 <div class="w-100 mb-3">
                     <div class="input-group">
                         <input type="text" class="form-control bg-dark border-dark" style="padding: 25px;"
                             placeholder="Your Email">
                         <div class="input-group-append">
-                            <button class="btn btn-primary text-uppercase px-3">Đăng ký</button>
+                            <button class="btn btn-primary text-uppercase px-3"><%=messages.getString("dang_ki")%></button>
                         </div>
                     </div>
                 </div>
@@ -240,7 +253,7 @@
 	   	} else {
 	   	 document.querySelectorAll(".navbar-nav a.nav-item").forEach(function(elem){ 
 	   	        if(elem.href.includes(current)){
-	   		   	document.querySelector("#nav-first").classList.remove("active");
+document.querySelector("#nav-first").classList.remove("active");
 	   	          elem.classList.add("active");
 	   	        }
 	   	    });

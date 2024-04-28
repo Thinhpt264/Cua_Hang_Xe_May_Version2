@@ -10,7 +10,9 @@ public class Log {
 	private Date time;
 	private String beforeValue;
 	private String afterValue;
-	public Log(int id, String ip, String level, String national, Date time, String beforeValue, String afterValue) {
+	private int accountId;
+	public Log(int id, String ip, String level, String national, Date time, String beforeValue, String afterValue,
+			int accountId) {
 		super();
 		this.id = id;
 		this.ip = ip;
@@ -19,6 +21,10 @@ public class Log {
 		this.time = time;
 		this.beforeValue = beforeValue;
 		this.afterValue = afterValue;
+		this.accountId = accountId;
+	}
+	public Log() {
+		super();
 	}
 	public int getId() {
 		return id;
@@ -62,13 +68,26 @@ public class Log {
 	public void setAfterValue(String afterValue) {
 		this.afterValue = afterValue;
 	}
-	public Log() {
-		super();
+	public int getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
 	}
 	@Override
 	public String toString() {
 		return "Log [id=" + id + ", ip=" + ip + ", level=" + level + ", national=" + national + ", time=" + time
-				+ ", beforeValue=" + beforeValue + ", afterValue=" + afterValue + "]";
+				+ ", beforeValue=" + beforeValue + ", afterValue=" + afterValue + ", accountId=" + accountId + "]";
+	}
+	public Log(String ip, String level, String national, Date time, String beforeValue, String afterValue, int accountId) {
+		super();
+		this.ip = ip;
+		this.level = level;
+		this.national = national;
+		this.time = time;
+		this.beforeValue = beforeValue;
+		this.afterValue = afterValue;
+		this.accountId = accountId;
 	}
 	public Log(String ip, String level, String national, Date time, String beforeValue, String afterValue) {
 		super();

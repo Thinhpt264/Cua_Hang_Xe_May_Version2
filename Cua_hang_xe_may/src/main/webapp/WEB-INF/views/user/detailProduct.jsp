@@ -6,6 +6,8 @@
 <%@page import="com.demo.models.ProductModel"%>
 <%@page import="com.demo.entities.Product"%>
 <%@page import="com.demo.models.CommentModel"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.ResourceBundle"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.demo.entities.CommentCustom"%>
 <%@page import="java.util.List"%>
@@ -30,6 +32,14 @@
                         if(productVersions == null) productVersions = new ArrayList<>();
                         
         CommentModel commentModel = new CommentModel();
+    %>
+    <%
+    	HttpSession httpSession = request.getSession();
+    	String lang = "vi";
+    	if(httpSession.getAttribute("language") != null){
+    		lang = httpSession.getAttribute("language").toString();
+    	}
+    	ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(lang));
     %>
    <style>
     .color-cell{
@@ -62,7 +72,7 @@
 							success: function (data) {
 								var color = data.color;
 								var version = data.version;
-								var options = { style: 'decimal', useGrouping: true };
+var options = { style: 'decimal', useGrouping: true };
 								var price = color.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 								$('#img').attr('src', '${pageContext.request.contextPath}/assets/user/Image/' + color.photo);
 								$('#price').html('Giá ' + price +' VNĐ');
@@ -80,7 +90,7 @@
         
     <div class="container-fluid ">
         <div class="container">
-            <h1>Bảng giá và màu sắc </h1>
+            <h1><%=messages.getString("bang_gia_mau_sac")%> </h1>
             <div class="row mt-3" style="font-size: 20px;border-top: 5px solid orange;">
                 <div class="col-lg-6 ">
                     <div class="container-fluid p-0"  > 
@@ -91,8 +101,8 @@
                         
                          <div class="container d-flex">
                 <div class="header mr-5">
-                    <h1><%=product.getName() %>  </h1>  <h1  id="versionName"> Phiên bản <%=productVersions.get(0).getVersionName() %></h1>	<h1  id="ColornName"> <%=productColor.getColor() %></h1>
-                    <div id="price" style="font-size: 30px;">Giá <fmt:formatNumber type="number" value="<%= productColor.getPrice()%>" pattern="#,##0"/> VNĐ </div>
+                    <h1><%=product.getName() %>  </h1>  <h1  id="versionName"> <%=messages.getString("phien_ban")%> <%=productVersions.get(0).getVersionName() %></h1>	<h1  id="ColornName"> <%=productColor.getColor() %></h1>
+                    <div id="price" style="font-size: 30px;"><%=messages.getString("don_gia")%> <fmt:formatNumber type="number" value="<%= productColor.getPrice()%>" pattern="#,##0"/> VNĐ </div>
                 </div>
            	
             
@@ -121,7 +131,7 @@
 	                        		%>
 	                        		
 	                        		<% for(ProductColor pc: productColors)  {%>
-	                        			<div style="display: flex; margin-right: 15px;" class="color">
+<div style="display: flex; margin-right: 15px;" class="color">
 	                        				<div class="color-item" style="display: flex; margin-right: 15px;">
 		                        		<div class="color-cell" style="background-color: <%= colorHelper.colorHelper(pc.getValue())[0] %>; width: 20px;"></div>
 		                                <div class="color-cell" style="background-color: <%= colorHelper.colorHelper(pc.getValue())[1] %>; width: 20px;"> </div>
@@ -151,62 +161,62 @@
     </div> 
     <div class="container-fluid mb-5">
         <div class="container pb-5" >
-            <h1>Thông số kĩ thuật</h1>
+            <h1><%=messages.getString("thong_so_ki_thuat")%></h1>
             <div class="row mt-5" style="font-size: 20px;border-top: 5px solid orange;">
-                <div class="col-6 mb-5 mt-5">Khối lượng bản thân</div>
+                <div class="col-6 mb-5 mt-5"><%=messages.getString("khoi_luong_ban_than")%></div>
                 <div class="col-lg-6 mt-5"><%=product.getWeight() %></div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Dài x Rộng x Cao</div>
-                <div class="col-lg-6"><%=product.getSize() %> mm</div>
+                <div class="col-6 mb-5"><%=messages.getString("dai_rong_cao")%></div>
+                <div class="col-lg-6"><%=product.getSize() %> <%=messages.getString("mm")%></div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Độ cao yên</div>
-                <div class="col-lg-6"><%=product.getSaddleHeight() %> mm</div>
+                <div class="col-6 mb-5"><%=messages.getString("do_cao_yen")%></div>
+                <div class="col-lg-6"><%=product.getSaddleHeight() %> <%=messages.getString("mm")%></div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Dung tích bình xăng</div>
+                <div class="col-6 mb-5"><%=messages.getString("dung_tich_binh_xang")%></div>
                 <div class="col-lg-6"><%=product.getPetrolCapacity() %> </div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Kích cỡ lốp trước/sau</div>
+                <div class="col-6 mb-5"><%=messages.getString("lop_truoc_sau")%></div>
                 <div class="col-lg-6"> <%=product.getWheelSize() %></div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Phuộc trước</div>
+<div class="col-6 mb-5"><%=messages.getString("phuoc_truoc")%></div>
                 <div class="col-lg-6"><%=product.getBeforeFork()%> </div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Phuộc sau</div>
+                <div class="col-6 mb-5"><%=messages.getString("phuoc_sau")%></div>
                 <div class="col-lg-6"><%=product.getAfterFork()%></div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Công suất tối đa</div>
+                <div class="col-6 mb-5"><%=messages.getString("cong_suat_toi_da")%></div>
                 <div class="col-lg-6"><%=product.getMaxiumCapacity()%></div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Dung tích nhớt máy</div>
-                <div class="col-lg-6"><%=product.getOilCapacity()%> khi thay nhớt</div>
+                <div class="col-6 mb-5"><%=messages.getString("dung_tich_nhot_may")%></div>
+                <div class="col-lg-6"><%=product.getOilCapacity()%></div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Mức thụ nhiên liệu</div>
+                <div class="col-6 mb-5"><%=messages.getString("muc_thu_nhien_lieu")%></div>
                 <div class="col-lg-6"><%=product.getFuelConsumption()%></div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Dung tích xi lanh</div>
+                <div class="col-6 mb-5"><%=messages.getString("dung_tich_xi_lanh")%></div>
                 <div class="col-lg-6"><%=product.getCylinderCapacity()%>cc</div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Moment cực đại</div>
+                <div class="col-6 mb-5"><%=messages.getString("moment_cuc_dai")%></div>
                 <div class="col-lg-6"><%=product.getMaxiumMoment()%> </div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Tỷ số nén</div>
+                <div class="col-6 mb-5"><%=messages.getString("ty_so_nen")%></div>
                 <div class="col-lg-6"><%=product.getCompressionRatio()%></div>
             </div>
             <div class="row " style="font-size: 20px;">
-                <div class="col-6 mb-5">Loại động cơ</div>
-                <div class="col-lg-6"><%=product.getEngieType()%> làm mát bằng dung dịch </div>
+                <div class="col-6 mb-5"><%=messages.getString("loai_dong_co")%></div>
+                <div class="col-lg-6"><%=product.getEngieType()%> </div>
             </div>
             
         </div>
@@ -218,7 +228,7 @@
     <!-- Related Car Start -->
     <div class="container-fluid pb-0">
         <div class="container pb-5">
-            <h2 class="mb-4">Chi tiết</h2>
+            <h2 class="mb-4"><%=messages.getString("xem_chi_tiet")%></h2>
             <div class="owl-carousel related-carousel position-relative" style="padding: 0 30px;">
             <% for(Image i: images) { %>
                 <div class="rent-item" >
@@ -238,7 +248,7 @@
     		function loadComment(){
     			var s = '';
         		$.ajax({
-        			type: 'GET',
+type: 'GET',
         			url: '${pageContext.request.contextPath}/details',
         			data: {
         				action : 'loadComment',
@@ -270,7 +280,7 @@
     <input id="productID" type="hidden" value="<%= idproduct %>">
     <span id="test"></span>
     <div class="container-fluid ">
-    <h1 class="mb-6" style="border-top: 5px solid orange;">Đánh Giá Sản Phẩm</h1>
+    <h1 class="mb-6" style="border-top: 5px solid orange;"><%=messages.getString("danh_gia_sp")%></h1>
             <p style="color: black;" id="feedbackNumber"></p>
         <div class="container" >
             
@@ -286,12 +296,12 @@
                 	<input type="hidden" name="accountId" value="${sessionScope.account.id}">
                 	 <textarea class="form-control py-3 px-4" name="content" rows="2" placeholder="Bình luận" required="required"></textarea>
                     <div class="mt-1">
-                        <button class="btn btn-primary py-3 px-3" type="submit">Gửi đánh giá</button>
+                        <button class="btn btn-primary py-3 px-3" type="submit"><%=messages.getString("gui_yeu_cau")%></button>
                     </div>
                 	</c:if>
                 	<c:if test="${sessionScope.account == null}">
                 	<span>
-                	 Bạn Chưa Đăng Nhập Tài Khoản! <a href="${pageContext.request.contextPath}/login"> Đăng Nhập ngay để bình luận </a>
+                	 <%=messages.getString("ban_chua_dang_nhap")%>! <a href="${pageContext.request.contextPath}/login"><%=messages.getString("dang_nhap_cmt")%> </a>
                 	
                 	 </span>
                 	</c:if>
@@ -303,58 +313,58 @@
     <!-- Related Car End -->
     <div class="container-fluid py-0">
         <div class="container pt-0">
-            <h1 class="display-6 text-uppercase text-center mb-1">Có thể bạn quan tâm</h1>
-            <div class="row list">
+            <h1 class="display-6 text-uppercase text-center mb-1"><%=messages.getString("co_the_ban_quan_tam")%></h1>
+<div class="row list">
                 <div class="col-lg-3 col-md-6 mb-2 item">
                     <div class="rent-item mb-4">
                         <img class="img-fluid mb-4" src="${pageContext.request.contextPath}assets/user/Image/Honda/xeSo/Blade_special.png" alt="">
-                        <h4 class="text-uppercase mb-4">EXCITER 155 VVA PHIÊN BẢN GIỚI HẠN ABS GP</h4>
+                        <h4 class="text-uppercase mb-4">EXCITER 155 VVA <%=messages.getString("phien_ban_gioi_han")%> ABS GP</h4>
                         <div class="d-flex justify-content-center mb-4">
                             <div class="px-2">
                                 <i class="fa fa-dollar-sign text-primary mr-1"></i>
                                 <span>54.000.000 VNĐ</span>
                             </div>
                         </div>
-                        <a class="btn btn-primary px-3" href="">Xem Chi Tiết</a>
+                        <a class="btn btn-primary px-3" href=""><%=messages.getString("xem_chi_tiet")%></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-2 item">
                     <div class="rent-item mb-4">
                         <img class="img-fluid mb-4" src="${pageContext.request.contextPath}assets/user/Image/Honda/xeSo/Blade_special.png" alt="">
-                        <h4 class="text-uppercase mb-4">EXCITER 155 VVA PHIÊN BẢN GIỚI HẠN ABS GP</h4>
+                        <h4 class="text-uppercase mb-4">EXCITER 155 VVA <%=messages.getString("phien_ban_gioi_han")%> ABS GP</h4>
                         <div class="d-flex justify-content-center mb-4">
                             <div class="px-2">
                                 <i class="fa fa-dollar-sign text-primary mr-1"></i>
                                 <span>54.000.000 VNĐ</span>
                             </div>
                         </div>
-                        <a class="btn btn-primary px-3" href="">Xem Chi Tiết</a>
+                        <a class="btn btn-primary px-3" href=""><%=messages.getString("xem_chi_tiet")%></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-2 item">
                     <div class="rent-item mb-4">
                         <img class="img-fluid mb-4" src="${pageContext.request.contextPath}assets/user/Image/Honda/xeSo/Blade_special.png" alt="">
-                        <h4 class="text-uppercase mb-4">EXCITER 155 VVA PHIÊN BẢN GIỚI HẠN ABS GP</h4>
+                        <h4 class="text-uppercase mb-4">EXCITER 155 VVA <%=messages.getString("phien_ban_gioi_han")%> ABS GP</h4>
                         <div class="d-flex justify-content-center mb-4">
                             <div class="px-2">
                                 <i class="fa fa-dollar-sign text-primary mr-1"></i>
                                 <span>54.000.000 VNĐ</span>
                             </div>
                         </div>
-                        <a class="btn btn-primary px-3" href="">Xem Chi Tiết</a>
+                        <a class="btn btn-primary px-3" href=""><%=messages.getString("xem_chi_tiet")%></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-2 item">
                     <div class="rent-item mb-4">
                         <img class="img-fluid mb-4" src="${pageContext.request.contextPath}assets/user/Image/Honda/xeSo/Blade_special.png" alt="">
-                        <h4 class="text-uppercase mb-4">EXCITER 155 VVA PHIÊN BẢN GIỚI HẠN ABS GP</h4>
+<h4 class="text-uppercase mb-4">EXCITER 155 VVA <%=messages.getString("phien_ban_gioi_han")%> ABS GP</h4>
                         <div class="d-flex justify-content-center mb-4">
                             <div class="px-2">
                                 <i class="fa fa-dollar-sign text-primary mr-1"></i>
                                 <span>54.000.000 VNĐ</span>
                             </div>
                         </div>
-                        <a class="btn btn-primary px-3" href="">Xem Chi Tiết</a>
+                        <a class="btn btn-primary px-3" href=""><%=messages.getString("xem_chi_tiet")%></a>
                     </div>
                 </div>
 
@@ -403,7 +413,7 @@
                 document.getElementById("hotenError").style.display = "none";
             }
             if(dc.trim() === ""){
-                document.getElementById("dcError").style.display = "block"; 
+document.getElementById("dcError").style.display = "block"; 
             }  
             else{
                 document.getElementById("dcError").style.display = "none";
@@ -447,5 +457,3 @@
 
         }
     </script>
-
-    

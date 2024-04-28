@@ -1,6 +1,16 @@
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.ResourceBundle"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%
+    	HttpSession httpSession = request.getSession();
+    	String lang = "vi";
+    	if(httpSession.getAttribute("language") != null){
+    		lang = httpSession.getAttribute("language").toString();
+    	}
+    	ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(lang));
+    %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +57,7 @@
             <div class="col-md-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
                     <a class="text-body px-3" href="https://www.facebook.com/">
-                        <i class="fab fa-facebook-f"></i>
+<i class="fab fa-facebook-f"></i>
                     </a>
                     <a class="text-body px-3" href=" https://www.tiktok.com/">
                         <i class="fab fa-tiktok"></i>
@@ -96,7 +106,7 @@
             </nav>
         </div>
     </div>
-    <!-- Navbar End -->
+<!-- Navbar End -->
 
 </header>
 <div class="container-fluid" style="width: 100%;
@@ -106,7 +116,7 @@
 <div class="container-fluid py-5">
     <div class="container pb-3">
         <div class="container">
-            <h1 class="display-6 text-primary text-center">Quên mật khẩu</h1>
+            <h1 class="display-6 text-primary text-center"><%=messages.getString("quen_mat_khau")%></h1>
         </div>
         <div class="row">
             <div class="col-lg-12 mb-2 register-container w-100 ">
@@ -125,10 +135,10 @@
                     
                         <div class="row">
                             <div class="register ml-4">
-                                Nhập Email mà bạn đã tạo tài khoản <a href="#"></a>
+                                <%=messages.getString("nhap_email_tao_mk")%><a href="#"></a>
                             </div>
                             <div class="col-10 form-group">
-                                <input id="mailOrPhone" type="text" class="form-control p-4 rounded" placeholder="Email của bạn" required="required" name="email">
+                                <input id="mailOrPhone" type="text" class="form-control p-4 rounded" placeholder="<%=messages.getString("email_cua_ban")%>" required="required" name="email">
                             </div>
 <!--                            <div class="col-10 form-group">-->
 <!--                                <input  id="input" type="password" class="form-control p-4 rounded " placeholder="Mật khẩu" required="required">-->
@@ -140,7 +150,7 @@
 
                         </div>
                         <div class="button-register ">
-                            <button class="btn btn-primary py-3 my-5 px-4" type="submit">Gửi</button>
+                            <button class="btn btn-primary py-3 my-5 px-4" type="submit"><%=messages.getString("gui")%></button>
 
                         </div>
                     </form>
@@ -151,70 +161,73 @@
 </div>
 <!-- footer start -->
 <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
-    <div class="row pt-5">
-        <div class="col-lg-3 col-md-6 mb-5">
-            <h4 class="text-uppercase text-light mb-4">Địa chỉ</h4>
-            <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>123 Lê Trọng Tấn , Chung cư An Bình</p>
-            <p class="mb-2"><i class="fa fa-phone-alt text-white mr-3"></i>+012 345 67890</p>
-            <p><i class="fa fa-envelope text-white mr-3"></i>info@example.com</p>
-            <h6 class="text-uppercase text-white py-2">Gặp chúng tôi qua</h6>
-            <div class="d-flex justify-content-start">
-                <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-youtube"></i></a>
-                <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-tiktok"></i></a>
-                <a class="btn btn-lg btn-dark btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-5">
-            <h4 class="text-uppercase text-light mb-4">Liên kết</h4>
-            <div class="d-flex flex-column justify-content-start">
-                <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Chính sách riêng tư</a>
-                <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Điều khoản và điểu kiện</a>
-                <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Đăng ký thành viên mới</a>
-                <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Hoàn lại tiền</a>
-                <a class="text-body" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Trợ giúp</a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-5">
-            <h4 class="text-uppercase text-light mb-4">Sưu tầm xe</h4>
-            <div class="row mx-n1">
-                <div class="col-4 px-1 mb-2">
-                    <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/img/gallery-1.jpg" alt=""></a>
-                </div>
-                <div class="col-4 px-1 mb-2">
-                    <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/img/gallery-2.jpg" alt=""></a>
-                </div>
-                <div class="col-4 px-1 mb-2">
-                    <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/img/gallery-3.jpg" alt=""></a>
-                </div>
-                <div class="col-4 px-1 mb-2">
-                    <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/img/gallery-4.jpg" alt=""></a>
-                </div>
-                <div class="col-4 px-1 mb-2">
-                    <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/img/gallery-5.jpg" alt=""></a>
-                </div>
-                <div class="col-4 px-1 mb-2">
-                    <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/img/gallery-6.jpg" alt=""></a>
+        <div class="row pt-5">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="text-uppercase text-light mb-4"><%=messages.getString("dia_chi")%></h4>
+<p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i><%=messages.getString("content_diachi")%>
+                </p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-phone-alt text-white mr-3"></i>+012 345 67890</p>
+                <p><i class="fa fa-envelope text-white mr-3"></i>info@example.com</p>
+                <h6 class="text-uppercase text-white py-2"><%=messages.getString("gap_chung_toi")%></h6>
+                <div class="d-flex justify-content-start">
+                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-youtube"></i></a>
+                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-tiktok"></i></a>
+                    <a class="btn btn-lg btn-dark btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-5">
-            <h4 class="text-uppercase text-light mb-4">Bản tin</h4>
-            <div class="w-100 mb-3">
-                <div class="input-group">
-                    <input type="text" class="form-control bg-dark border-dark" style="padding: 25px;" placeholder="Your Email">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary text-uppercase px-3">Đăng ký</button>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="text-uppercase text-light mb-4"><%=messages.getString("lien_ket")%></h4>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("chinh_sach_rieng_tu")%></a>
+                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("dieu_khoan")%></a>
+                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("thanh_vien_moi")%></a>
+                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("hoan_tien")%></a>
+                    <a class="text-body" href="#"><i class="fa fa-angle-right text-white mr-2"></i><%=messages.getString("tro_giup")%></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="text-uppercase text-light mb-4"><%=messages.getString("suu_tam_xe")%></h4>
+                <div class="row mx-n1">
+                    <div class="col-4 px-1 mb-2">
+                        <a href=""><img class="w-100 h-100" src="${pageContext.request.contextPath}/assets/user/Image/Honda/winer.jpg" alt=""></a>
+                    </div>
+                    <div class="col-4 px-1 mb-2">
+                        <a href=""><img class="w-100 " src="${pageContext.request.contextPath}/assets/user/Image/Honda/xeGa.PNG" alt=""></a>
+                    </div>
+                    <div class="col-4 px-1 mb-2">
+                        <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/Image/Honda/red-motorcycle-driving-road.jpg" alt=""></a>
+                    </div>
+<div class="col-4 px-1 mb-2">
+                        <a href=""><img class="w-100 " src="${pageContext.request.contextPath}/assets/user/Image/Honda/footer.jpg" alt=""></a>
+                    </div>
+                    <div class="col-4 px-1 mb-2">
+                        <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/Image/Honda/xeDuongDai.jpg" alt=""></a>
+                    </div>
+                    <div class="col-4 px-1 mb-2">
+                        <a href=""><img class="w-100" src="${pageContext.request.contextPath}/assets/user/Image/Honda/180588.jpg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="text-uppercase text-light mb-4"><%=messages.getString("ban_tin")%></h4>
+                <div class="w-100 mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-dark border-dark" style="padding: 25px;"
+                            placeholder="Your Email">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary text-uppercase px-3"><%=messages.getString("dang_ki")%></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
-    <p class="mb-2 text-center text-body">&copy; <a href="#">Your Site Name</a>. All Rights Reserved.</p>
-    <p class="m-0 text-center text-body">Designed by <a href="https://htmlcodex.com">HTML Codex</a></p>
-</div>
+    <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
+        <p class="mb-2 text-center text-body">&copy; <a href="#">T Academy </a>. All Rights Reserved.</p>
+        <p class="m-0 text-center text-body">Designed by <a href="https://htmlcodex.com">T motobike</a></p>
+    </div>
 <!-- footer end -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -238,7 +251,7 @@
             hide.style.display = "inline";
         }else{
             input.type = "password";
-            show.style.display = "inline";
+show.style.display = "inline";
             hide.style.display = "none";
         }
     }
@@ -252,7 +265,7 @@
         if (validateInput(input)) {
         	document.getElementById('forgot_form').submit();
         } else {
-        alert("Vui lòng nhập email hoặc số điện thoại hợp lệ!");
+        alert("<%=messages.getString("email_sdt_hop_le")%>!");
         }
         });
 

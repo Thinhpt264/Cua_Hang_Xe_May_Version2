@@ -26,7 +26,7 @@ public class LogModel {
 				log.setTime(resultSet.getTimestamp("time"));
 				log.setBeforeValue(resultSet.getString("beforeValue"));
 				log.setAfterValue(resultSet.getString("afterValue"));
-				
+				log.setAccountId(resultSet.getInt("accountId"));;
 				logs.add(log);
 			}
 		} catch (SQLException e) {
@@ -42,14 +42,14 @@ public class LogModel {
 		boolean status = true;
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection()
-					.prepareStatement("INSERT INTO log(ip, level, national, time, beforeValue, afterValue) VALUES (?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO log(ip, level, national, time, beforeValue, afterValue, accountId) VALUES (?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, log.getIp());
 			preparedStatement.setString(2, log.getLevel());
 			preparedStatement.setString(3, log.getNational());
 			preparedStatement.setTimestamp(4, new Timestamp(new Date().getTime()));
 			preparedStatement.setString(5, log.getBeforeValue());
 			preparedStatement.setString(6, log.getAfterValue());
-			
+			preparedStatement.setInt(7, log.getAccountId());
 			status = preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -68,6 +68,7 @@ public class LogModel {
 		log.setTime(new Timestamp(new Date().getTime()));
 		log.setBeforeValue(null);
 		log.setAfterValue(null);
+	
 		System.out.println(logModel.create(log));
 	}
 }
