@@ -145,7 +145,7 @@ public class LoginServlet extends HttpServlet {
 		Account account = accountModel.findAccountByUsername(username);
 		if(accountModel.checkLogin(username, password)) {
 
-			logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"info" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), null, null));
+			logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"info" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), null, null , 5));
 			if(account.getRole().equalsIgnoreCase("0") || account.getRole().equalsIgnoreCase("1")) {
 				
 				request.getSession().setAttribute("accountAdmin", accountModel.findAccountByUsername(username));

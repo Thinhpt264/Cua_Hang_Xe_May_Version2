@@ -10,7 +10,13 @@ public class Appointment {
 	private String appointmentDate;
 	private String cccd;
 	private int status;
+
+	private int accountId;
+	public Appointment(int id, String name, String email, String phone, String appointmentDate, String cccd, int status,
+			int accountId) {
+
 	public Appointment(int id, String name, String email, String phone, String appointmentDate, String cccd, int status) {
+
 		super();
 		this.id = id;
 		this.name = name;
@@ -19,6 +25,9 @@ public class Appointment {
 		this.appointmentDate = appointmentDate;
 		this.cccd = cccd;
 		this.status = status;
+
+		this.accountId = accountId;
+
 	}
 	public int getId() {
 		return id;
@@ -44,7 +53,7 @@ public class Appointment {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 	public String getAppointmentDate() {
 		return appointmentDate;
 	}
@@ -63,14 +72,32 @@ public class Appointment {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	public int getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+
 	public Appointment() {
 		super();
+
 	}
 	@Override
 	public String toString() {
 		return "Appointment [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone
+
+				+ ", appointmentDate=" + appointmentDate + ", cccd=" + cccd + ", status=" + status + ", accountId="
+				+ accountId + "]";
+	}
+	public Appointment() {
+		super();
+	}
+	
+
 				+ ", appointmentDate=" + appointmentDate + ", cccd=" + cccd + ", status=" + status + "]";
 	}
+
 	
 	
 }

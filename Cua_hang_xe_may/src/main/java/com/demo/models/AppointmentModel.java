@@ -24,6 +24,9 @@ public class AppointmentModel {
 				appointment.setCccd(resultSet.getString("cccd"));
 				appointment.setAppointmentDate(resultSet.getString("appointmentDate"));
 				appointment.setStatus(resultSet.getInt("status"));
+
+				appointment.setAccountId(resultSet.getInt("accountId"));
+
 				result.add(appointment);
 			}
 		} catch (SQLException e) {
@@ -39,13 +42,21 @@ public class AppointmentModel {
 		boolean result =  true;
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection()
+
+					.prepareStatement("insert into appointment(name, email, phone, appointmentDate, cccd, status, accountId) values(?,?,?,?,?,?,?)");
+
 					.prepareStatement("insert into appointment(name, email, phone, appointmentDate, cccd, status) values(?,?,?,?,?,?)");
+
 			preparedStatement.setString(1, appointment.getName());
 			preparedStatement.setString(2, appointment.getEmail());
 			preparedStatement.setString(3, appointment.getPhone());
 			preparedStatement.setString(4, appointment.getAppointmentDate());
 			preparedStatement.setString(5, appointment.getCccd());
 			preparedStatement.setInt(6, appointment.getStatus());
+
+			preparedStatement.setInt(6, appointment.getStatus());
+			preparedStatement.setInt(7, appointment.getAccountId());
+
 			result = preparedStatement.executeUpdate() > 0;
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -69,6 +80,9 @@ public class AppointmentModel {
 				result.setCccd(resultSet.getString("cccd"));
 				result.setAppointmentDate(resultSet.getString("appointmentDate"));
 				result.setStatus(resultSet.getInt("status"));
+
+				result.setAccountId(resultSet.getInt("accountId"));
+
 			}
 			
 		} catch (SQLException e) {
@@ -90,6 +104,9 @@ Appointment a = new Appointment();
 		a.setStatus(0);
 		a.setAppointmentDate("12/3/2003");
 		a.setCccd("2222");
+
+		a.setAccountId(1);
+
 		System.out.println(	appointmentModel.create(a));
 	
 		

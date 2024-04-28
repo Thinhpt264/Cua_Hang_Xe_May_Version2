@@ -250,6 +250,14 @@
    	<description></description>
    	<servlet-class>com.demo.helpers.LanguageServlet</servlet-class>
    </servlet>
+
+   <servlet>
+   	<servlet-name>AppointmentCardServlet</servlet-name>
+   	<display-name>AppointmentCardServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.servlets.user.AppointmentCardServlet</servlet-class>
+   </servlet>
+
   <servlet-mapping>
   	<servlet-name>HomeServlet</servlet-name>
   	<url-pattern>/HomeServlet</url-pattern>
@@ -406,4 +414,10 @@
   	<servlet-name>LanguageServlet</servlet-name>
   	<url-pattern>/LanguageServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+  	<servlet-name>AppointmentCardServlet</servlet-name>
+  	<url-pattern>/AppointmentCardServlet</url-pattern>
+  </servlet-mapping>
+
 </web-app>
