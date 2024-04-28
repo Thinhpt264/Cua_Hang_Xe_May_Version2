@@ -48,7 +48,9 @@ public class AppointmentServlet extends HttpServlet {
 		String email  = request.getParameter("email");
 		String cccd = request.getParameter("cccd");
 		String date = request.getParameter("date");
+
 		int accountId = Integer.parseInt(request.getParameter("accountId"));
+
 		Appointment appointment = new Appointment();
 		appointment.setAppointmentDate(date);
 		appointment.setCccd(cccd);
@@ -57,7 +59,9 @@ public class AppointmentServlet extends HttpServlet {
 		appointment.setName(name);
 		appointment.setStatus(1);
 		String[] colors =  request.getParameterValues("id_color[]");
+
 		appointment.setAccountId(accountId);
+
 		for (String s : colors) {
 			System.out.println(s.toString());
 		}
