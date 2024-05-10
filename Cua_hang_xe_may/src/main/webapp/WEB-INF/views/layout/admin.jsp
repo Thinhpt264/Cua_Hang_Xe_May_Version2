@@ -278,6 +278,26 @@
                 </li>                 
               </ul>
             </li>
+            
+             <li class="nav-header">Nhật ký Sử Dụng</li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-table" style="color: #e1e2e5;"></i>
+                <p>
+                  Nhật Ký 
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="${pageContext.request.contextPath }/admin/log" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Log</p>  
+                  </a>
+                </li>                 
+              </ul>
+            </li>
+            
             <li class="nav-header">Dịch Vụ Khách Hàng</li>
             <li class="nav-item">
               <a href="${pageContext.request.contextPath }/admin/listpdf" class="nav-link">

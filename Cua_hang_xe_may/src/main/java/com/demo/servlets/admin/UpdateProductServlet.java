@@ -1,6 +1,10 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.demo.entities.Log;
 import com.demo.entities.Product;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.helpers.UploadFileHelper;
+import com.demo.models.LogModel;
 import com.demo.models.ProductModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/updateproduct")
 @MultipartConfig(
 		
@@ -51,7 +60,11 @@ public class UpdateProductServlet extends HttpServlet {
 		ProductModel productModel = new ProductModel();
 		Product product = productModel.findProductById(id);
 //		String price1 = request.getParameter("price2");
-	
+		 PrintWriter writer = response.getWriter();
+			Gson gson = new Gson();
+			LogModel logModel = new LogModel();
+			
+			String before = gson.toJson(product);
 		double price1 = Double.parseDouble(request.getParameter("price1"));
 		
 		String name = request.getParameter("name");
@@ -90,24 +103,7 @@ public class UpdateProductServlet extends HttpServlet {
 		product.setDescription(description);
 		
 		product.setAvatar(avatar2);
-//		product.setWeight(new String (weight.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setSize(new String (size.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setSaddleHeight(new String (saddleHeight.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setPetrolCapacity(new String (petrolCapacity.getBytes("ISO-8859-1"),"UTF-8"));
-//		
-//		product.setWheelSize(new String (wheelSize.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setBeforeFork(new String (beforeFork.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setAfterFork( new String (afterFork.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setMaxiumCapacity( new String (maxiumCapacity.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setOilCapacity(new String (oilCapacity.getBytes("ISO-8859-1"),"UTF-8"));
-//		
-//		product.setFuelConsumption(new String (fuelConsumption.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setCylinderCapacity(new String (cylinderCapacity.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setMaxiumMoment(new String (maxiumCapacity.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setCompressionRatio(new String (compressionRatio.getBytes("ISO-8859-1"),"UTF-8"));
-//		product.setEngieType(new String (engieType.getBytes("ISO-8859-1"),"UTF-8"));
 		
-//		 product.setPrice(price);
 		  product.setWeight(weight);
 		  product.setSize(size);
 		  product.setPetrolCapacity(petrolCapacity);
@@ -124,8 +120,11 @@ public class UpdateProductServlet extends HttpServlet {
 		  product.setMaxiumMoment(maxiumMoment);
 		  product.setCompressionRatio(compressionRatio);
 		  product.setEngieType(engieType);
-	
+		  
 		if(productModel.update(product)) {
+			Product productAfter = productModel.findProductById(id);
+			String after = gson.toJson(productAfter);
+			logModel.create(new Log(IPAddressUtil.getPublicIPAddress(), "danger",  ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()) , before, after , 5));
 			response.sendRedirect("listproduct");
 			System.out.println("cap nhat thanh cong");
 		}	
