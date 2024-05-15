@@ -8,14 +8,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import com.demo.entities.ConnectDB;
+import com.demo.entities.Employee;
 import com.demo.entities.Log;
+import com.google.gson.JsonObject;
 
 public class LogModel {
 	public List<Log> findAll() {
 		List<Log> logs = new ArrayList<Log>();
 		try {
-			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("select * from log");
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("select * from log ORDER BY id DESC");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				Log log = new Log();
@@ -36,6 +40,30 @@ public class LogModel {
 		}
 		
 		return logs;
+	}
+	public Log findById(int id) {
+		Log log = null;
+				try {
+					PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("Select * from log where id= ?");
+					preparedStatement.setInt(1, id);
+					ResultSet resultSet = preparedStatement.executeQuery();
+					while(resultSet.next()) {
+						log = new Log();
+						log.setId(resultSet.getInt("id"));
+						log.setIp(resultSet.getString("ip"));
+						log.setLevel(resultSet.getString("level"));
+						log.setNational(resultSet.getString("national"));
+						log.setTime(resultSet.getTimestamp("time"));
+						log.setBeforeValue(resultSet.getString("beforeValue"));
+						log.setAfterValue(resultSet.getString("afterValue"));
+						log.setAccountId(resultSet.getInt("accountId"));;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					log = null ;
+				}
+		return log;
 	}
 	
 	public boolean create(Log log) {
@@ -61,14 +89,8 @@ public class LogModel {
 	
 	public static void main(String[] args) {
 		LogModel logModel = new LogModel();
-		Log log = new Log();
-		log.setIp("123");
-		log.setLevel("info");
-		log.setNational("VN");
-		log.setTime(new Timestamp(new Date().getTime()));
-		log.setBeforeValue(null);
-		log.setAfterValue(null);
-	
-		System.out.println(logModel.create(log));
+		
+		System.out.println(logModel.findAll());
+		
 	}
 }

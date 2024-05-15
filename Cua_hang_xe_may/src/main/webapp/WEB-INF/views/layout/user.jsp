@@ -63,14 +63,8 @@
                     </div>
                 </div>
                 <div class="col-md-6 text-center text-lg-right">
-                <ul>
-<li>
-                		<a href="${pageContext.request.contextPath}/lang?language=vi">Viet Nam</a>
-                	</li>
-                	<li>
-                		<a href="${pageContext.request.contextPath}/lang?language=en">English</a>
-                	</li>
-                </ul>
+               
+               
                     <div class="d-inline-flex align-items-center">
                     Hello ${sessionScope.account.username }
                         <a class="text-body px-3" href="https://www.facebook.com/">
@@ -85,6 +79,19 @@
                         <a class="text-body pl-3" href="https://www.youtube.com/">
                             <i class="fab fa-youtube"></i>
                         </a>
+                         <select id="mylanguage" class="form-select form-select-lg ml-2"  aria-label=".form-select-lg example">
+	                	<option value="vi" <% if(lang.equalsIgnoreCase("vi")) { %> selected="selected" <% } %>> Việt Nam  </option>
+	                	<option value="en" <% if(lang.equalsIgnoreCase("en")) { %> selected="selected" <% } %>> English </option>
+            		    </select>
+            		     <script> 
+               
+                $("#mylanguage").change(function() {
+                	  var selectedValue = $(this).val();
+                	  var url = "${pageContext.request.contextPath}/lang?language=" + selectedValue;
+                	  // Chuyển đến URL
+                	  window.location.href = url;
+                	});
+                </script>
                     </div>
                 </div>
             </div>
