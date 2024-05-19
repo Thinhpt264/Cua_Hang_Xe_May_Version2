@@ -57,7 +57,10 @@ public class AppointmentServlet extends HttpServlet {
 		appointment.setName(name);
 		appointment.setStatus(1);
 		String[] colors =  request.getParameterValues("id_color[]");
+		
 		appointment.setAccountId(accountId);
+		String[] quantity =  request.getParameterValues("quantity_color[]");
+		String[] total_color =  request.getParameterValues("total_color[]");
 		for (String s : colors) {
 			System.out.println(s.toString());
 		}
@@ -65,12 +68,15 @@ public class AppointmentServlet extends HttpServlet {
 			if(appointmentModel.create(appointment)) {
 				int id = appointmentModel.findLast().getId();
 				AppointmentDetailModel appointmentDetailModel = new AppointmentDetailModel();
-				for (String c : colors) {
-					int idC = Integer.parseInt(c.trim());
+				for (int i = 0; i < colors.length; i++ ) {
+					int idC = Integer.parseInt(colors[i].trim());
 					AppointmentDetail appointmentDetail = new AppointmentDetail();
 					appointmentDetail.setId_color(idC);
 					appointmentDetail.setId_appoiment(id);
+					appointmentDetail.setQuantity(Integer.parseInt(quantity[i].trim()));
+					appointmentDetail.setTotal(Double.parseDouble(total_color[i].trim()));
 					appointmentDetailModel.create(appointmentDetail);
+					
 				}
 				
 					response.sendRedirect("cart");
