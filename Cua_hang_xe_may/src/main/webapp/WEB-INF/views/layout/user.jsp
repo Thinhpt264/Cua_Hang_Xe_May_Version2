@@ -127,6 +127,7 @@
                         	    </c:if>
                         	    <c:if test="${sessionScope.account != null }">
                         	       <a href="${pageContext.request.contextPath }/cart"  class="dropdown-item"><i style="font-size: 120%" class="fa-solid fa-bag-shopping"></i>( <%=cart.size() %>)</a> 
+                        	       <a href="${pageContext.request.contextPath }/appointcard"  class="dropdown-item"><i style="font-size: 120%" class="fa-solid fa-sheet-plastic"></i> Đơn Đã Hẹn</a> 
                         	        <a href="${pageContext.request.contextPath }/information" class="dropdown-item"><%=messages.getString("thong_tin_tai_khoan")%></a>
                                     <a href="${pageContext.request.contextPath }/changePassword" class="dropdown-item"><%=messages.getString("doi_mat_khau")%></a>
                                     

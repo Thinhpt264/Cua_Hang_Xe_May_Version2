@@ -12,18 +12,18 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-@WebFilter(urlPatterns = {"/admin/addNewEmployeeByAdmin", "/admin/addNewBrand", "/admin/addNewProductColor"
-		, "/admin/addnewproduct", "/admin/addNewVersion", "/admin/newaccount" , "/admin/updateemployee", "/admin/log"})
+
 
 /**
- * Servlet Filter implementation class RoleFilterAdmin
+ * Servlet Filter implementation class FilterUser
  */
-public class RoleFilterAdmin extends HttpFilter implements Filter {
+@WebFilter("/appointcard")
+public class FilterUser extends HttpFilter implements Filter {
        
     /**
      * @see HttpFilter#HttpFilter()
      */
-    public RoleFilterAdmin() {
+    public FilterUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,13 +42,15 @@ public class RoleFilterAdmin extends HttpFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession();
-		Account account = (Account) session.getAttribute("accountAdmin");
-		if(account != null && (account.getRole().equalsIgnoreCase("0"))) {
-			chain.doFilter(request, response);
+		Account account = (Account) session.getAttribute("account");
+		System.out.println(account + "1");
+		if(account == null) {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
 		} else {
-			String referer = httpRequest.getHeader("referer");
-            httpResponse.sendRedirect(referer);
+			chain.doFilter(request, response);
 		}
+		// pass the request along the filter chain
+	
 	}
 
 	/**

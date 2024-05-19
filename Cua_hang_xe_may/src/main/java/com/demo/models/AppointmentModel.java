@@ -36,6 +36,34 @@ public class AppointmentModel {
 		}
 		return result;
 	}
+	
+	public List<Appointment> findAppointmentByAccountId(int accountId) {
+		List<Appointment> result = new ArrayList<Appointment>();
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("select * from appointment where accountId = ?");
+			preparedStatement.setInt(1, accountId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Appointment appointment = new Appointment();
+				appointment.setId(resultSet.getInt("id"));
+				appointment.setName(resultSet.getString("name"));
+				appointment.setEmail(resultSet.getString("email"));
+				appointment.setPhone(resultSet.getString("phone"));
+				appointment.setCccd(resultSet.getString("cccd"));
+				appointment.setAppointmentDate(resultSet.getString("appointmentDate"));
+				appointment.setStatus(resultSet.getInt("status"));
+				appointment.setAccountId(resultSet.getInt("accountId"));
+				result.add(appointment);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = null;
+		} finally {
+			ConnectDB.disconnect();
+		}
+		return result;
+	} 
 	public boolean create(Appointment appointment) {
 		boolean result =  true;
 		try {
@@ -85,6 +113,8 @@ public class AppointmentModel {
 		return result;
 		
 	}
+	
+	
 	public static void main(String[] args) {
 		AppointmentModel appointmentModel = new AppointmentModel();
 Appointment a = new Appointment();

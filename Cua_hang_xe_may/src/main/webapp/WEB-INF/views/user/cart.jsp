@@ -97,8 +97,11 @@
           					$('.nameProduct').html(product.name + ' - ' + productVersion.versionName + ' - ' + productColor.color );
           					$('.quantity').html(item.quantity);
           					$('.price').html(price + 'Vnđ');
+          					
           					$('.totalPrice').html(totalPriceS + 'Vnđ');
           					$('.id_color').attr('value' , productColor.id);
+          					$('.quantity_color').attr('value' , item.quantity);
+          					$('.total_color').attr('value' , totalPrice);
           					console.log(imgColor);
           				}
           				
@@ -175,6 +178,8 @@ url: '${pageContext.request.contextPath}/cart',
           						s+= '  </div>   </div> <div class="col-lg-3 d-flex justify-content-end align-items-center"> <div class="mr-1">  <p class="m-0" >Tổng Cộng</p>';
           						s+= '<span style="color: black;" class="totalPrice">'+ total  +  ' </span>';
           						s+= '<input type="hidden" class="id_color" name="id_color[]"  value="'+ productColor.id +' ">'
+          						s+= '<input type="hidden" class="quantity_color" name="quantity_color[]"  value="'+ items[i].quantity +' ">'
+          						s+= '<input type="hidden" class="total_color" name="total_color[]"  value="'+ total +' ">'
           						s+= '  </div> </div>   </div>'
           						$('.showlist').html(s);
           					}
@@ -259,6 +264,8 @@ url: '${pageContext.request.contextPath}/cart',
 	                        1234vnđ
           					 </span>	
 	            	<input type="hidden" class="id_color" name="id_color[]" >
+	            	<input type="hidden" class="quantity_color" name="quantity_color[]">
+	            	<input  type="hidden" class="total_color" name="total_color[]">
 	            	
 	            </div>
 	          </div>
