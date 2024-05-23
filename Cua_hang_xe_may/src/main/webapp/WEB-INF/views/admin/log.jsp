@@ -72,7 +72,7 @@
 								 <% } %>
                         </div>
                         
-                        <table id="example3" class="table table-bordered table-hover dataTable dtr-inline"
+                        <table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
                           aria-describedby="example2_info">
                           <thead>
                             <tr>
@@ -126,19 +126,21 @@
             </div>
             </div>
             	<script>
+            	$.noConflict();
             	$(document).ready(function() {
-            		new DataTable('#example3', {
-                    	paging: true, // Tắt phân trang
-                  		  searching: true, // Tắt tìm kiếm
-                  		  ordering: true, // Bật sắp xếp
-                  		  info: true, // Bật thông tin về bảng
-                  		  lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Thay đổi các tùy chọn số lượng bản ghi trên mỗi trang
-                  		  columnDefs: [
-                  		    { targets: 0, visible: true}, // Ẩn cột đầu tiên
-                  		    { targets: 1, searchable: true } // Tắt tìm kiếm trên cột thứ hai
-                  		  ]
-            			order: [[0, 'desc']] // Sắp xếp cột thứ nhất từ dưới lên
-                    	});
+            		$('#myTable').DataTable({
+            			paging: true, // Tắt phân trang
+                		  searching: true, // Tắt tìm kiếm
+                		  ordering: true, // Bật sắp xếp
+                		  info: true, // Bật thông tin về bảng
+                		  lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Thay đổi các tùy chọn số lượng bản ghi trên mỗi trang
+                		  columnDefs: [
+                		    { targets: 0, visible: true}, // Ẩn cột đầu tiên
+                		    { targets: 1, searchable: true } // Tắt tìm kiếm trên cột thứ hai
+                		  ]
+          			order: [[0, 'desc']] // Sắp xếp cột thứ nhất từ dưới lên
+            		});
+            		
             	} );
             	
             	

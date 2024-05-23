@@ -25,6 +25,9 @@
   	<filter-name>FilterUser</filter-name>
   	<url-pattern>/FilterUser</url-pattern>
   </filter-mapping>
+  <listener>
+  	<listener-class>com.demo.helpers.Test</listener-class>
+  </listener>
   
   <servlet>
   	<servlet-name>HomeServlet</servlet-name>
@@ -272,6 +275,12 @@
    	<description></description>
    	<servlet-class>com.demo.servlets.admin.LogServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>WareHouseServlet</servlet-name>
+   	<display-name>WareHouseServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.servlets.admin.WareHouseServlet</servlet-class>
+   </servlet>
   <servlet-mapping>
   	<servlet-name>HomeServlet</servlet-name>
   	<url-pattern>/HomeServlet</url-pattern>
@@ -435,5 +444,9 @@
   <servlet-mapping>
   	<servlet-name>LogServlet</servlet-name>
   	<url-pattern>/LogServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>WareHouseServlet</servlet-name>
+  	<url-pattern>/WareHouseServlet</url-pattern>
   </servlet-mapping>
 </web-app>

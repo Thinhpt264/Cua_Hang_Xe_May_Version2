@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.demo.entities.ProductColor;
 import com.demo.entities.WarehouseInvoice;
+import com.demo.models.ColorModel;
 import com.demo.models.WareHouseModel;
 @WebServlet("/admin/addNewImport")
 /**
@@ -54,6 +56,8 @@ public class addNewImportServlet extends HttpServlet {
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		double price = Double.parseDouble(request.getParameter("price"));
 		String date = request.getParameter("date");
+		ColorModel colorModel = new ColorModel();
+		ProductColor color = colorModel.findColorById(idColor);
 		WarehouseInvoice whi = new WarehouseInvoice();
 		whi.setColorId(idColor);
 		whi.setEmployeeId(idEmployee);
@@ -62,7 +66,10 @@ public class addNewImportServlet extends HttpServlet {
 		whi.setPrice(price);
 		WareHouseModel whModel = new WareHouseModel();
 		if(whModel.create(whi)) {
+			int quantity_old = color.getQuantity();
 			response.sendRedirect("importProduct");
+			color.setQuantity(quantity_old + quantity);
+			colorModel.update(color);
 		}else {
 			System.out.println("error");
 		}

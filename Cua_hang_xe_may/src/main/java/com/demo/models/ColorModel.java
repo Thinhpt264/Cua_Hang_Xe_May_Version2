@@ -26,6 +26,7 @@ public class ColorModel {
 				color.setPhoto(resultset.getString("photo"));
 				color.setPrice(resultset.getDouble("price"));
 				color.setValue(resultset.getString("value"));
+				color.setQuantity(resultset.getInt("quantity"));
 				productColors.add(color);
 			}
 ;		} catch (SQLException e) {
@@ -74,6 +75,7 @@ public class ColorModel {
 				productColor.setColor(resultSet.getString("color"));
 				productColor.setPrice(resultSet.getDouble("price"));
 				productColor.setValue(resultSet.getString("value"));
+				productColor.setQuantity(resultSet.getInt("quantity"));
 				
 			}
 		} catch (SQLException e) {
@@ -91,13 +93,14 @@ public class ColorModel {
 		boolean result = true;
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("update productcolor set versionID=?,"
-					+ "color=?, photo=?,price=?,value=? where id=? ");
+					+ "color=?, photo=?,price=?,value=?, quantity=? where id=? ");
 			preparedStatement.setInt(1, color.getVersionID());
 			preparedStatement.setString(2, color.getColor());
 			preparedStatement.setString(3, color.getPhoto());
 			preparedStatement.setDouble(4, color.getPrice());
 			preparedStatement.setString(5, color.getValue());
-			preparedStatement.setInt(6, color.getId());
+			preparedStatement.setInt(6, color.getQuantity());
+			preparedStatement.setInt(7, color.getId());
 			result = preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
