@@ -7,10 +7,11 @@ public class ProductColor {
 	private String photo;
 	private double price;
 	private String value;
+	private int quantity;
 	public ProductColor() {
 		
 	}
-	public ProductColor(int id, int versionID, String color, String photo, double price, String value) {
+	public ProductColor(int id, int versionID, String color, String photo, double price, String value, int quantity) {
 		super();
 		this.id = id;
 		this.versionID = versionID;
@@ -18,6 +19,7 @@ public class ProductColor {
 		this.photo = photo;
 		this.price = price;
 		this.value = value;
+		this.quantity = quantity;
 	}
 	public int getId() {
 		return id;
@@ -52,6 +54,12 @@ public class ProductColor {
 	
 	public String getValue() {
 		return value;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	public void setValue(String value) {
 		this.value = value;

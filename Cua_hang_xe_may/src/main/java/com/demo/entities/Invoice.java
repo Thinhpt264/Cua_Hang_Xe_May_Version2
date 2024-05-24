@@ -3,6 +3,8 @@
  */
 package com.demo.entities;
 
+import java.util.Date;
+
 /**
  * @author 
  *
@@ -10,11 +12,11 @@ package com.demo.entities;
 public class Invoice {
 	private int id;
 	private int colorId;
-	private String tradeDate;
+	private Date tradeDate;
 	private double price;
 	private int customerId;
 	private int employeeId;
-	public Invoice(int id, int colorId, String tradeDate, double price, int customerId, int employeeId) {
+	public Invoice(int id, int colorId, Date tradeDate, double price, int customerId, int employeeId) {
 		super();
 		this.id = id;
 		this.colorId = colorId;
@@ -26,6 +28,7 @@ public class Invoice {
 	public Invoice() {
 		super();
 	}
+	
 	@Override
 	public String toString() {
 		return "Invoice [id=" + id + ", colorId=" + colorId + ", tradeDate=" + tradeDate + ", price=" + price
@@ -43,10 +46,11 @@ public class Invoice {
 	public void setColorId(int colorId) {
 		this.colorId = colorId;
 	}
-	public String getTradeDate() {
+	
+	public Date getTradeDate() {
 		return tradeDate;
 	}
-	public void setTradeDate(String tradeDate) {
+	public void setTradeDate(Date tradeDate) {
 		this.tradeDate = tradeDate;
 	}
 	public double getPrice() {

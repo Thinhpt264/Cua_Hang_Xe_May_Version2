@@ -66,8 +66,6 @@ public class UpdateColor extends HttpServlet {
 					if(photo != null && photo.getSize() > 0) {
 						avatar = UploadFileHelper.uploadFile("assets/user/Image", request, photo);
 					} 
-					
-				
 				double price = Double.parseDouble(request.getParameter("priceColor"));
 				
 				color.setColor(colors);

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.demo.entities.Account;
@@ -20,7 +21,7 @@ public class InvoiceModel {
 				Invoice invoice = new Invoice();
 				invoice.setId(rs.getInt("id"));
 				invoice.setColorId(rs.getInt("colorId"));
-				invoice.setTradeDate(rs.getString("tradeDate"));
+				invoice.setTradeDate(rs.getDate("tradeDate"));
 				invoice.setCustomerId(rs.getInt("customerId"));
 				invoice.setEmployeeId(rs.getInt("employeeId"));
 				invoice.setPrice(rs.getDouble("price"));
@@ -47,7 +48,7 @@ public class InvoiceModel {
 				invoice = new Invoice();
 				invoice.setId(rs.getInt("id"));
 				invoice.setColorId(rs.getInt("colorId"));
-				invoice.setTradeDate(rs.getString("tradeDate"));
+				invoice.setTradeDate(rs.getDate("tradeDate"));
 				invoice.setCustomerId(rs.getInt("customerId"));
 				invoice.setEmployeeId(rs.getInt("employeeId"));
 				invoice.setPrice(rs.getDouble("price"));
@@ -64,7 +65,7 @@ public class InvoiceModel {
 		return invoice;
 	}
 	public static void main(String[] args) {
-		System.out.println(new InvoiceModel().findInvoiceByID(6));
+		System.out.println(new InvoiceModel().findInvoiceByDate());
 	}
 	public boolean create(Invoice invoice) {
 		boolean result = true;
@@ -74,7 +75,7 @@ public class InvoiceModel {
 					.prepareStatement("insert into invoicedetails (colorId, tradeDate, customerId, employeeId, price) "
 							+ "values(?, ?, ?, ?,? )");
 			preparedStatement.setInt(1, invoice.getColorId());
-			preparedStatement.setString(2, invoice.getTradeDate());
+			preparedStatement.setDate(2, java.sql.Date.valueOf(invoice.getTradeDate().toString()));
 			preparedStatement.setInt(3, invoice.getCustomerId());
 			preparedStatement.setInt(4, invoice.getEmployeeId());
 			preparedStatement.setDouble(5, invoice.getPrice());
@@ -95,7 +96,7 @@ public class InvoiceModel {
 					.prepareStatement("Update invoicedetails set colorId = ?, tradeDate=?,"
 							+ " customerId=?, employeeId=?, price=?  where id =?");
 			preparedStatement.setInt(1, invoice.getColorId());
-			preparedStatement.setString(2, invoice.getTradeDate());
+			preparedStatement.setDate(2, java.sql.Date.valueOf(invoice.getTradeDate().toString()));
 			preparedStatement.setInt(3, invoice.getCustomerId());
 			preparedStatement.setInt(4, invoice.getEmployeeId());
 			preparedStatement.setDouble(5, invoice.getPrice());
@@ -126,6 +127,33 @@ public class InvoiceModel {
 		return result;
 	
 	}
+	public List<Invoice> findInvoiceByDate() {
+		List<Invoice> invoices = new ArrayList<Invoice>();
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("SELECT * FROM invoicedetails WHERE MONTH(tradeDate) = MONTH(CURDATE()) AND DAY(tradeDate) = DAY(CURDATE()) AND (YEAR(CURDATE()) - YEAR(tradeDate) < 3);");
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				Invoice invoice = new Invoice();
+				invoice.setId(rs.getInt("id"));
+				invoice.setColorId(rs.getInt("colorId"));
+				invoice.setTradeDate(rs.getDate("tradeDate"));
+				invoice.setCustomerId(rs.getInt("customerId"));
+				invoice.setEmployeeId(rs.getInt("employeeId"));
+				invoice.setPrice(rs.getDouble("price"));
+				invoices.add(invoice);
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			invoices = null;
+			
+		} finally {
+			ConnectDB.disconnect();
+		}
+		return invoices;
+	}
+	
 	
 	
 

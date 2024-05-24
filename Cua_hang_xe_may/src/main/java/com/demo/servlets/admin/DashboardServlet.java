@@ -2,6 +2,9 @@ package com.demo.servlets.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -131,22 +134,31 @@ public class DashboardServlet extends HttpServlet {
 		int customerId = Integer.parseInt( request.getParameter("customerId"));
 		double price = Double.parseDouble(request.getParameter("price"));
 		String tradeDate = request.getParameter("tradeDate");
-		InvoiceModel invoiceModel = new InvoiceModel();
-		Invoice invoice = invoiceModel.findInvoiceByID(id);
-		invoice.setColorId(colorId);
-		invoice.setCustomerId(customerId);
-		invoice.setEmployeeId(employeeId);
-		invoice.setPrice(price);
-		invoice.setTradeDate(tradeDate);
-		if(invoiceModel.update(invoice)) {
-			request.getSession().setAttribute("messageUpdate", "*Chỉnh Sửa Thành Công");
-			response.sendRedirect("home");
-		} else {
-			
-			request.getSession().setAttribute("messageUpdate", "*Chỉnh Sửa Không Thành Công");
-			response.sendRedirect("home");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date date = format.parse(tradeDate);
+			InvoiceModel invoiceModel = new InvoiceModel();
+			Invoice invoice = invoiceModel.findInvoiceByID(id);
+			invoice.setColorId(colorId);
+			invoice.setCustomerId(customerId);
+			invoice.setEmployeeId(employeeId);
+			invoice.setPrice(price);
+			invoice.setTradeDate(date);
+			if(invoiceModel.update(invoice)) {
+				request.getSession().setAttribute("messageUpdate", "*Chỉnh Sửa Thành Công");
+				response.sendRedirect("home");
+			} else {
+				
+				request.getSession().setAttribute("messageUpdate", "*Chỉnh Sửa Không Thành Công");
+				response.sendRedirect("home");
+			}
+			System.out.println(id);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		System.out.println(id);
+		
+		
 	}
 
 }
