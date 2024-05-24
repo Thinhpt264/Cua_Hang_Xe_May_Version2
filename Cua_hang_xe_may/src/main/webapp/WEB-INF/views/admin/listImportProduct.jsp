@@ -1,3 +1,5 @@
+<%@page import="com.demo.models.EmployeeModel"%>
+<%@page import="com.demo.models.AccountModel"%>
 <%@page import="com.demo.models.ProductModel"%>
 <%@page import="com.demo.models.WareHouseModel"%>
 <%@page import="com.demo.entities.WarehouseInvoice"%>
@@ -67,22 +69,28 @@
                          		<% WarehouseInvoice warehouseInvoice = new WarehouseInvoice();
                          		ProductModel productModel = new ProductModel();
                          		WareHouseModel wareHouseModel = new WareHouseModel();
+                         		AccountModel accountModel = new AccountModel();
+                         		EmployeeModel employeeModel = new EmployeeModel();
                          		List<WarehouseInvoice> warehouseInvoices = wareHouseModel.findAll();
                          		for(WarehouseInvoice w: warehouseInvoices) {%>
+                         		
                           		 <tr id="test" class="odd">
                                		<td class="dtr-control sorting_1" tabindex="0"><%=w.getId() %></td>
                                     <td> <%=productModel.findProductById(productModel.findProductVersionById(productModel.findProductColorById(w.getColorId()).getVersionID()).getProductID()).getName()  %> -
                                      <%=productModel.findProductVersionById(productModel.findProductColorById(w.getColorId()).getVersionID()).getVersionName()  %> -
-                                    <%=productModel.findProductColorById(w.getColorId()).getColor() %>                                                 
+                                    <%=productModel.findProductColorById(w.getColorId()).getColor() %> (<%=w.getColorId()%>)                                                
                                          </td>
 									<td><%= w.getPrice() %></td>
                                   	<td> <%= w.getQuantity() %> </td>
                                 	<td> <%= w.getTradeDate() %> </td>
-                                	<td>Admin</td>
-                                	<td>Admin</td>
-                                	<td>Admin</td>
+                                	<td><%=accountModel.findAccountById(employeeModel.findEmployeebyId(w.getEmployeeId()).getAccountID()).getName() %></td>
+                                	 <td class="text-center"><a class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #00040a;"></i></a>
+			                        </td>
+			                        <td class="text-center"><a  class="btn btn-danger"><i class="fas fa-trash" style="color: #000000;"></i></a></td>
+                                    	
                                   </tr>
                              <%} %>
+                            
                           </tbody>
 
                         </table>
