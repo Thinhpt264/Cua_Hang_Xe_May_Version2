@@ -67,9 +67,10 @@ public class CartServlet extends HttpServlet {
 	}
 	protected void doGet_Buy(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
+		System.out.println(id);
 		ProductModel productModel = new ProductModel();
 		ProductColor productcolor = productModel.findProductColorById(id);
-		if(request.getSession().getAttribute("cart")== null) {
+		if(request.getSession().getAttribute("cart") == null) {
 			List<Item> cart = new ArrayList<Item>();
 			cart.add(new Item(productcolor, 1));
 			request.getSession().setAttribute("cart", cart);

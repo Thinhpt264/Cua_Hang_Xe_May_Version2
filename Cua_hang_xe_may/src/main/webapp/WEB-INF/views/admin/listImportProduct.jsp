@@ -84,6 +84,25 @@
                                   	<td> <%= w.getQuantity() %> </td>
                                 	<td> <%= w.getTradeDate() %> </td>
                                 	<td><%=accountModel.findAccountById(employeeModel.findEmployeebyId(w.getEmployeeId()).getAccountID()).getName() %></td>
+
+                                	 <td class="text-center"><a href="${pageContext.request.contextPath }/admin/importProduct?action=updateImport&id=<%=w.getId()%>" class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #00040a;"></i></a>
+                        </td>
+                        <td class="text-center"><a onclick="return handleLinkClick(event , <%= w.getId() %>)" href="${pageContext.request.contextPath }/admin/importProduct?action=deleteImport&id=<%=w.getId()%>" class="btn btn-danger"><i class="fas fa-trash" style="color: #000000;"></i></a></td>
+                                    	
+                                  </tr>
+                             <%} %>
+                            <script type="text/javascript">
+                                            function handleLinkClick(event, id) {
+                                                var confirmation = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+                                                if (confirmation) {
+                                                    var linkHref = "${pageContext.request.contextPath }/admin/importProduct?action=deleteImport&id=" + id;
+                                                    window.location.href = linkHref;
+                                                } else {
+                                                }
+                                                return false; // Ngăn chặn hành vi mặc định của thẻ <a>
+                                            }
+                                        </script>
+
                                 	 <td class="text-center"><a class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #00040a;"></i></a>
 			                        </td>
 			                        <td class="text-center"><a  class="btn btn-danger"><i class="fas fa-trash" style="color: #000000;"></i></a></td>
@@ -91,6 +110,7 @@
                                   </tr>
                              <%} %>
                             
+
                           </tbody>
 
                         </table>

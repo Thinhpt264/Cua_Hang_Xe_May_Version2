@@ -48,6 +48,8 @@ public class AppointmentServlet extends HttpServlet {
 		String email  = request.getParameter("email");
 		String cccd = request.getParameter("cccd");
 		String date = request.getParameter("date");
+		String deposit = request.getParameter("deposit_amount");
+		double deposit_amount = Double.parseDouble(deposit);
 		int accountId = Integer.parseInt(request.getParameter("accountId"));
 		Appointment appointment = new Appointment();
 		appointment.setAppointmentDate(date);
@@ -56,14 +58,15 @@ public class AppointmentServlet extends HttpServlet {
 		appointment.setPhone(phone);
 		appointment.setName(name);
 		appointment.setStatus(1);
+		appointment.setDeposit_amount(deposit_amount);
 		String[] colors =  request.getParameterValues("id_color[]");
-		
 		appointment.setAccountId(accountId);
 		String[] quantity =  request.getParameterValues("quantity_color[]");
 		String[] total_color =  request.getParameterValues("total_color[]");
 		for (String s : colors) {
 			System.out.println(s.toString());
 		}
+		System.out.println(appointment);
 		if(colors != null ) {
 			if(appointmentModel.create(appointment)) {
 				int id = appointmentModel.findLast().getId();
@@ -78,8 +81,8 @@ public class AppointmentServlet extends HttpServlet {
 					appointmentDetailModel.create(appointmentDetail);
 					
 				}
-				
-					response.sendRedirect("cart");
+					request.setAttribute("deposit_amount", deposit_amount);
+					response.sendRedirect("payment");
 				
 			}
 		}
@@ -89,7 +92,64 @@ public class AppointmentServlet extends HttpServlet {
 		 */
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			// TODO Auto-generated method stub
-			doGet(request, response);
+			String action = request.getParameter("action");
+			if(action.equalsIgnoreCase("oneProduct")) {
+				doPost_Insert(request, response);
+			}
+		}
+
+		private void doPost_Insert(HttpServletRequest request, HttpServletResponse response) {
+			// TODO Auto-generated method stub
+			AppointmentModel appointmentModel = new AppointmentModel();
+			String name = request.getParameter("name");
+			String phone  = request.getParameter("phone");
+			String email  = request.getParameter("email");
+			String cccd = request.getParameter("cccd");
+			String date = request.getParameter("date");
+			String deposit = request.getParameter("deposit_amount");
+			double deposit_amount = Double.parseDouble(deposit);
+			int accountId = Integer.parseInt(request.getParameter("accountId"));
+			Appointment appointment = new Appointment();
+			appointment.setAppointmentDate(date);
+			appointment.setCccd(cccd);
+			appointment.setEmail(email);
+			appointment.setPhone(phone);
+			appointment.setName(name);
+			appointment.setStatus(1);
+			appointment.setDeposit_amount(deposit_amount);
+			String[] colors =  request.getParameterValues("id_color[]");
+			appointment.setAccountId(accountId);
+			String[] quantity =  request.getParameterValues("quantity_color[]");
+			String[] total_color =  request.getParameterValues("total_color[]");
+			for (String s : colors) {
+				System.out.println(s.toString());
+			}
+			System.out.println(appointment);
+			if(colors != null ) {
+				if(appointmentModel.create(appointment)) {
+					int id = appointmentModel.findLast().getId();
+					AppointmentDetailModel appointmentDetailModel = new AppointmentDetailModel();
+					for (int i = 0; i < colors.length; i++ ) {
+						int idC = Integer.parseInt(colors[i].trim());
+						AppointmentDetail appointmentDetail = new AppointmentDetail();
+						appointmentDetail.setId_color(idC);
+						appointmentDetail.setId_appoiment(id);
+						appointmentDetail.setQuantity(Integer.parseInt(quantity[i].trim()));
+						appointmentDetail.setTotal(Double.parseDouble(total_color[i].trim()));
+						appointmentDetailModel.create(appointmentDetail);
+						
+					}
+					
+						try {
+							response.sendRedirect("payment?deposit_amount="+ deposit_amount);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
+				}
+			}
+			
 		}
 
 	}

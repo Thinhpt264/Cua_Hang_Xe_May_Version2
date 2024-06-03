@@ -44,6 +44,12 @@ public class MotobikeServlet extends HttpServlet {
 	
 	protected void doGet_Index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// Sau đó gọi brandModel và MotolineModel Để gọi đến cơ sở dữ liệu để lấy ra danh sách tất cả hãng xe và dòng xe
+		// Mặc định lúc đầu hệ thống sẽ hiển thị tất cả các xe có trong cơ sở dữ liệu
+		// Form sau khi được gửi thì servlet sẽ nhận được ở đây 
+		// nhận về các value của option
+		// Gọi ProductModel Ra để sử dụng các value để kết nối đến cơ sở dữ liệu 
+		
 				String idB = request.getParameter("brandFilter");
 				String idM = request.getParameter("motolineFilter");
 				ProductModel productModel = new ProductModel();

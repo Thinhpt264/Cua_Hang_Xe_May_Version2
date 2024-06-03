@@ -27,8 +27,8 @@ public class LanguageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String language = request.getParameter("language");
 		request.getSession().setAttribute("language", language);
-		request.setAttribute("p", "../user/home.jsp");
-		request.getRequestDispatcher("/WEB-INF/views/layout/user.jsp").forward(request, response);
+		String referer = request.getHeader("referer");
+		response.sendRedirect(referer);
 	}
 
 	/**

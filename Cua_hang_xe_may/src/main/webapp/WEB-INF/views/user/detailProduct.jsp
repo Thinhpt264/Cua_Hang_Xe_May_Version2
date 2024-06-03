@@ -1,3 +1,5 @@
+<%@page import="com.demo.models.LanguageModel"%>
+<%@page import="com.demo.models.ProductVersionLanguageModel"%>
 <%@page import="com.demo.entities.Image"%>
 <%@page import="com.demo.helpers.ColorHelper"%>
 <%@page import="com.demo.entities.ProductColor"%>
@@ -40,6 +42,8 @@
     		lang = httpSession.getAttribute("language").toString();
     	}
     	ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(lang));
+    	ProductVersionLanguageModel languageModel = new ProductVersionLanguageModel();
+    	LanguageModel languageModel2 = new LanguageModel();
     %>
    <style>
     .color-cell{
@@ -101,7 +105,7 @@ var options = { style: 'decimal', useGrouping: true };
                         
                          <div class="container d-flex">
                 <div class="header mr-5">
-                    <h1><%=product.getName() %>  </h1>  <h1  id="versionName"> <%=messages.getString("phien_ban")%> <%=productVersions.get(0).getVersionName() %></h1>	<h1  id="ColornName"> <%=productColor.getColor() %></h1>
+                    <h1><%=product.getName() %>  </h1>  <h1  id="versionName"> <%= productVersions.get(0).getVersionName() %></h1>	<h1  id="ColornName"> <%=productColor.getColor() %></h1>
                     <div id="price" style="font-size: 30px;"><%=messages.getString("don_gia")%> <fmt:formatNumber type="number" value="<%= productColor.getPrice()%>" pattern="#,##0"/> VNĐ </div>
                 </div>
            	
@@ -116,10 +120,13 @@ var options = { style: 'decimal', useGrouping: true };
                 <div class="col-lg-6 pt-5">
                     <div class="bg-white">
                    	<%if(productVersions != null) { %>
-                    <%for(ProductVersion pv : productVersions) { %>
+                    <%for(ProductVersion pv : productVersions) { 
+                    	
+                    	
+                    %>
                         <div class="color-value">
                         	<div>
-                        		<b> <%= pv.getVersionName() %> </b>
+                        		<b> <%= pv.getVersionName()%> </b>
 	                        	<div class="color-group" id="versionSpecial" style="display: flex; cursor: pointer;" >
 	                        
 	                        		<%

@@ -91,6 +91,7 @@ public class DetailServlet extends HttpServlet {
 		data.put("color", color);
 		ProductVersion version = productModel.findProductVersionById(color.getVersionID());
 		data.put("version", version);
+		
 		writer.print(gson.toJson(data));
 	}
 
