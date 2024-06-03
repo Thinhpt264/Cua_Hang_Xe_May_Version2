@@ -6,13 +6,16 @@ public class Customer {
 	private String address;
 	private String phone;
 	private String card ;
-	public Customer(int id, String name, String address, String phone, String card) {
+	private String email;
+	
+	public Customer(int id, String name, String address, String phone, String card, String email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.phone = phone;
 		this.card = card;
+		this.email = email;
 	}
 	public Customer() {
 		super();
@@ -46,6 +49,13 @@ public class Customer {
 	}
 	public void setCard(String card) {
 		this.card = card;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	@Override
 	public String toString() {

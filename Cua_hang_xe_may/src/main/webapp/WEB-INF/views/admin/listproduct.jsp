@@ -73,7 +73,7 @@
                             <tr class="odd">
                                 <td class="dtr-control sorting_1" tabindex="0"><%=p.getId() %></td>
                                  <td><img src="${pageContext.request.contextPath}/assets/user/Image/<%=p.getAvatar() %>" style="width: 50px;"></td>
-                                  <td><%=p.getName() %></td>
+                                  <td><%=p.getName() %>  </td>
                                   <td><%= df.format(p.getPrice()) %></td>
                                   <%ProductModel productModel = new ProductModel();
                                   	String nameBrand = productModel.viewNameBrand(p.getBrandID());

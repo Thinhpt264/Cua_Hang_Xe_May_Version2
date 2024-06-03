@@ -84,6 +84,44 @@ public class WareHouseModel {
 		}
 		return result;
 	}
+	public boolean update(WarehouseInvoice warehouseInvoice ) {
+		boolean result = true;
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection()
+					.prepareStatement("update warehouseinvoice set quantity = ?,ColorId=?,price=?,employeeId=?,TradeDate=? where id = ?");
+			preparedStatement.setInt(1, warehouseInvoice.getQuantity());
+			preparedStatement.setInt(2, warehouseInvoice.getColorId());
+			preparedStatement.setDouble(3, warehouseInvoice.getPrice());
+			preparedStatement.setInt(4, warehouseInvoice.getEmployeeId());
+			preparedStatement.setString(5, warehouseInvoice.getTradeDate());
+			preparedStatement.setInt(6, warehouseInvoice.getId());
+			result = preparedStatement.executeUpdate() > 0;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = false;
+		}finally {
+			ConnectDB.disconnect();
+		}
+		return result;
+	}
+	public boolean delete(int id) {
+		boolean result = true;
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection()
+					.prepareStatement("delete from warehouseinvoice where id = ?");
+			preparedStatement.setInt(1, id);
+			result = preparedStatement.executeUpdate() > 0;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = false;
+		}finally {
+			ConnectDB.disconnect();
+		}
+		return result;
+	}
+
 	public static void main(String[] args) {
 		WareHouseModel houseModel  = new WareHouseModel();
 		WarehouseInvoice w = new WarehouseInvoice();

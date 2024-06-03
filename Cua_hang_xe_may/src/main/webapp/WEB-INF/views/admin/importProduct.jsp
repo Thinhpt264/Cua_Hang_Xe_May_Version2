@@ -86,15 +86,11 @@
                                 EmployeeModel employeeModel = new EmployeeModel();
                                	AccountModel accountModel = new AccountModel();
                        			List<Account> accounts = accountModel.findAll();
-                               
-                                List<Employee> employees  = employeeModel.findAll();
-                                
-                               
-                                	if(employees == null) employees = new ArrayList<>();
-                                    for(Employee e: employees) {
-                                    	
-                                    %>
-                                    <option data-select2-id="<%= 130 + e.getId() %>" value="<%=e.getId() %>"><%= accountModel.findAccountById(e.getAccountID()).getName() %></option>
+                       			List<Employee> employees  = employeeModel.findAll();
+                       			if(employees == null) employees = new ArrayList<>();
+                       		 %>
+                                    <%for(Employee e: employees) { %>
+                                    <option data-select2-id="<%= 130 + e.getId() %>" value="<%=e.getId() %>"><%=accountModel.findAccountById(e.getAccountID()).getName() %></option>
                                   	<% }
                                     %>
                                 
