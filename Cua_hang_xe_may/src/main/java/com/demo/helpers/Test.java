@@ -50,7 +50,7 @@ public class Test implements ServletContextListener {
 			    	AccountModel accountModel = new AccountModel();
 			    	for (Invoice invoice : invoices) {
 			    		
-			    		MailHelper.MailHelper(accountModel.findAccountById(invoice.getCustomerId()).getEmail(),"mymail", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n"
+			    		MailHelper.MailHelper(accountModel.findAccountById(invoice.getCustomerId()).getEmail(),"you mail", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n"
 			    				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\r\n"
 			    				+ "<head>\r\n"
 			    				+ "<!--[if gte mso 9]>\r\n"
