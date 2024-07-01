@@ -47,6 +47,7 @@ public class PaymentServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		HttpSession session = req.getSession();
 		session.setAttribute("idAppoiment", id);
+		System.out.println(id);
     	req.getRequestDispatcher("/WEB-INF/views/user/payment.jsp").forward(req, resp);
 		
 	}
@@ -58,6 +59,7 @@ public class PaymentServlet extends HttpServlet {
   		req.setAttribute("amount", Integer.parseInt(money)/100);
   		String status = req.getParameter("vnp_ResponseCode");
   		int idAp = Integer.parseInt((String) req.getSession().getAttribute("idAppoiment"));
+  		System.out.println(idAp);
   		try {
 			req.setAttribute("created",dateFormat2.format(dateFormat.parse(req.getParameter("vnp_PayDate"))) );
 			if(status.equalsIgnoreCase("00")) {

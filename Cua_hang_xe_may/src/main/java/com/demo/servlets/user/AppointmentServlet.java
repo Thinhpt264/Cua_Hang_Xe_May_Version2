@@ -79,7 +79,6 @@ public class AppointmentServlet extends HttpServlet {
 					appointmentDetail.setQuantity(Integer.parseInt(quantity[i].trim()));
 					appointmentDetail.setTotal(Double.parseDouble(total_color[i].trim()));
 					appointmentDetailModel.create(appointmentDetail);
-					
 				}
 					request.setAttribute("deposit_amount", deposit_amount);
 					response.sendRedirect("payment");
@@ -140,13 +139,15 @@ public class AppointmentServlet extends HttpServlet {
 						
 					}
 					
-						try {
-							response.sendRedirect("payment?deposit_amount="+ deposit_amount);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					
+						
+							try {
+								response.sendRedirect("payment?deposit_amount="+ deposit_amount +"&id="+ id);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						
 				}
 			}
 			

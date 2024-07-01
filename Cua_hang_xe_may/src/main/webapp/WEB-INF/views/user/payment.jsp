@@ -21,6 +21,8 @@
 
         // Gửi biểu mẫu sau khi trang đã tải xong
         window.onload = function() {
+        	
+        	
             submitForm();
         };
     </script>

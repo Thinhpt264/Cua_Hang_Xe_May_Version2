@@ -40,7 +40,7 @@
                         cùng với ngày dự kiến chuẩn bị hàng của sản phẩm
                     </p>
                     <a href="${pageContext.request.contextPath}/home" class="btn btn-outline-success">Trang chủ</a>
-                    <a style="color: #fff;background-color: #198754;" href="${pageContext.request.contextPath}/motorbike"
+                    <a style="color: #fff;background-color: #198754;" href="${pageContext.request.contextPath}/motobike"
                        class="btn btn-outline-success c-shopping">Tiếp tục mua sắp</a>
                 </div>
             </div>
