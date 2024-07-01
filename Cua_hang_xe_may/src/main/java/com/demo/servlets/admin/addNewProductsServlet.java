@@ -1,0 +1,179 @@
+package com.demo.servlets.admin;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import com.demo.entities.Image;
+import com.demo.entities.Log;
+import com.demo.entities.Product;
+import com.demo.entities.ProductColor;
+import com.demo.entities.ProductVersion;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
+import com.demo.helpers.UploadFileHelper;
+import com.demo.models.ColorModel;
+import com.demo.models.ImageModel;
+import com.demo.models.LogModel;
+import com.demo.models.ProductModel;
+import com.demo.models.VersionModel;
+import com.google.gson.Gson;
+@WebServlet("/admin/addnewproduct")
+@MultipartConfig(
+		
+				maxFileSize = 1024 * 1024 * 5 ,
+				maxRequestSize = 1024 * 1024 * 10,
+				fileSizeThreshold = 1024 * 1024 * 10
+)
+/**
+ * Servlet implementation class addNewProductsServlet
+ */
+public class addNewProductsServlet extends HttpServlet {
+	  static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public addNewProductsServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
+		if(action == null) {
+			doGet_view(request, response);
+		} 
+		
+	}
+	protected void doGet_view(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("admin", "../admin/addNewProducts.jsp");
+		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
+	}
+
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
+		if(action.equalsIgnoreCase("addnew")) {
+			doPost_upLoad(request, response);
+		}
+	}
+	protected void doPost_upLoad(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 PrintWriter writer = response.getWriter();
+			Gson gson = new Gson();
+			LogModel logModel = new LogModel();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		ProductModel productModel = new ProductModel();
+		  String brandID = request.getParameter("brandId");
+		  String motolineID =  request.getParameter("motolineId"); // dong xe (tay ga, xe so, phan khoi lon)
+		  Part avatar = request.getPart("avatar") ;
+		  System.out.println(avatar);// anh dai dien cua san pham
+		  String name = request.getParameter("name"); // ten san pham
+		  String description = request.getParameter("description"); // mo ta san pham
+		  double price =Double.parseDouble(request.getParameter("price")) ; // gia
+		  String weight = request.getParameter("weight"); // khối lượng bản thân
+		  String size = request.getParameter("size"); // dài x rộng x cao
+		  String petrolCapacity = request.getParameter("petrolCapacity");// dung tích bình xăng
+		  String saddleHeight = request.getParameter("saddleHeight");// độ cao yên
+		  String wheelSize = request.getParameter("wheelSize"); // kích cỡ lốp trước sau
+		  String beforeFork = request.getParameter("beforeFork"); // phuộc trước
+		  String afterFork= request.getParameter("afterFork");// phuộc sau
+		  String maxiumCapacity = request.getParameter("maxiumCapacity");// công suất tối đa
+		  String oilCapacity = request.getParameter("oilCapacity"); // dung tích nhớt máy
+		  String fuelConsumption = request.getParameter("fuelConsumption"); // mức tiêu thụ nhiên liệu
+		  String cylinderCapacity = request.getParameter("cylinderCapacity"); // dung tích xi-lanh
+		  String maxiumMoment= request.getParameter("maxiumMoment"); // moment cực đại
+		  String compressionRatio= request.getParameter("compressionRatio");// tỉ số nén
+		  String engieType= request.getParameter("engieType");
+		  String newAvatarName = UploadFileHelper.uploadFile("assets/user/Image", request, avatar);
+		  
+		  List<Part> fileParts = request.getParts().stream().filter(part->"listImage".equals(part.getName())).collect(Collectors.toList());
+		 
+		  System.out.println(newAvatarName);
+		  Product product = new Product();
+		  product.setBrandID(Integer.parseInt(brandID));
+		  product.setAvatar(newAvatarName);
+		  product.setMotolineID(Integer.parseInt(motolineID));
+		  
+		  product.setName(new String(name.getBytes("ISO-8859-1"), "UTF-8"));
+		  product.setDescription(new String(description.getBytes("ISO-8859-1"), "UTF-8"));		
+			product.setPrice(price);
+			product.setAvatar(newAvatarName);
+			product.setWeight(new String (weight.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setSize(new String (size.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setSaddleHeight(new String (saddleHeight.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setPetrolCapacity(new String (petrolCapacity.getBytes("ISO-8859-1"),"UTF-8"));
+			
+			product.setWheelSize(new String (wheelSize.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setBeforeFork(new String (beforeFork.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setAfterFork( new String (afterFork.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setMaxiumCapacity( new String (maxiumCapacity.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setOilCapacity(new String (oilCapacity.getBytes("ISO-8859-1"),"UTF-8"));
+			
+			product.setFuelConsumption(new String (fuelConsumption.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setCylinderCapacity(new String (cylinderCapacity.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setMaxiumMoment(new String (maxiumCapacity.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setCompressionRatio(new String (compressionRatio.getBytes("ISO-8859-1"),"UTF-8"));
+			product.setEngieType(new String (engieType.getBytes("ISO-8859-1"),"UTF-8"));
+			
+			
+		  if(productModel.create(product)) {
+			  Product productS =  productModel.findLast();
+			  String after = gson.toJson(productS);
+			  logModel.create(new Log(IPAddressUtil.getPublicIPAddress(), "info" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()) , null , after , 5 ));
+			 VersionModel versionModel = new VersionModel();
+			 ProductVersion productversion = new ProductVersion();
+			 for (Part part2 : fileParts) {
+					String newName = UploadFileHelper.uploadFile("assets/user/Image", request, part2);
+					Image image = new Image();
+					image.setPhoto(newName);
+					image.setProductId(productModel.findLast().getId());
+					ImageModel imageModel = new ImageModel();
+					imageModel.create(image);
+					
+				}
+			 String name2 = "Phiên Bản Tiêu Chuẩn" ;
+			productversion.setVersionName(name2);
+			productversion.setPrice(price);
+			productversion.setProductID(productModel.findLast().getId());
+			 if(versionModel.create(productversion)) {
+				 ColorModel colorModel = new ColorModel();
+				 ProductColor color = new ProductColor();
+				 String name3 = " Tiêu Chuẩn" ;
+				 color.setColor(name3);
+				 color.setPhoto(newAvatarName);
+				 color.setPrice(price);
+				 color.setValue("black-white");
+				 color.setVersionID(versionModel.findLast().getId());
+				
+				 colorModel.create(color);
+			 }
+			 response.sendRedirect("addNewVersion");
+		  } else {
+			  System.out.println("false");
+		  }
+		  
+		  
+	}
+	
+
+}
