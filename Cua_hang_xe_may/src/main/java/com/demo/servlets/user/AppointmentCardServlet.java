@@ -2,9 +2,7 @@ package com.demo.servlets.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import com.demo.entities.Account;
 import com.demo.entities.Appointment;
-import com.demo.entities.AppointmentComparator;
 import com.demo.entities.AppointmentDetail;
 import com.demo.entities.Product;
 import com.demo.entities.ProductColor;
@@ -63,12 +60,6 @@ public class AppointmentCardServlet extends HttpServlet {
 				System.out.println(account);
 				AppointmentModel appointmentModel = new AppointmentModel();
 				List<Appointment> appointments =  appointmentModel.findAppointmentByAccountId(account.getId());
-				 
-				Collections.sort(appointments, new AppointmentComparator());
-				 Collections.reverse(appointments);
-				for (Appointment appointment : appointments) {
-		            System.out.println(appointment.getAppointmentDate());
-		        };
 				request.setAttribute("appointments", appointments);
 				request.setAttribute("p", "../user/appointmentCard.jsp");
 				request.getRequestDispatcher("/WEB-INF/views/layout/user.jsp").forward(request, response);

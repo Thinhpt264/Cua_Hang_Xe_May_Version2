@@ -71,7 +71,6 @@ public class BrandModel {
 		return result;
 	
 	}
-	
 	public Brand findBrandbyId(int id) {
 		Brand brand = null;
 		try {

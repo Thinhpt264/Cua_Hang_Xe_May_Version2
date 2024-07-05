@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="com.demo.models.EmployeeModel"%>
 <%@page import="com.demo.models.AccountModel"%>
 <%@page import="com.demo.models.ProductModel"%>
@@ -10,7 +11,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored= "false"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-   
+   <% DecimalFormat df = new DecimalFormat("#,###.##"); %>>
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
@@ -51,7 +52,7 @@
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Anh: activate to sort column ascending">Tên Sản Phẩm</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                                aria-label="Ten_Nguoi_Dung: activate to sort column ascending">Đơn Giá</th>
+                                aria-label="Ten_Nguoi_Dung: activate to sort column ascending">Đơn Giá(VNĐ)</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Loai_Tai_Khoan: activate to sort column ascending">Số lượng</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
@@ -67,6 +68,7 @@
                           </thead>
                           <tbody>
                          		<% WarehouseInvoice warehouseInvoice = new WarehouseInvoice();
+                         		
                          		ProductModel productModel = new ProductModel();
                          		WareHouseModel wareHouseModel = new WareHouseModel();
                          		AccountModel accountModel = new AccountModel();
@@ -78,29 +80,32 @@
                                		<td class="dtr-control sorting_1" tabindex="0"><%=w.getId() %></td>
                                     <td> <%=productModel.findProductById(productModel.findProductVersionById(productModel.findProductColorById(w.getColorId()).getVersionID()).getProductID()).getName()  %> -
                                      <%=productModel.findProductVersionById(productModel.findProductColorById(w.getColorId()).getVersionID()).getVersionName()  %> -
-                                    <%=productModel.findProductColorById(w.getColorId()).getColor() %> (<%=w.getColorId()%>)                                                
+                                    <%=productModel.findProductColorById(w.getColorId()).getColor() %> (Mã số sản phẩm: <%=w.getColorId()%>)                                                
                                          </td>
-									<td><%= w.getPrice() %></td>
+									<td> <%= df.format(w.getPrice()) %></td>
                                   	<td> <%= w.getQuantity() %> </td>
                                 	<td> <%= w.getTradeDate() %> </td>
                                 	<td><%=accountModel.findAccountById(employeeModel.findEmployeebyId(w.getEmployeeId()).getAccountID()).getName() %></td>
-                                	 <td class="text-center"><a href="${pageContext.request.contextPath }/admin/importProduct?action=updateImport&id=<%=w.getId()%>" class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #00040a;"></i></a>
-                        </td>
-                        <td class="text-center"><a onclick="return handleLinkClick(event , <%= w.getId() %>)" href="${pageContext.request.contextPath }/admin/importProduct?action=deleteImport&id=<%=w.getId()%>" class="btn btn-danger"><i class="fas fa-trash" style="color: #000000;"></i></a></td>
+                                	 <td class="text-center"><a class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #00040a;"></i></a>
+			                        </td>
+			                        <td class="text-center"><a onclick="return handleLinkClick(event , <%= w.getId() %>)" href="${pageContext.request.contextPath }/admin/importProduct?action=delete&id=<%=w.getId()%>"  class="btn btn-danger"><i class="fas fa-trash" style="color: #000000;"></i></a></td>
                                     	
                                   </tr>
                              <%} %>
                             <script type="text/javascript">
-                                            function handleLinkClick(event, id) {
-                                                var confirmation = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
-                                                if (confirmation) {
-                                                    var linkHref = "${pageContext.request.contextPath }/admin/importProduct?action=deleteImport&id=" + id;
-                                                    window.location.href = linkHref;
-                                                } else {
-                                                }
-                                                return false; // Ngăn chặn hành vi mặc định của thẻ <a>
-                                            }
-                                        </script>
+				                            function handleLinkClick(event, id) {
+				                                var confirmation = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+				                                if (confirmation) {
+				                                  var linkHref = "${pageContext.request.contextPath }/admin/importProduct?action=delete&id=" + id;
+				                                  
+				                                  window.location.href = linkHref;
+				                                } else {
+				                                  
+				                                }
+				
+				                                return false; // Ngăn chặn hành vi mặc định của thẻ <a>
+				                              }
+										</script>
                           </tbody>
 
                         </table>

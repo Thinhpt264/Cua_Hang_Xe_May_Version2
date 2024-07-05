@@ -30,7 +30,13 @@
                 </div>
             </div>
             <%for(Appointment a: appointments) { %>
-            
+            <% 
+                		List<AppointmentDetail> appointmentDetails = appointmentDetailModel.findAppointmentDetailByAppoitntmentId(a.getId());
+                		double total = 0;	
+                	for(AppointmentDetail ap: appointmentDetails) {
+                			total += ap.getTotal();
+                		}
+                	%>
             <div class="row rent-item m-2">
                 <div class="col-lg-3">
                     <div>
@@ -44,19 +50,15 @@
                     <p>Email:  <%=a.getEmail() %></p>
                     <p>CCCD: <%= a.getCccd() %></p>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <p>Ngày Hẹn: <%= a.getAppointmentDate() %></p>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-1">
                 	<button data-id="<%=a.getId()%>" class="btn btn-info d-flex justify-content-end align-items-center openAppentTotal" data-bs-toggle="modal" data-bs-target="#exampleModal"> Chi Tiết</button>
-                	
-                	<a  href="<%= a.getStatus() == 1 ? "http://localhost:8080/Cua_hang_xe_may/payment?deposit_amount=" + a.getDeposit_amount()+"&id=" + a.getId() :  " "%>" class="btn  <%= a.getStatus() == 1 ? "btn-danger" :  "btn-info"%>  d-flex justify-content-end align-items-center openAppentTotal" > <%= a.getStatus() == 0  ? "Đã Thanh Toán Cọc" :  "Bạn Chưa Thanh Toán Cọc"%> </a>
-                	
-                	
                  </div>
                 <div class="col-lg-12 d-flex justify-content-end align-items-end">
                 	
-                    <p>Tiền Cọc : <%= df.format(a.getDeposit_amount()) %> VNĐ</p>
+                    <p>Tổng Tiền: <%= df.format(total) %> VNĐ</p>
                 </div>
                 
             </div>

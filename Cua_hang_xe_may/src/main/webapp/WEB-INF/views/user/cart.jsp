@@ -102,8 +102,7 @@
           					$('.id_color').attr('value' , productColor.id);
           					$('.quantity_color').attr('value' , item.quantity);
           					$('.total_color').attr('value' , totalPrice);
-          					$('.deposit_amount').attr('value',totalPrice*5/100);
-          					console.log(productColor.photo);
+          					console.log(imgColor);
           				}
           				
           				
@@ -267,7 +266,6 @@ url: '${pageContext.request.contextPath}/cart',
 	            	<input type="hidden" class="id_color" name="id_color[]" >
 	            	<input type="hidden" class="quantity_color" name="quantity_color[]">
 	            	<input  type="hidden" class="total_color" name="total_color[]">
-	            	<input type="hidden" class="deposit_amount" name="deposit_amount">
 	            	
 	            </div>
 	          </div>
