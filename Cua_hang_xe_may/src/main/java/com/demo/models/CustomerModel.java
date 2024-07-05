@@ -24,7 +24,6 @@ public class CustomerModel {
 				customer.setPhone(resultSet.getString("phone"));
 				customer.setAddress(resultSet.getString("address"));
 				customer.setCard(resultSet.getString("card"));
-				customer.setEmail(resultSet.getString("email"));
 				customers.add(customer);
 				
 			}
@@ -51,7 +50,6 @@ public class CustomerModel {
 				customer.setPhone(resultSet.getString("phone"));
 				customer.setAddress(resultSet.getString("address"));
 				customer.setCard(resultSet.getString("card"));
-				customer.setEmail(resultSet.getString("email"));
 
 			}
 		} catch (Exception e) {
@@ -71,12 +69,11 @@ public class CustomerModel {
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection()
 					.prepareStatement("insert into customers (name, phone, address, card) "
-							+ "values(?, ?, ?, ?,?)");
+							+ "values(?, ?, ?, ?)");
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getPhone());
 			preparedStatement.setString(3, customer.getAddress());
 			preparedStatement.setString(4, customer.getCard());
-			preparedStatement.setString(5, customer.getEmail());
 			result = preparedStatement.executeUpdate() > 0;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -109,13 +106,12 @@ public class CustomerModel {
 		boolean result = true;
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("update customers set name=?,"
-					+ "phone=?, address=? , card=?, email=? where id=? ");
+					+ "phone=?, address=? , card=? where id=? ");
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getPhone());
 			preparedStatement.setString(3, customer.getAddress());
 			preparedStatement.setString(4, customer.getCard());
-			preparedStatement.setString(5, customer.getEmail());
-			preparedStatement.setInt(6, customer.getId());
+			preparedStatement.setInt(5, customer.getId());
 			result = preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

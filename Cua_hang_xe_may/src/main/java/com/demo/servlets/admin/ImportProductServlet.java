@@ -34,10 +34,9 @@ public class ImportProductServlet extends HttpServlet {
 		}
 		else if(action.equalsIgnoreCase("addNewImport")) {
 			doGet_importProduct(request, response);
-		}else if(action.equalsIgnoreCase("updateImport")) {
-			doGet_updateImport(request,response);
-		}else if(action.equalsIgnoreCase("deleteImport")) {
-			doGet_deleteImport(request,response);
+		}
+		else if(action.equalsIgnoreCase("delete")) {
+			doGet_Delete(request, response);
 		}
 	
 	}
@@ -49,34 +48,23 @@ public class ImportProductServlet extends HttpServlet {
 	}
 
 	protected void doGet_importProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("admin", "../admin/listImportProduct.jsp");
+		request.setAttribute("admin", "../admin/importProduct.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}
-	protected void doGet_updateImport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		WareHouseModel wareHouseModel = new WareHouseModel();
-		int id = Integer.parseInt(request.getParameter("id"));
-		WarehouseInvoice invoice = wareHouseModel.findInvoiceByID(id);
-		request.setAttribute("invoice1", invoice);
-		request.setAttribute("admin", "../admin/updateImportProduct.jsp");
-		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
-	
-	}
-	protected void doGet_deleteImport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		WareHouseModel wareHouseModel = new WareHouseModel();
-		int id = Integer.parseInt(request.getParameter("id"));
-		if(wareHouseModel.delete(id)) {
-			response.sendRedirect("importProduct");
-		}else {
-			System.out.println("xoa that bai");
-		}
-	
-	}
-
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	protected void doGet_Delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		WareHouseModel wareHouseModel = new WareHouseModel();
+		int id = Integer.parseInt(request.getParameter("id"));
+		if(wareHouseModel.delete(id)) {
+			System.out.println("delete import thanh cong");
+			response.sendRedirect("importProduct");
+		}else {
+			System.out.println("that bai");
+		}
 	
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

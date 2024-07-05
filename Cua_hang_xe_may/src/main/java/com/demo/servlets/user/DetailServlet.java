@@ -84,6 +84,7 @@ public class DetailServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		PrintWriter writer = response.getWriter();
 		int colorID = Integer.parseInt(request.getParameter("colorID"));
+	
 		ProductModel productModel = new ProductModel();
 		Gson gson = new Gson();
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -91,7 +92,6 @@ public class DetailServlet extends HttpServlet {
 		data.put("color", color);
 		ProductVersion version = productModel.findProductVersionById(color.getVersionID());
 		data.put("version", version);
-		
 		writer.print(gson.toJson(data));
 	}
 

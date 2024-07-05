@@ -25,7 +25,9 @@
   	<filter-name>FilterUser</filter-name>
   	<url-pattern>/FilterUser</url-pattern>
   </filter-mapping>
-  
+  <listener>
+  	<listener-class>com.demo.helpers.Test</listener-class>
+  </listener>
   
   <servlet>
   	<servlet-name>HomeServlet</servlet-name>
