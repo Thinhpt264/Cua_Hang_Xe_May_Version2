@@ -1,5 +1,6 @@
 package com.demo.models;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import com.demo.entities.Appointment;
 import com.demo.entities.ConnectDB;
+import com.demo.entities.ProductColor;
 
 public class AppointmentModel {
 	public List<Appointment> findAll() {
@@ -25,6 +27,8 @@ public class AppointmentModel {
 				appointment.setAppointmentDate(resultSet.getString("appointmentDate"));
 				appointment.setStatus(resultSet.getInt("status"));
 				appointment.setAccountId(resultSet.getInt("accountId"));
+				appointment.setDeposit_amount(resultSet.getDouble("deposit_amount"));
+				appointment.setDate_pay(resultSet.getString("date_pay"));
 				result.add(appointment);
 			}
 		} catch (SQLException e) {
@@ -53,7 +57,37 @@ public class AppointmentModel {
 				appointment.setAppointmentDate(resultSet.getString("appointmentDate"));
 				appointment.setStatus(resultSet.getInt("status"));
 				appointment.setAccountId(resultSet.getInt("accountId"));
+				appointment.setDeposit_amount(resultSet.getDouble("deposit_amount"));
+				appointment.setDate_pay(resultSet.getString("date_pay"));
 				result.add(appointment);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = null;
+		} finally {
+			ConnectDB.disconnect();
+		}
+		return result;
+	} 
+	public Appointment findAppointmentById(int id) {
+		Appointment result = null;
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("select * from appointment where id = ?");
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				result = new Appointment();
+				result.setId(resultSet.getInt("id"));
+				result.setName(resultSet.getString("name"));
+				result.setEmail(resultSet.getString("email"));
+				result.setPhone(resultSet.getString("phone"));
+				result.setCccd(resultSet.getString("cccd"));
+				result.setAppointmentDate(resultSet.getString("appointmentDate"));
+				result.setStatus(resultSet.getInt("status"));
+				result.setAccountId(resultSet.getInt("accountId"));
+				result.setDeposit_amount(resultSet.getDouble("deposit_amount"));
+				result.setDate_pay(resultSet.getString("date_pay"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -68,7 +102,7 @@ public class AppointmentModel {
 		boolean result =  true;
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection()
-					.prepareStatement("insert into appointment(name, email, phone, appointmentDate, cccd, status, accountId) values(?,?,?,?,?,?,?)");
+					.prepareStatement("insert into appointment(name, email, phone, appointmentDate, cccd, status, accountId, deposit_amount,date_pay) values(?,?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, appointment.getName());
 			preparedStatement.setString(2, appointment.getEmail());
 			preparedStatement.setString(3, appointment.getPhone());
@@ -77,6 +111,8 @@ public class AppointmentModel {
 			preparedStatement.setInt(6, appointment.getStatus());
 			preparedStatement.setInt(6, appointment.getStatus());
 			preparedStatement.setInt(7, appointment.getAccountId());
+			preparedStatement.setDouble(8, appointment.getDeposit_amount());
+			preparedStatement.setString(9, appointment.getDate_pay());
 			result = preparedStatement.executeUpdate() > 0;
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -101,6 +137,8 @@ public class AppointmentModel {
 				result.setAppointmentDate(resultSet.getString("appointmentDate"));
 				result.setStatus(resultSet.getInt("status"));
 				result.setAccountId(resultSet.getInt("accountId"));
+				result.setDeposit_amount(resultSet.getDouble("deposit_amount"));
+				result.setDate_pay(resultSet.getString("date_pay"));
 			}
 			
 		} catch (SQLException e) {
@@ -113,6 +151,32 @@ public class AppointmentModel {
 		return result;
 		
 	}
+	public boolean update(Appointment appointment) {
+		boolean result = true;
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("update appointment set name=?,"
+					+ "email=?, phone=?,appointmentDate=?,cccd=?,  status=?, accountId=?, deposit_amount=?,date_pay=? where id=? ");
+			preparedStatement.setString(1, appointment.getName());
+			preparedStatement.setString(2, appointment.getEmail());
+			preparedStatement.setString(3, appointment.getPhone());
+			preparedStatement.setString(4, appointment.getAppointmentDate());
+			preparedStatement.setString(5, appointment.getCccd());
+			preparedStatement.setInt(6, appointment.getStatus());
+			preparedStatement.setInt(6, appointment.getStatus());
+			preparedStatement.setInt(7, appointment.getAccountId());
+			preparedStatement.setDouble(8, appointment.getDeposit_amount());
+			preparedStatement.setString(9, appointment.getDate_pay());
+			preparedStatement.setInt(10, appointment.getId());
+			result = preparedStatement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = false;
+		}finally {
+			ConnectDB.disconnect();
+		}		
+		return result;	
+	}
 	
 	
 	public static void main(String[] args) {
@@ -124,7 +188,8 @@ Appointment a = new Appointment();
 		a.setStatus(0);
 		a.setAppointmentDate("12/3/2003");
 		a.setCccd("2222");
-		a.setAccountId(1);
+		a.setAccountId(5);
+		a.setDeposit_amount(1000000);
 		System.out.println(	appointmentModel.create(a));
 	
 		

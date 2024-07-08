@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.demo.entities.Comment;
 import com.demo.entities.CommentCustom;
@@ -66,6 +67,11 @@ public class DetailServlet extends HttpServlet {
 		} else {
 			response.sendRedirect("motobike");
 		}
+		HttpSession session = request.getSession();
+		if(session.getAttribute("item") != null) {
+			session.removeAttribute("item");
+		}
+		
 		request.setAttribute("p", "../user/detailProduct.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/user.jsp").forward(request, response);
 	}
@@ -84,7 +90,6 @@ public class DetailServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		PrintWriter writer = response.getWriter();
 		int colorID = Integer.parseInt(request.getParameter("colorID"));
-	
 		ProductModel productModel = new ProductModel();
 		Gson gson = new Gson();
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -92,6 +97,7 @@ public class DetailServlet extends HttpServlet {
 		data.put("color", color);
 		ProductVersion version = productModel.findProductVersionById(color.getVersionID());
 		data.put("version", version);
+		
 		writer.print(gson.toJson(data));
 	}
 

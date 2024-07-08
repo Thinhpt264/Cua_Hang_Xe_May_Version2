@@ -321,6 +321,7 @@ public class ProductModel {
 		}
 		return productColors;
 	}
+	// Hàm Để lấy ra danh sách xe theo chủ đề người dùng chọn
 	public List<Product> findbyMotolineAndBrand(int motolineId, int brandId) {
 		List<Product> products = new ArrayList<Product>();
 		try {

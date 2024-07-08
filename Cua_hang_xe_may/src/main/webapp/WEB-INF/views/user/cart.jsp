@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="com.google.api.Http"%>
 <%@page import="com.demo.entities.ProductVersion"%>
 <%@page import="com.demo.models.ProductModel"%>
@@ -5,7 +6,7 @@
     pageEncoding="UTF-8" isELIgnored = "false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-   	
+   
    <style>
 		   	.contact-form {
 		  display: block;
@@ -62,11 +63,12 @@
            </span>
 	                    </div>
 	                  <button type="button" class="openAppent btn btn-primary" data-id="${i.index}"  data-bs-toggle="modal" data-bs-target="#exampleModal">Xem Ngay</button>
-	              	<input type="checkbox"  name="tick " class="tick" class="ml-1" data-id="${i.index}"> 
+	              		
 					 </div>
 	             
-	                <div class="col-lg-2 d-flex justify-content-end align-items-center">
+	                <div class="col-lg-2 d-flex justify-content-start align-items-center">
 	                    <a href="${pageContext.request.contextPath}/cart?action=remove&index=${i.index}" class="btn btn-danger">Xóa</a>
+	                    <input type="checkbox" style=" transform: scale(1.5);"   name="tick " class="tick ml-3" data-id="${i.index}"> 
 	                </div>
 	            </div>
            </c:forEach>
@@ -102,7 +104,8 @@
           					$('.id_color').attr('value' , productColor.id);
           					$('.quantity_color').attr('value' , item.quantity);
           					$('.total_color').attr('value' , totalPrice);
-          					console.log(imgColor);
+          					$('.deposit_amount').attr('value',totalPrice*5/100);
+          					console.log(productColor.photo);
           				}
           				
           				
@@ -266,6 +269,7 @@ url: '${pageContext.request.contextPath}/cart',
 	            	<input type="hidden" class="id_color" name="id_color[]" >
 	            	<input type="hidden" class="quantity_color" name="quantity_color[]">
 	            	<input  type="hidden" class="total_color" name="total_color[]">
+	            	<input type="hidden" class="deposit_amount" name="deposit_amount">
 	            	
 	            </div>
 	          </div>

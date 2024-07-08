@@ -47,9 +47,13 @@
             <h5 class="display-6 text-uppercase text-center mb-5">*<%= messages.getString("phi_thue")  %>*</h5>
             <!-- Search Start -->
             <div  class="container bg-white pt-3 px-lg-4 ">
+            <!-- Sau Khi Người Dùng Đã Chọn Được Các Chủ Đề mình muốn chọn 
+            	Gửi Một Form chứa value của option người dùng chọn
+              -->
             	<form action="${pageContext.request.contextPath}/motobike" method="get">
             		 <div class="row mx-n2">
 	                    <div class="col-xl-3 col-lg-4 col-md-6 px-3">
+	                    <!-- Hiển Thị Tất Cả Các Option Của Hãng Trong Cơ Sở Dữ Liệu  -->
 	                        <select class="custom-select px-4 mb-3" style="height: 50px;" name="brandFilter">
 	                            <option selected value="0"><%= messages.getString("nhan_hieu")  %></option>
 	                            <%for(Brand b: brands)  {%>
@@ -58,6 +62,7 @@
 	                        </select>
 	                    </div>
 <div class="col-xl-3 col-lg-4 col-md-6 px-3">
+   <!-- Hiển Thị Tất Cả Các Option Của Dòng Xe Trong Cơ Sở Dữ Liệu  -->
 	                        <select class="custom-select px-4 mb-3" style="height: 50px;" name="motolineFilter">
 	                            <option selected  value="0"><%= messages.getString("loai_xe")  %></option>
 	                            <%for(Motoline m: motolines) {%>

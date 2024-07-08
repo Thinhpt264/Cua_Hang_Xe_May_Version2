@@ -44,5 +44,11 @@ public class Item {
 		ProductVersion product = productModel.findProductVersionById(id);
 		return product;
 	} 
+	public boolean checkExitProductColor(int id) {
+		if(productcolor.getId() == id) {
+			return true;
+		}
+		return false;
+	}
 	
 }
