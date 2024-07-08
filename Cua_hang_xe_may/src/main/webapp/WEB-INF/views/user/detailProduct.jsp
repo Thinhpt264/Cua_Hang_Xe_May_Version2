@@ -1,5 +1,5 @@
-<%@page import="com.demo.models.WareHouseModel"%>
-<%@page import="com.demo.entities.WarehouseInvoice"%>
+<%@page import="com.demo.models.LanguageModel"%>
+<%@page import="com.demo.models.ProductVersionLanguageModel"%>
 <%@page import="com.demo.entities.Image"%>
 <%@page import="com.demo.helpers.ColorHelper"%>
 <%@page import="com.demo.entities.ProductColor"%>
@@ -27,8 +27,6 @@
       Product product = (Product) request.getAttribute("product");
    %>
      <%ProductModel productModel = new ProductModel(); 
-     WarehouseInvoice whi = new WarehouseInvoice();
-     WareHouseModel wareHouseModel = new WareHouseModel();
                     List<ProductVersion> productVersions = productModel.findAllVersionByProduct(idproduct);
                     	int productVersionID = productVersions.get(0).getId();
                         List<ProductColor> productColorsFirst = productModel.findAllColorByProductVersion(productVersionID);
@@ -44,6 +42,8 @@
     		lang = httpSession.getAttribute("language").toString();
     	}
     	ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(lang));
+    	ProductVersionLanguageModel languageModel = new ProductVersionLanguageModel();
+    	LanguageModel languageModel2 = new LanguageModel();
     %>
    <style>
     .color-cell{
@@ -76,8 +76,7 @@
 							success: function (data) {
 								var color = data.color;
 								var version = data.version;
-								var quantity = data.quantity;
-								var options = { style: 'decimal', useGrouping: true };
+var options = { style: 'decimal', useGrouping: true };
 								var price = color.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 								$('#img').attr('src', '${pageContext.request.contextPath}/assets/user/Image/' + color.photo);
 								$('#price').html('Giá ' + price +' VNĐ');
@@ -106,9 +105,8 @@
                         
                          <div class="container d-flex">
                 <div class="header mr-5">
-                    <h1><%=product.getName() %>  </h1>  <h1  id="versionName"> <%=messages.getString("phien_ban")%> <%=productVersions.get(0).getVersionName() %></h1>	<h1  id="ColornName"> <%=productColor.getColor() %></h1>
+                    <h1><%=product.getName() %>  </h1>  <h1  id="versionName"> <%= productVersions.get(0).getVersionName() %></h1>	<h1  id="ColornName"> <%=productColor.getColor() %></h1>
                     <div id="price" style="font-size: 30px;"><%=messages.getString("don_gia")%> <fmt:formatNumber type="number" value="<%= productColor.getPrice()%>" pattern="#,##0"/> VNĐ </div>
-                    <div id="quantity" style="font-size: 30px;">Số lượng:  </div>
                 </div>
            	
             
@@ -122,10 +120,13 @@
                 <div class="col-lg-6 pt-5">
                     <div class="bg-white">
                    	<%if(productVersions != null) { %>
-                    <%for(ProductVersion pv : productVersions) { %>
+                    <%for(ProductVersion pv : productVersions) { 
+                    	
+                    	
+                    %>
                         <div class="color-value">
                         	<div>
-                        		<b> <%= pv.getVersionName() %> </b>
+                        		<b> <%= pv.getVersionName()%> </b>
 	                        	<div class="color-group" id="versionSpecial" style="display: flex; cursor: pointer;" >
 	                        
 	                        		<%
@@ -139,8 +140,8 @@
 	                        		<% for(ProductColor pc: productColors)  {%>
 <div style="display: flex; margin-right: 15px;" class="color">
 	                        				<div class="color-item" style="display: flex; margin-right: 15px;">
-		                        		<div class="color-cell" style="background-color: <%= colorHelper.colorHelper(pc.getValue())[0] %>; width: 30px;"></div>
-		                                <div class="color-cell" style="background-color: <%= colorHelper.colorHelper(pc.getValue())[1] %>; width: 30px;"> </div>
+		                        		<div class="color-cell" style="background-color: <%= colorHelper.colorHelper(pc.getValue())[0] %>; width: 20px;"></div>
+		                                <div class="color-cell" style="background-color: <%= colorHelper.colorHelper(pc.getValue())[1] %>; width: 20px;"> </div>
 		                          	</div>
 		                          		   <span style="padding-top: 10px"><%= pc.getColor()%> <input id="con" type="hidden" value="<%= pc.getId()%>"></span>
 	                        			</div>

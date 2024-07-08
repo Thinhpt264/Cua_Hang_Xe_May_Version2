@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.demo.entities.Brand;
 import com.demo.entities.Motoline;
@@ -44,6 +45,12 @@ public class MotobikeServlet extends HttpServlet {
 	
 	protected void doGet_Index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// Sau đó gọi brandModel và MotolineModel Để gọi đến cơ sở dữ liệu để lấy ra danh sách tất cả hãng xe và dòng xe
+		// Mặc định lúc đầu hệ thống sẽ hiển thị tất cả các xe có trong cơ sở dữ liệu
+		// Form sau khi được gửi thì servlet sẽ nhận được ở đây 
+		// nhận về các value của option
+		// Gọi ProductModel Ra để sử dụng các value để kết nối đến cơ sở dữ liệu 
+				
 				String idB = request.getParameter("brandFilter");
 				String idM = request.getParameter("motolineFilter");
 				ProductModel productModel = new ProductModel();
@@ -69,6 +76,12 @@ public class MotobikeServlet extends HttpServlet {
 					    products = productModel.findbyMotolineAndBrand(motolineId, brandId);
 					}
 				}
+				HttpSession session = request.getSession();
+				if(session.getAttribute("item") != null) {
+					session.removeAttribute("item");
+				}
+				
+				
 				request.setAttribute("products", products);
 				request.setAttribute("p","../user/motobike.jsp");
 				request.getRequestDispatcher("/WEB-INF/views/layout/user.jsp").forward(request, response);

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.demo.entities.Product;
 import com.demo.models.ProductModel;
@@ -32,6 +33,11 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductModel productModel = new ProductModel();
 		List<Product> products = productModel.findAll();
+		HttpSession session = request.getSession();
+		if(session.getAttribute("item") != null) {
+			session.removeAttribute("item");
+		}
+		
 		request.setAttribute("products", products);
 		request.setAttribute("p", "../user/home.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/user.jsp").forward(request, response);

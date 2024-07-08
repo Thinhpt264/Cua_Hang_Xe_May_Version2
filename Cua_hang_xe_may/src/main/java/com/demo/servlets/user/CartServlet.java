@@ -67,9 +67,10 @@ public class CartServlet extends HttpServlet {
 	}
 	protected void doGet_Buy(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
+		System.out.println(id);
 		ProductModel productModel = new ProductModel();
 		ProductColor productcolor = productModel.findProductColorById(id);
-		if(request.getSession().getAttribute("cart")== null) {
+		if(request.getSession().getAttribute("cart") == null) {
 			List<Item> cart = new ArrayList<Item>();
 			cart.add(new Item(productcolor, 1));
 			request.getSession().setAttribute("cart", cart);
@@ -88,9 +89,21 @@ int quantity = cart.get(index).getQuantity()+1;
 	}
 	protected void doGet_Remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int index = Integer.parseInt(request.getParameter("index"));
+		List<Item> items = 	(List<Item>) request.getSession().getAttribute("items");
 		List<Item> cart = 	(List<Item>) request.getSession().getAttribute("cart");
+		if(items != null) {
+			for (Item item : items) {
+				if(item.checkExitProductColor(cart.get(index).getProductcolor().getId())) {
+					items.remove(item);
+				}
+			}
+		
+			request.getSession().setAttribute("items", items);
+		}
 		cart.remove(index);
 		request.getSession().setAttribute("cart", cart);
+		
+		
 		response.sendRedirect("cart");
 	}
 	protected void doGet_Plus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -140,7 +153,7 @@ int quantity = cart.get(index).getQuantity()+1;
 		int index = Integer.parseInt(request.getParameter("itemId"));
 		
 		System.out.println(index);
-List<Item> cart = 	(List<Item>) request.getSession().getAttribute("cart");
+		List<Item> cart = 	(List<Item>) request.getSession().getAttribute("cart");
 		Item item = cart.get(index);
 		int id = item.getProductcolor().getId();
 		if(request.getSession().getAttribute("items")== null) {
@@ -163,14 +176,11 @@ List<Item> cart = 	(List<Item>) request.getSession().getAttribute("cart");
 	protected void doGet_removeItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		int index = Integer.parseInt(request.getParameter("itemId"));
-		
+		int index = Integer.parseInt(request.getParameter("itemId"));		
 		System.out.println(index);
-	
 		List<Item> items = 	(List<Item>) request.getSession().getAttribute("items");
 		items.remove(index);
 		request.getSession().setAttribute("items", items);
-		
 		String message = "Xóa Thanh Cong";
 		PrintWriter writer = response.getWriter();
 		Gson gson = new Gson();

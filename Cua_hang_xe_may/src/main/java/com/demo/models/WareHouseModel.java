@@ -121,6 +121,7 @@ public class WareHouseModel {
 		}
 		return result;
 	}
+	
 
 	public static void main(String[] args) {
 		WareHouseModel houseModel  = new WareHouseModel();
