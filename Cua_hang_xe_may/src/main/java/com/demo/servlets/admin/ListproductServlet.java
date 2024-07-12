@@ -50,6 +50,7 @@ public class ListproductServlet extends HttpServlet {
 		int id =  Integer.parseInt(request.getParameter("id"));
 		Product product = productModel.findProductById(id);
 		request.setAttribute("product1", product);
+		
 		request.setAttribute("admin", "../admin/updateProduct.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}
@@ -57,6 +58,8 @@ public class ListproductServlet extends HttpServlet {
 		ProductModel productModel = new ProductModel();
 		List<Product> products = productModel.findAll();
 		request.setAttribute("products", products);
+		String currentPath = "/admin/listproduct"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/listproduct.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}

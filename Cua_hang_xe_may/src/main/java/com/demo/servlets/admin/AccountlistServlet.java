@@ -57,6 +57,8 @@ import com.demo.models.AccountModel;
 			AccountModel accountModel = new AccountModel();
 			List<Account> accounts = accountModel.findAll();
 			request.setAttribute("accounts", accounts);
+			String currentPath = "/admin/accountList"; // Đường dẫn mong muốn
+	        request.setAttribute("currentPath", currentPath);
 			request.setAttribute("admin", "../admin/listAccount.jsp");
 			request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 			

@@ -35,6 +35,8 @@ public class LogServlet extends HttpServlet {
 		LogModel logModel = new LogModel();
 		List<Log> logs = logModel.findAll();
 		request.setAttribute("logs", logs);
+		String currentPath = "/admin/log"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/log.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}

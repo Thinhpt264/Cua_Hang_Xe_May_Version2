@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.demo.entities.ProductColor;
-import com.demo.models.ColorModel;
-@WebServlet("/admin/warehouse")
+import com.demo.entities.Item;
+import com.demo.models.AppointmentDetailModel;
+@WebServlet("/admin/productAppoinment")
 /**
- * Servlet implementation class WareHouseServlet
+ * Servlet implementation class productAppoimentServlet
  */
-public class WareHouseServlet extends HttpServlet {
+public class productAppoimentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WareHouseServlet() {
+    public productAppoimentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +31,12 @@ public class WareHouseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-				String action = request.getParameter("action");
-				if(action == null) {
-					doGet_Index(request, response);
-				}
-	}
-
-	private void doGet_Index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		ColorModel colorModel = new ColorModel();
-		List<ProductColor> productColors = colorModel.findAll();
-		request.setAttribute("productColors", productColors);
-		String currentPath = "/admin/warehouse"; // Đường dẫn mong muốn
+		AppointmentDetailModel appointmentDetailModel = new  AppointmentDetailModel();
+		List<Item> productcolors = appointmentDetailModel.findAllProductColor();
+		request.setAttribute("items", productcolors);
+		String currentPath = "/admin/productAppoinment"; // Đường dẫn mong muốn
         request.setAttribute("currentPath", currentPath);
-		request.setAttribute("admin", "../admin/ListWareHouse.jsp");
+		request.setAttribute("admin", "../admin/productappointment.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}
 
