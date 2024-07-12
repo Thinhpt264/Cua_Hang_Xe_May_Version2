@@ -55,6 +55,8 @@ public class ListbrandServlet extends HttpServlet {
 		List<Brand> brands = brandModel.findAll();
 		request.setAttribute("brands", brands);
 		request.setAttribute("admin", "../admin/listbrand.jsp");
+		String currentPath = "/admin/listbrand"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	
 	}

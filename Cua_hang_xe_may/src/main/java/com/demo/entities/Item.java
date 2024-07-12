@@ -50,5 +50,9 @@ public class Item {
 		}
 		return false;
 	}
+	@Override
+	public String toString() {
+		return "Item [productcolor=" + productcolor + ", quantity=" + quantity + "]";
+	}
 	
 }

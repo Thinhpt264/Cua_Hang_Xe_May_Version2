@@ -77,6 +77,8 @@ public class StatisticalServlet extends HttpServlet {
 	    System.out.println(sortedMap);
 	    request.setAttribute("years", years);
 		request.setAttribute("orderCountByMonths", sortedMap);
+		String currentPath = "/admin/statistical"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/statistical.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	

@@ -54,6 +54,8 @@ public class ProductVersionServlet extends HttpServlet {
 		VersionModel versionModel = new VersionModel();
 		List<ProductVersion> productVersions = versionModel.findAll();
 		request.setAttribute("productVersions", productVersions);
+		String currentPath = "/admin/productversion"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/productVersion.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	

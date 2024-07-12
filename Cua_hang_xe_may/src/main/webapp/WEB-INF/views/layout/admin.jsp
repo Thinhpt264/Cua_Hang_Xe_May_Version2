@@ -13,6 +13,8 @@
          	List<Comment> comments = commentModel.viewNewComment();
          	if(comments == null) comments = new ArrayList<>();
          	 AccountModel accoutModel = new AccountModel();
+         	String currentPath = (String) request.getAttribute("currentPath"); 
+         	if(currentPath == null) currentPath = "";
      %>
     
 <html lang="en" style="height: auto;"><head>
@@ -75,7 +77,7 @@
         </li>
        
       </ul>
-  
+  		
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
@@ -149,7 +151,7 @@
     <!-- /.navbar -->
   
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside style="background-color: #14268a" class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="" class="brand-link">
         <img src="${pageContext.request.contextPath}/assets/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -188,16 +190,20 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item menu-is-opening menu-open">
-              <a href="${pageContext.request.contextPath }/admin/home" class="nav-link active">
+           
+              <a href="${pageContext.request.contextPath }/admin/home" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/home") ? "active" : " " %>">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Trang Chủ
+                 
                 </p>
+           		
+           	
               </a>
             </li>
             <li class="nav-header">Quản Lí Người Dùng</li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
+            <li class="nav-item <%= currentPath.equalsIgnoreCase("/admin/employee") || currentPath.equalsIgnoreCase("/admin/accountList") || currentPath.equalsIgnoreCase("/admin/customerbuyproducts") ? "menu-open" : " " %>">
+              <a href="#" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/employee") || currentPath.equalsIgnoreCase("/admin/accountList") || currentPath.equalsIgnoreCase("/admin/customerbuyproducts") ? "active" : " " %>">
                 <i class="fa-regular fa-user" style="color: #f0f0f0;"></i>
                 <p>
                   Quản lí tài khoản
@@ -206,19 +212,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item active">
-                  <a href="${pageContext.request.contextPath }/admin/employee" class="nav-link">
+                  <a href="${pageContext.request.contextPath }/admin/employee" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/employee") ? "active" : " " %> ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Danh Sách Nhân Viên</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath }/admin/accountList" class="nav-link">
+                  <a href="${pageContext.request.contextPath }/admin/accountList" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/accountList") ? "active" : " " %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Danh Sách Người Dùng Trên Website</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath }/admin/customerbuyproducts" class="nav-link">
+                  <a href="${pageContext.request.contextPath }/admin/customerbuyproducts" class="nav-link  <%= currentPath.equalsIgnoreCase("/admin/customerbuyproducts") ? "active" : " " %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Danh Sách Khách Hàng Mua Xe</p>
                   </a>
@@ -226,8 +232,8 @@
               </ul>
             </li>
             <li class="nav-header">Quản Lí Sản Phẩm</li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
+            <li class="nav-item <%= currentPath.equalsIgnoreCase("/admin/listproduct") || currentPath.equalsIgnoreCase("/admin/listbrand") || currentPath.equalsIgnoreCase("/admin/productversion") || currentPath.equalsIgnoreCase("/admin/productcolor")  ? "menu-open" : " " %>">
+              <a href="#" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/listproduct") || currentPath.equalsIgnoreCase("/admin/listbrand") || currentPath.equalsIgnoreCase("/admin/productversion") || currentPath.equalsIgnoreCase("/admin/productcolor")  ? "active" : " " %>">
                 <i class="fa-solid fa-motorcycle" style="color: #e1e2e5;"></i>
                 <p>
                   Quản Lí Xe 
@@ -235,35 +241,35 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="${pageContext.request.contextPath }/admin/listproduct" class="nav-link">
+                <li class="nav-item ">
+                  <a href="${pageContext.request.contextPath }/admin/listproduct" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/listproduct") ? "active" : " " %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Danh Sách Xe </p>  
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath }/admin/listbrand" class="nav-link">
+                  <a href="${pageContext.request.contextPath }/admin/listbrand" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/listbrand") ? "active" : " " %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Danh Sách Hãng Xe</p>
                   </a>
                 </li>
                  <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/admin/productversion" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/admin/productversion" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/productversion") ? "active" : " " %>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh Sách Phiên Bản </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/admin/productcolor" class="nav-link">
+                <li class="nav-item">
+                     			 <a href="${pageContext.request.contextPath }/admin/productcolor" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/productcolor") ? "active" : " " %>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh Sách Màu Xe </p>
                                 </a>
-                            </li>
+                </li>
               </ul>
             </li>
              <li class="nav-header">Quản Lí Kho Hàng</li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
+            <li class="nav-item <%= currentPath.equalsIgnoreCase("/admin/importProduct") || currentPath.equalsIgnoreCase("/admin/warehouse")|| currentPath.equalsIgnoreCase("/admin/productAppoinment") ? "menu-open" : " " %>">
+              <a href="#" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/importProduct") || currentPath.equalsIgnoreCase("/admin/productAppoinment") || currentPath.equalsIgnoreCase("/admin/warehouse")  ? "active" : " " %>">
                 <i class="nav-icon fas fa-table" style="color: #e1e2e5;"></i>
                 <p>
                   Quản Lí Kho Hàng
@@ -272,23 +278,29 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath }/admin/importProduct" class="nav-link">
+                  <a href="${pageContext.request.contextPath }/admin/importProduct" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/importProduct") ? "active" : " " %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Dữ Liệu Nhập Hàng</p>  
                   </a>
                 </li>   
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath }/admin/warehouse" class="nav-link">
+                  <a href="${pageContext.request.contextPath }/admin/warehouse" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/warehouse") ? "active" : " " %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Dữ Liệu Kho Hàng</p>  
+                  </a>
+                </li>  
+                <li class="nav-item">
+                  <a href="${pageContext.request.contextPath }/admin/productAppoinment" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/productAppoinment") ? "active" : " " %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Dữ Liệu Xe Đã Được Cọc</p>  
                   </a>
                 </li>                 
               </ul>
             </li>
             
              <li class="nav-header">Nhật ký Sử Dụng</li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
+            <li class="nav-item <%= currentPath.equalsIgnoreCase("/admin/log") ? "menu-open" : " " %>">
+              <a href="#" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/log") ? "active" : " " %>">
                 <i class="nav-icon fas fa-table" style="color: #e1e2e5;"></i>
                 <p>
                   Nhật Ký 
@@ -297,7 +309,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="${pageContext.request.contextPath }/admin/log" class="nav-link">
+                  <a href="${pageContext.request.contextPath }/admin/log" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/log") ? "active" : " " %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Log</p>  
                   </a>
@@ -306,8 +318,8 @@
             </li>
             
             <li class="nav-header">Dịch Vụ Khách Hàng</li>
-            <li class="nav-item">
-              <a href="${pageContext.request.contextPath }/admin/listpdf" class="nav-link">
+            <li class="nav-item <%= currentPath.equalsIgnoreCase("/admin/listpdf") ? "menu-open" : " " %>">
+              <a href="${pageContext.request.contextPath }/admin/listpdf" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/listpdf") ? "active" : " " %>">
               <i class="fa-solid fa-file-pdf" style="color: #e1e2e5;"></i>
               <p>
                 Nội dung các phiếu mua hàng và sách

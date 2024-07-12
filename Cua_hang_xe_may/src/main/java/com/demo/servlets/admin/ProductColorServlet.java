@@ -62,6 +62,8 @@ public class ProductColorServlet extends HttpServlet {
 		ColorModel colorModel = new ColorModel();
 		List<ProductColor> productColors = colorModel.findAll();
 		request.setAttribute("productColors", productColors);
+		String currentPath = "/admin/productcolor"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/productColor.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}

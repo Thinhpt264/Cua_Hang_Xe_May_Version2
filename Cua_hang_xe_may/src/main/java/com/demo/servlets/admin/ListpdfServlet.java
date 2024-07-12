@@ -25,6 +25,8 @@ public class ListpdfServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String currentPath = "/admin/listpdf"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/listpdf.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}

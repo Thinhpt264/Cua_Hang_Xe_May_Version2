@@ -9,6 +9,8 @@ import java.util.List;
 import com.demo.entities.Appointment;
 import com.demo.entities.AppointmentDetail;
 import com.demo.entities.ConnectDB;
+import com.demo.entities.Item;
+import com.demo.entities.ProductColor;
 
 public class AppointmentDetailModel {
 	public List<AppointmentDetail> findAll() {
@@ -73,9 +75,31 @@ public class AppointmentDetailModel {
 		
 		return result;
 	}
+	public List<Item> findAllProductColor() {
+		List<Item> items = new ArrayList<Item>();
+		ColorModel colorModel = new ColorModel();
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("SELECT productColorId, COUNT(*) AS quantity FROM `appoitntmentdetail` GROUP BY productColorId");
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Item i = new Item();
+				i.setProductcolor(colorModel.findColorById(resultSet.getInt("productColorId")));
+				i.setQuantity(resultSet.getInt("quantity"));
+				items.add(i);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			items = null;
+		}finally {
+			ConnectDB.disconnect();
+		}
+		
+		return items;
+	}
 	public static void main(String[] args) {
 		AppointmentDetailModel appointmentDetailModel = new AppointmentDetailModel();
 		AppointmentDetail a = new AppointmentDetail();
-		System.out.println(appointmentDetailModel.findAppointmentDetailByAppoitntmentId(27));
+		System.out.println(appointmentDetailModel.findAllProductColor());
 	}
 }

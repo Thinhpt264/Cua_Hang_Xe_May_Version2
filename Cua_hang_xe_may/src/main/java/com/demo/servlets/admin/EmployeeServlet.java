@@ -41,6 +41,8 @@ public class EmployeeServlet extends HttpServlet {
 		EmployeeModel employeeModel = new EmployeeModel();
 		List<Employee> employees = employeeModel.findAll();
 		request.setAttribute("employees", employees);
+		String currentPath = "/admin/employee"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/employee.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}

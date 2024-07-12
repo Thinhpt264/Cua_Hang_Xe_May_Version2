@@ -285,6 +285,12 @@
    	<description></description>
    	<servlet-class>com.demo.servlets.admin.StatisticalServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>productAppoimentServlet</servlet-name>
+   	<display-name>productAppoimentServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.servlets.admin.productAppoimentServlet</servlet-class>
+   </servlet>
   <servlet-mapping>
   	<servlet-name>HomeServlet</servlet-name>
   	<url-pattern>/HomeServlet</url-pattern>
@@ -456,5 +462,9 @@
   <servlet-mapping>
   	<servlet-name>StatisticalServlet</servlet-name>
   	<url-pattern>/StatisticalServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>productAppoimentServlet</servlet-name>
+  	<url-pattern>/productAppoimentServlet</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -44,6 +44,8 @@ public class CustomerbuyproductsServlet extends HttpServlet {
 		CustomerModel customerModel = new CustomerModel();
 		List<Customer> customers = customerModel.findAll();
 		request.setAttribute("customers", customers);
+		String currentPath = "/admin/customerbuyproducts"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
  		request.setAttribute("admin", "../admin/customerbuyproducts.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}

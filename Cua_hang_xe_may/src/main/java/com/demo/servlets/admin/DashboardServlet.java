@@ -93,6 +93,9 @@ public class DashboardServlet extends HttpServlet {
 		List<Invoice> invoices = invoiceModel.findAll();
 		request.setAttribute("invoices", invoices);
 		request.setAttribute("accounts", accounts);
+		String currentPath = "/admin/home"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
+        
 		request.setAttribute("admin", "../admin/adminhome.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}

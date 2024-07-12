@@ -31,6 +31,10 @@
 	List<Contact> contacts = (List<Contact>) request.getAttribute("contacts");
 	if (contacts == null)
 		contacts = new ArrayList<>();
+	
+	ColorModel colorModel = new ColorModel();
+	List<ProductColor> colors = colorModel.findAll();
+	
 	%>
 <div class="content-header">
 	<div class="container-fluid">
@@ -61,13 +65,13 @@
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
-						<h3>150</h3>
-						<p>Sản Phẩm Mới</p>
+						<h3><%= colors.size() %></h3>
+						<p> Sản Phẩm </p>
 					</div>
 					<div class="icon">
 						<i class="ion ion-bag"></i>
 					</div>
-					<a href="#" class="small-box-footer">Thêm Chi Tiết <i
+					<a href="#" class="small-box-footer">Xem Chi Tiết <i
 						class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
@@ -79,12 +83,12 @@
 						<h3>
 							13<sup style="font-size: 20px"></sup>
 						</h3>
-						<p>Mua Hàng Mới</p>
+						<p>Đơn Đặt Cọc Mới</p>
 					</div>
 					<div class="icon">
 						<i class="ion ion-stats-bars"></i>
 					</div>
-					<a href="#" class="small-box-footer">Thêm Chi Tiết <i
+					<a href="#" class="small-box-footer">Xem Chi Tiết <i
 						class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
@@ -249,7 +253,7 @@
 											<tr class="odd">
 												<td class="dtr-control sorting_1" tabindex="0"><%=i.getId()%></td>
 												<%
-												ColorModel colorModel = new ColorModel();
+											
 												ProductModel productModel = new ProductModel();
 												%>
 												<td><%=productModel.findProductById(productModel
