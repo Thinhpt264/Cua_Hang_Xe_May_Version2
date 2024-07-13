@@ -98,7 +98,7 @@
 				                         <fmt:formatNumber type="currency" 
 				                            value ="<%= color.getPrice() %>" currencySymbol="VNĐ"/> </td>
                                         <td><%= color.getValue() %></td>
-                                        <td><%= color.getQuantity() %></td>
+                                        <td><%= color.getQuantity() == 0 ? "Hết Hàng" : color.getQuantity() %></td>
                                        	
                                       
                                     	

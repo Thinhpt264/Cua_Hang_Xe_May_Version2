@@ -42,7 +42,8 @@ public class ImportProductServlet extends HttpServlet {
 	
 	}
 	protected void doGet_Index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String currentPath = "/admin/importProduct"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/listImportProduct.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	
