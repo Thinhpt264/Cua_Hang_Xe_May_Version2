@@ -291,6 +291,12 @@
    	<description></description>
    	<servlet-class>com.demo.servlets.admin.productAppoimentServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>AppointmentServlet</servlet-name>
+   	<display-name>AppointmentServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.servlets.admin.AppointmentServlet</servlet-class>
+   </servlet>
   <servlet-mapping>
   	<servlet-name>HomeServlet</servlet-name>
   	<url-pattern>/HomeServlet</url-pattern>
@@ -466,5 +472,9 @@
   <servlet-mapping>
   	<servlet-name>productAppoimentServlet</servlet-name>
   	<url-pattern>/productAppoimentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AppointmentServlet</servlet-name>
+  	<url-pattern>/AppointmentServlet</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -64,9 +64,6 @@ public class InvoiceModel {
 		}
 		return invoice;
 	}
-	public static void main(String[] args) {
-		System.out.println(new InvoiceModel().findInvoiceByDate());
-	}
 	public boolean create(Invoice invoice) {
 		boolean result = true;
 		
@@ -75,7 +72,7 @@ public class InvoiceModel {
 					.prepareStatement("insert into invoicedetails (colorId, tradeDate, customerId, employeeId, price) "
 							+ "values(?, ?, ?, ?,? )");
 			preparedStatement.setInt(1, invoice.getColorId());
-			preparedStatement.setDate(2, java.sql.Date.valueOf(invoice.getTradeDate().toString()));
+			preparedStatement.setDate(2, new java.sql.Date(invoice.getTradeDate().getTime()));
 			preparedStatement.setInt(3, invoice.getCustomerId());
 			preparedStatement.setInt(4, invoice.getEmployeeId());
 			preparedStatement.setDouble(5, invoice.getPrice());
@@ -106,6 +103,8 @@ public class InvoiceModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result = false;
+		}finally {
+			ConnectDB.disconnect();
 		}
 		return result;
 	}
@@ -152,6 +151,17 @@ public class InvoiceModel {
 			ConnectDB.disconnect();
 		}
 		return invoices;
+	}
+	public static void main(String[] args) {
+		InvoiceModel iv = new InvoiceModel();
+		Invoice i = new Invoice();
+		Date tradeDate = new Date();
+		i.setTradeDate(tradeDate);
+		i.setColorId(42);
+		i.setCustomerId(2);
+		i.setEmployeeId(12);
+		i.setPrice(10000000.0);
+		System.out.println(iv.create(i));
 	}
 	
 	

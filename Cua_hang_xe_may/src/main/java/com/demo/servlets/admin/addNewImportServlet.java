@@ -66,6 +66,7 @@ public class addNewImportServlet extends HttpServlet {
 		whi.setPrice(price);
 		WareHouseModel whModel = new WareHouseModel();
 		if(whModel.create(whi)) {
+			
 			int quantity_old = color.getQuantity();
 			response.sendRedirect("importProduct");
 			color.setQuantity(quantity_old + quantity);
