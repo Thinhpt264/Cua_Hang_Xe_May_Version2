@@ -75,13 +75,23 @@
 							},
 							success: function (data) {
 								var color = data.color;
+								console.log(color.quantity);
+								
 								var version = data.version;
 var options = { style: 'decimal', useGrouping: true };
 								var price = color.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 								$('#img').attr('src', '${pageContext.request.contextPath}/assets/user/Image/' + color.photo);
 								$('#price').html('Giá ' + price +' VNĐ');
+								$('#quantity').html('Còn ' + color.quantity +' Sản Phẩm');
 								$('#versionName').html( version.versionName);
 								$('#ColornName').html(color.color);
+								console.log(color.quantity === 0)
+								if(color.quantity === 0) {
+									$('#deletecart').hide();
+								}else{
+									$('#deletecart').show();
+								}
+								
 								$('#cartId').attr('href' , '${pageContext.request.contextPath}/cart?action=buynow&id='+color.id) 
 								
 							}
@@ -107,13 +117,14 @@ var options = { style: 'decimal', useGrouping: true };
                 <div class="header mr-5">
                     <h1><%=product.getName() %>  </h1>  <h1  id="versionName"> <%= productVersions.get(0).getVersionName() %></h1>	<h1  id="ColornName"> <%=productColor.getColor() %></h1>
                     <div id="price" style="font-size: 30px;"><%=messages.getString("don_gia")%> <fmt:formatNumber type="number" value="<%= productColor.getPrice()%>" pattern="#,##0"/> VNĐ </div>
+                    <div id="quantity" style="font-size: 30px;"><%= productColor.getQuantity() %> Sản Phẩm </div>
                 </div>
            	
             
         </div> 
        
                        </div>
-                   </div aaa>
+                   </div >
                 </div >
                 
        
@@ -160,9 +171,14 @@ var options = { style: 'decimal', useGrouping: true };
         	</div>
     </div>
 
-    <div class="container-fluid mb-2 ">
-        <div class="container">
-           <a href="${pageContext.request.contextPath}/cart?action=buynow&id=<%=productColor.getId()%>" id="cartId" style="text-decoration: none;"><button class="btn btn-primary btn-lg btn-block" name="btnDatHang" style="width: 200px;height: 70px;">Thêm Vào Giỏ Hàng</button></a> 
+    <div class="container-fluid mb-2 " id="deletecart">
+        <div class="container"  >
+           <a href="${pageContext.request.contextPath}/cart?action=buynow&id=<%=productColor.getId()%>" id="cartId" style="text-decoration: none;">
+           <button id="btnCart" class="btn btn-primary btn-lg btn-block" name="btnDatHang" style="width: 200px;height: 70px;">
+           
+           Thêm Vào Giỏ Hàng
+           </button>
+           </a> 
         </div>
         
     </div> 

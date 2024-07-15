@@ -50,9 +50,9 @@
                 <div class="col-lg-2">
                 	<button data-id="<%=a.getId()%>" class="btn btn-info d-flex justify-content-end align-items-center openAppentTotal" data-bs-toggle="modal" data-bs-target="#exampleModal"> Chi Tiết</button>
                 	
-                	<a  href="<%= a.getStatus() == 1 ? "http://localhost:8080/Cua_hang_xe_may/payment?deposit_amount=" + a.getDeposit_amount()+"&id=" + a.getId() :  " "%>" class="btn  <%= a.getStatus() == 1 ? "btn-danger" :  "btn-info"%>  d-flex justify-content-end align-items-center openAppentTotal" > <%= a.getStatus() == 0  ? "Đã Thanh Toán Cọc" :  "Bạn Chưa Thanh Toán Cọc"%> </a>
+                	<a  href="<%= a.getStatus() == 1 ? "http://localhost:8080/Cua_hang_xe_may/payment?deposit_amount=" + a.getDeposit_amount()+"&id=" + a.getId() :  " "%>" class="btn  <%= a.getStatus() == 1 ? "btn-danger" :  "btn-info"%>  d-flex justify-content-end align-items-center" > <%= a.getStatus() == 0  ? "Đã Thanh Toán Cọc" :  "Bạn Chưa Thanh Toán Cọc"%> </a>
                 	
-                	
+             
                  </div>
                 <div class="col-lg-12 d-flex justify-content-end align-items-end">
                 	

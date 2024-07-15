@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.demo.entities.Invoice;
+import com.demo.entities.ProductColor;
+import com.demo.models.ColorModel;
 import com.demo.models.InvoiceModel;
 @WebServlet("/admin/addNewInvoice")
 /**
@@ -46,7 +48,13 @@ public class addNewInvoice extends HttpServlet {
 		int customerId = Integer.parseInt( request.getParameter("customerId"));
 		double price = Double.parseDouble(request.getParameter("price"));
 		Date tradeDate = new Date();
+		System.out.println(tradeDate);
 		invoice.setColorId(colorId);
+		ColorModel colorModel = new ColorModel();
+		ProductColor color = colorModel.findColorById(colorId);
+		int quantity = color.getQuantity();
+		color.setQuantity(quantity - 1);
+		System.out.println(colorModel.update(color));
 		invoice.setCustomerId(customerId);
 		invoice.setEmployeeId(employeeId);
 		invoice.setTradeDate(tradeDate);

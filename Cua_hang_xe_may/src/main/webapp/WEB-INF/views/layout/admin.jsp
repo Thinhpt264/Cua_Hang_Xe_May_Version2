@@ -202,15 +202,21 @@
               </a>
             </li>
             <li class="nav-header">Quản Lí Người Dùng</li>
-            <li class="nav-item <%= currentPath.equalsIgnoreCase("/admin/employee") || currentPath.equalsIgnoreCase("/admin/accountList") || currentPath.equalsIgnoreCase("/admin/customerbuyproducts") ? "menu-open" : " " %>">
-              <a href="#" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/employee") || currentPath.equalsIgnoreCase("/admin/accountList") || currentPath.equalsIgnoreCase("/admin/customerbuyproducts") ? "active" : " " %>">
+            <li class="nav-item <%= currentPath.equalsIgnoreCase("/admin/employee") ||  currentPath.equalsIgnoreCase("/admin/appointment") || currentPath.equalsIgnoreCase("/admin/accountList") || currentPath.equalsIgnoreCase("/admin/customerbuyproducts") ? "menu-open" : " " %>">
+              <a href="#" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/employee") || currentPath.equalsIgnoreCase("/admin/appointment") || currentPath.equalsIgnoreCase("/admin/accountList") || currentPath.equalsIgnoreCase("/admin/customerbuyproducts") ? "active" : " " %>">
                 <i class="fa-regular fa-user" style="color: #f0f0f0;"></i>
                 <p>
-                  Quản lí tài khoản
+                  Quản Lý Người Dùng
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
+              <li class="nav-item active">
+                  <a href="${pageContext.request.contextPath }/admin/appointment" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/appointment") ? "active" : " " %> ">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Cuộc Hẹn Của Khách</p>
+                  </a>
+                </li>
                 <li class="nav-item active">
                   <a href="${pageContext.request.contextPath }/admin/employee" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/employee") ? "active" : " " %> ">
                     <i class="far fa-circle nav-icon"></i>

@@ -239,6 +239,10 @@ url: '${pageContext.request.contextPath}/cart',
             <label for="date" class="col-form-label">Ngày Đến Xem:</label>
              <input type="date" id="date" name="date" class="form-control" placeholder="date" required="required">
           </div>
+          <div class="mb-5">
+            <label for="date" class="col-form-label">Ghi Chú</label>
+             <input type="text" id="content" name="content" class="form-control" placeholder="Gửi lời nhắn tới chúng tôi" required="required">
+          </div>
            		<div class="showlist">
             	<div class="row rent-item ">
 	                <div class="col-lg-4">

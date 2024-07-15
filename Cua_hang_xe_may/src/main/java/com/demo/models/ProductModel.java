@@ -449,7 +449,7 @@ public class ProductModel {
 				productColor.setColor(resultSet.getString("color"));
 				productColor.setPrice(resultSet.getDouble("price"));
 				productColor.setValue(resultSet.getString("value"));
-				
+				productColor.setQuantity(resultSet.getInt("quantity"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

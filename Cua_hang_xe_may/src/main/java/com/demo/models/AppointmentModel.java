@@ -28,7 +28,9 @@ public class AppointmentModel {
 				appointment.setStatus(resultSet.getInt("status"));
 				appointment.setAccountId(resultSet.getInt("accountId"));
 				appointment.setDeposit_amount(resultSet.getDouble("deposit_amount"));
+				
 				appointment.setDate_pay(resultSet.getString("date_pay"));
+				appointment.setContent((resultSet.getString("content")));
 				result.add(appointment);
 			}
 		} catch (SQLException e) {
@@ -59,6 +61,7 @@ public class AppointmentModel {
 				appointment.setAccountId(resultSet.getInt("accountId"));
 				appointment.setDeposit_amount(resultSet.getDouble("deposit_amount"));
 				appointment.setDate_pay(resultSet.getString("date_pay"));
+				appointment.setContent(resultSet.getString("content"));
 				result.add(appointment);
 			}
 		} catch (SQLException e) {
@@ -88,6 +91,7 @@ public class AppointmentModel {
 				result.setAccountId(resultSet.getInt("accountId"));
 				result.setDeposit_amount(resultSet.getDouble("deposit_amount"));
 				result.setDate_pay(resultSet.getString("date_pay"));
+				result.setContent(resultSet.getString("content"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -102,17 +106,17 @@ public class AppointmentModel {
 		boolean result =  true;
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection()
-					.prepareStatement("insert into appointment(name, email, phone, appointmentDate, cccd, status, accountId, deposit_amount,date_pay) values(?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("insert into appointment(name, email, phone, appointmentDate, cccd, status, accountId, deposit_amount,date_pay,content) values(?,?,?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, appointment.getName());
 			preparedStatement.setString(2, appointment.getEmail());
 			preparedStatement.setString(3, appointment.getPhone());
 			preparedStatement.setString(4, appointment.getAppointmentDate());
 			preparedStatement.setString(5, appointment.getCccd());
 			preparedStatement.setInt(6, appointment.getStatus());
-			preparedStatement.setInt(6, appointment.getStatus());
 			preparedStatement.setInt(7, appointment.getAccountId());
 			preparedStatement.setDouble(8, appointment.getDeposit_amount());
 			preparedStatement.setString(9, appointment.getDate_pay());
+			preparedStatement.setString(10, appointment.getContent());
 			result = preparedStatement.executeUpdate() > 0;
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -139,6 +143,7 @@ public class AppointmentModel {
 				result.setAccountId(resultSet.getInt("accountId"));
 				result.setDeposit_amount(resultSet.getDouble("deposit_amount"));
 				result.setDate_pay(resultSet.getString("date_pay"));
+				result.setContent(resultSet.getString("content"));
 			}
 			
 		} catch (SQLException e) {
@@ -155,18 +160,18 @@ public class AppointmentModel {
 		boolean result = true;
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("update appointment set name=?,"
-					+ "email=?, phone=?,appointmentDate=?,cccd=?,  status=?, accountId=?, deposit_amount=?,date_pay=? where id=? ");
+					+ "email=?, phone=?,appointmentDate=?,cccd=?,  status=?, accountId=?, deposit_amount=?,date_pay=?,content=? where id=? ");
 			preparedStatement.setString(1, appointment.getName());
 			preparedStatement.setString(2, appointment.getEmail());
 			preparedStatement.setString(3, appointment.getPhone());
 			preparedStatement.setString(4, appointment.getAppointmentDate());
 			preparedStatement.setString(5, appointment.getCccd());
 			preparedStatement.setInt(6, appointment.getStatus());
-			preparedStatement.setInt(6, appointment.getStatus());
 			preparedStatement.setInt(7, appointment.getAccountId());
 			preparedStatement.setDouble(8, appointment.getDeposit_amount());
 			preparedStatement.setString(9, appointment.getDate_pay());
-			preparedStatement.setInt(10, appointment.getId());
+			preparedStatement.setString(10, appointment.getContent());
+			preparedStatement.setInt(11, appointment.getId());
 			result = preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

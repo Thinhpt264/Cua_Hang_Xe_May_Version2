@@ -62,6 +62,7 @@ public class PaymentServlet extends HttpServlet {
   		AppointmentModel appointmentModel = new AppointmentModel();
   		req.setAttribute("amount", Integer.parseInt(money)/100);
   		String status = req.getParameter("vnp_ResponseCode");
+  		System.out.println(status);
   		int idAp = Integer.parseInt((String) req.getSession().getAttribute("idAppoiment"));
   		System.out.println(idAp);
   		try {
@@ -72,10 +73,9 @@ public class PaymentServlet extends HttpServlet {
 				appointment.setDate_pay((String) dateFormat2.format(dateFormat.parse(req.getParameter("vnp_PayDate"))));
 				if(appointmentModel.update(appointment)) {
 					String email = appointment.getEmail();
-					NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-			        String formattedAmount = currencyFormatter.format(appointment.getDeposit_amount());
-			        LocalDate date = LocalDate.parse(appointment.getAppointmentDate());
-			        String formattedDate = (String) dateFormat2.format(date);
+//					NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+//			          = currencyFormatter.format(appointment.getDeposit_amount());
+					System.out.println(status.equalsIgnoreCase("00"));
 					MailHelper.MailHelper(email, "Email Xác Nhận Lịch Hẹn Từ Phía Cửa Hàng", "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"table-layout:fixed;background-color:#f9f9f9\" id=\"bodyTable\">\r\n"
 							+ "	<tbody>\r\n"
 							+ "		<tr>\r\n"
@@ -127,7 +127,7 @@ public class PaymentServlet extends HttpServlet {
 							+ "										<tr>\r\n"
 							+ "											<td style=\"padding-bottom: 30px; padding-left: 20px; padding-right: 20px;\" align=\"center\" valign=\"top\" class=\"subTitle\">\r\n"
 							+ "												<h3 class=\"text\" style=\"color:#999;font-family:Poppins,Helvetica,Arial,sans-serif;font-size:16px;font-weight:500;font-style:normal;letter-spacing:normal;line-height:24px;text-transform:none;text-align:center;padding:0;margin:0\">Bạn Đã Đặt Cọc Thành Công Lịch Hẹn Xem Xe Với Số Tiền </h3>\r\n"
-							+ "												<h4 style=\"color:#030202;font-family:Poppins,Helvetica,Arial,sans-serif;font-size:16px;font-weight:500;font-style:normal;letter-spacing:normal;line-height:24px;text-transform:none;text-align:center;padding:0;margin:0\">" + formattedAmount +" VNĐ </h4>\r\n"
+							+ "												<h4 style=\"color:#030202;font-family:Poppins,Helvetica,Arial,sans-serif;font-size:16px;font-weight:500;font-style:normal;letter-spacing:normal;line-height:24px;text-transform:none;text-align:center;padding:0;margin:0\">" + appointment.getDeposit_amount() +" VNĐ </h4>\r\n"
 							+ "											</td>\r\n"
 							+ "										</tr>\r\n"
 							+ "										<tr>\r\n"
@@ -136,7 +136,7 @@ public class PaymentServlet extends HttpServlet {
 							+ "													<tbody>\r\n"
 							+ "														<tr>\r\n"
 							+ "															<td style=\"padding-bottom: 20px;\" align=\"center\" valign=\"top\" class=\"description\">\r\n"
-							+ "																<p class=\"text\" style=\"color:#666;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0\">Lịch Hẹn Của Bạn Đã Được Xác Nhận Ngày " + formattedDate + "</p>\r\n"
+							+ "																<p class=\"text\" style=\"color:#666;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0\">Lịch Hẹn Của Bạn Đã Được Xác Nhận Ngày " + appointment.getAppointmentDate() + "</p>\r\n"
 							+ "																<p class=\"text\" style=\"color:#666;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0\">Cảm ơn bạn đã tin tưởng T-MotorShop </p>\r\n"
 							+ "															</td>\r\n"
 							+ "														</tr>\r\n"
