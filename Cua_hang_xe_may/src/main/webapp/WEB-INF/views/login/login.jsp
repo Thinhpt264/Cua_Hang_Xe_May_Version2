@@ -70,7 +70,7 @@
              <div class="pass-link ml-5"><a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="https://accounts.google.com/o/oauth2/auth?
 	scope=email&redirect_uri=http://localhost:8080/Cua_hang_xe_may/login-google&
 	response_type=code&client_id=885278340721-us6jlocdo6p1ql45ml84h1f1ikmbmj1v.apps.googleusercontent.com
-	&approval_prompt=force"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Đăng Nhập Bằng Google
+	&approval_prompt=force"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> <%=messages.getString("dang_nhap_bang_gg") %>
 </a></div>
             <div class="signup-link"><%=messages.getString("chua_co_tai_khoan")%> <a href=""><%=messages.getString("dang_ki_ngay")%>!</a></div>
           </form>
