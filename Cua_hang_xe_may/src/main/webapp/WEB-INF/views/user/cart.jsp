@@ -6,7 +6,8 @@
     pageEncoding="UTF-8" isELIgnored = "false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-   
+ <%@page import="java.util.Locale"%>
+<%@page import="java.util.ResourceBundle"%>
    <style>
 		   	.contact-form {
 		  display: block;
@@ -20,13 +21,22 @@
 		   	
    </style>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+   <%
+ 	HttpSession httpSession = request.getSession();
+	String lang = "vi";
+	if(httpSession.getAttribute("language") != null){
+		lang = httpSession.getAttribute("language").toString();
+	}
+	ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(lang));
+ 
+ %>
  <div class="container-fluid py-3">
         <div class="container pb-3">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
                     <div class="py-1">
-                        <h2> <i class="fa-solid fa-cart-shopping mr-3" style="font-size: 50px;"></i>Dễ Dàng Theo Dõi Điều Bạn Quan Tâm</h2>
-                        <p>Hãy thêm sản phẩm vào giỏ hàng.</p>
+                        <h2> <i class="fa-solid fa-cart-shopping mr-3" style="font-size: 50px;"></i><%=messages.getString("theo_doi_quan_tam") %></h2>
+                        <p><%=messages.getString("them_san_pham_vao_gio_hang")  %></p>
                     </div>
                 </div>
             </div>
@@ -43,11 +53,11 @@
 	                </div>
 	                <div class="col-lg-3 d-flex justify-content-left align-items-center">
 	                    <div>
-	                        <p class="m-0">Số Lượng</p>
+	                        <p class="m-0"><%= messages.getString("so_luong") %></p>
 	                        <span><a href="${pageContext.request.contextPath}/cart?action=minus&index=${i.index}"><i class="fa-solid fa-minus"></i></a>  ${item.quantity }  <a href="${pageContext.request.contextPath}/cart?action=plus&index=${i.index}"><i class="fa-solid fa-plus"></i></a></span> 
 	                    </div>
 	                    <div>
-	                        <p class="m-0">Đơn Giá</p>
+	                        <p class="m-0"><%= messages.getString("don_gia") %></p>
 	                         <fmt:setLocale value = "vi_Vn"/>
 	                        <span style="color: black;"> <fmt:formatNumber type="currency" 
           value ="${item.productcolor.price }" currencySymbol="VNĐ"/></span>
@@ -55,7 +65,7 @@
 	                </div>
 <div class="col-lg-3 d-flex justify-content-between align-items-center">
 	                    <div class="mr-1">
-	                        <p class="m-0">Tổng Cộng</p>
+	                        <p class="m-0"><%= messages.getString("tong_cong") %></p>
 	                      
 	                        <span style="color: black;"> <fmt:formatNumber type="currency" 
           value ="${item.productcolor.price * item.quantity }"  currencySymbol="VNĐ"/>
@@ -67,7 +77,7 @@
 					 </div>
 	             
 	                <div class="col-lg-2 d-flex justify-content-start align-items-center">
-	                    <a href="${pageContext.request.contextPath}/cart?action=remove&index=${i.index}" class="btn btn-danger">Xóa</a>
+	                    <a href="${pageContext.request.contextPath}/cart?action=remove&index=${i.index}" class="btn btn-danger"><%= messages.getString("xoa") %>></a>
 	                    <input type="checkbox" style=" transform: scale(1.5);"   name="tick " class="tick ml-3" data-id="${i.index}"> 
 	                </div>
 	            </div>
@@ -193,11 +203,11 @@ url: '${pageContext.request.contextPath}/cart',
           	});
 </script>
            <div class="row mt-5 m-2">
-                    <div class="col-lg-10 d-flex justify-content-end align-items-center" style="color:black">TỔNG CỘNG:</div>
+                    <div class="col-lg-10 d-flex justify-content-end align-items-center" style="color:black"><%= messages.getString("tong_cong") %>></div>
                     <div class="col-lg-2 d-flex justify-content-start align-items-center" style="color:black;"> <fmt:formatNumber type="currency" 
           value ="${total }" currencySymbol="VNĐ" /></div>
             </div>
-             <button type="button" class="openAppentTotal btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal">Mua Tất Cả</button>
+             <button type="button" class="openAppentTotal btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal"><%= messages.getString("mua_tat_ca") %></button>
         </div>
         	
         <div class="modal fade" id="exampleModal"tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -205,9 +215,9 @@ url: '${pageContext.request.contextPath}/cart',
     <div class="modal-content"  style="width: 800px">
     <c:if test="${sessionScope.account == null}">
                 	<div class="modal-header">
-                	 <h4>Bạn Chưa Đăng Nhập Tài Khoản!</h4>  
+                	 <h4><%=messages.getString("ban_chua_dang_nhap") %></h4>  
                 	 	<br>
-                	 <a href="${pageContext.request.contextPath}/login"> Đăng Nhập ngay để đặt lịch hẹn </a>
+                	 <a href="${pageContext.request.contextPath}/login"> <%= messages.getString("dang_nhap") %> </a>
                 	
                   </div>
      </c:if>
@@ -282,8 +292,8 @@ url: '${pageContext.request.contextPath}/cart',
             	</div>
            		
           <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-        <button type="submit" class="btn btn-primary">Gửi Lịch Hẹn</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%=messages.getString("huy") %></button>
+        <button type="submit" class="btn btn-primary"><%= messages.getString("gui_lich_hen") %></button>
         </c:if>
       </div>
       </c>

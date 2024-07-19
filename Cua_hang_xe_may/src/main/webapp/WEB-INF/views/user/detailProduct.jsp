@@ -78,7 +78,7 @@
 								console.log(color.quantity);
 								
 								var version = data.version;
-var options = { style: 'decimal', useGrouping: true };
+								var options = { style: 'decimal', useGrouping: true };
 								var price = color.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 								$('#img').attr('src', '${pageContext.request.contextPath}/assets/user/Image/' + color.photo);
 								$('#price').html('Giá ' + price +' VNĐ');
@@ -170,8 +170,8 @@ var options = { style: 'decimal', useGrouping: true };
            		 </div>
         	</div>
     </div>
-
-    <div class="container-fluid mb-2 " id="deletecart">
+	
+    <div class="container-fluid mb-2 " id="deletecart" >
         <div class="container"  >
            <a href="${pageContext.request.contextPath}/cart?action=buynow&id=<%=productColor.getId()%>" id="cartId" style="text-decoration: none;">
            <button id="btnCart" class="btn btn-primary btn-lg btn-block" name="btnDatHang" style="width: 200px;height: 70px;">
@@ -181,7 +181,20 @@ var options = { style: 'decimal', useGrouping: true };
            </a> 
         </div>
         
-    </div> 
+    </div>
+   
+
+	<script>
+	    // Truyền số lượng productColor từ backend vào JavaScript
+	    var productColorCount = <%= productColor.getQuantity() %>;
+	    $(document).ready(function() {
+	        if (productColorCount === 0) {
+	        	console.log(productColorCount);
+	            $('#deletecart').hide();
+	        }
+	    });
+	</script>
+
     <div class="container-fluid mb-5">
         <div class="container pb-5" >
             <h1><%=messages.getString("thong_so_ki_thuat")%></h1>
