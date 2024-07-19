@@ -35,10 +35,34 @@ public class WareHouseServlet extends HttpServlet {
 				String action = request.getParameter("action");
 				if(action == null) {
 					doGet_Index(request, response);
+				}else if(action.equalsIgnoreCase("delete")) {
+					doGet_Delete(request, response);
+				}else if(action.equalsIgnoreCase("update")) {
+					doGet_Update(request, response);
 				}
 	}
 
 	private void doGet_Index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		ColorModel colorModel = new ColorModel();
+		List<ProductColor> productColors = colorModel.findAll();
+		request.setAttribute("productColors", productColors);
+		String currentPath = "/admin/warehouse"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
+		request.setAttribute("admin", "../admin/ListWareHouse.jsp");
+		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
+	}
+	private void doGet_Delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		ColorModel colorModel = new ColorModel();
+		List<ProductColor> productColors = colorModel.findAll();
+		request.setAttribute("productColors", productColors);
+		String currentPath = "/admin/warehouse"; // Đường dẫn mong muốn
+        request.setAttribute("currentPath", currentPath);
+		request.setAttribute("admin", "../admin/ListWareHouse.jsp");
+		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
+	}
+	private void doGet_Update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ColorModel colorModel = new ColorModel();
 		List<ProductColor> productColors = colorModel.findAll();
