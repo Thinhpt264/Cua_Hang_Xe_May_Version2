@@ -1,5 +1,6 @@
 package com.demo.servlets.user;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,41 +39,36 @@ public class MotobikeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		if ("ajax".equals(action)) {
-            doGet_Ajax(request, response);
-        } else {
-            doGet_Index(request, response);
+		if (action == null ) {
+			doGet_Index(request, response);
+        } else if(action.equalsIgnoreCase("filterByBrand")) {
+        	filterByBrand(request, response);
         }
 	}
-	protected void doGet_Ajax(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void filterByBrand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Set the response type to JSON
+		response.setContentType("application/json; charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		PrintWriter writer = response.getWriter();
 		String idB = request.getParameter("brandFilter");
-        String idM = request.getParameter("motolineFilter");
         ProductModel productModel = new ProductModel();
         List<Product> products;
-        if (idB == null && idM == null) {
+        if (idB == null) {
             products = productModel.findAll();
         } else {
             int brandId = Integer.parseInt(idB);
-            int motolineId = Integer.parseInt(idM);
-            if (brandId == 0 && motolineId == 0) {
+           
+            if (brandId == 0) {
                 products = productModel.findAll();
-            } else if (brandId == 0) {
-                products = productModel.findbyMotoline(motolineId);
-            } else if (motolineId == 0) {
-                products = productModel.findbyBrand(brandId);
             } else {
-                products = productModel.findbyMotolineAndBrand(motolineId, brandId);
+                products  = productModel.findbyBrand(brandId);
             }
+            
         }
-
-        // Set the response type to JSON
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
 
         // Convert products list to JSON and write to response
         Gson gson = new Gson();
-        String json = gson.toJson(products);
-        response.getWriter().write(json);
+        writer.print(gson.toJson(products));
     }
 	
 	protected void doGet_Index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
