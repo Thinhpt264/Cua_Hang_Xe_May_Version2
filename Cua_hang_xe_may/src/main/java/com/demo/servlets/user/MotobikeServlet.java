@@ -43,8 +43,6 @@ public class MotobikeServlet extends HttpServlet {
 			doGet_Index(request, response);
         } else if(action.equalsIgnoreCase("filterByBrand")) {
         	filterByBrand(request, response);
-        }else if(action.equalsIgnoreCase("filterByMotoline")) {
-        	doGet_filterByMotoline(request, response);
         }
 	}
 	protected void filterByBrand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,31 +62,6 @@ public class MotobikeServlet extends HttpServlet {
                 products = productModel.findAll();
             } else {
                 products  = productModel.findbyBrand(brandId);
-            }
-            
-        }
-
-        // Convert products list to JSON and write to response
-        Gson gson = new Gson();
-        writer.print(gson.toJson(products));
-    }
-	protected void doGet_filterByMotoline(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Set the response type to JSON
-		response.setContentType("application/json; charset=utf-8");
-		request.setCharacterEncoding("utf-8");
-		PrintWriter writer = response.getWriter();
-		String idB = request.getParameter("motolineFilter");
-        ProductModel productModel = new ProductModel();
-        List<Product> products;
-        if (idB == null) {
-            products = productModel.findAll();
-        } else {
-            int motolineId = Integer.parseInt(idB);
-           
-            if (motolineId == 0) {
-                products = productModel.findAll();
-            } else {
-                products  = productModel.findbyMotoline(motolineId);
             }
             
         }
@@ -120,12 +93,15 @@ public class MotobikeServlet extends HttpServlet {
 					products = productModel.findAll();
 				} else {
 					int brandId = Integer.parseInt(idB);
-					
-					if (brandId == 0 ) {
+					int motolineId = Integer.parseInt(idM);
+					if (brandId == 0 && motolineId == 0) {
 					    products = productModel.findAll();
-					
-					} else {
+					} else if (brandId == 0) {
+					    products = productModel.findbyMotoline(motolineId);
+					} else if (motolineId == 0) {
 					    products = productModel.findbyBrand(brandId);
+					} else {
+					    products = productModel.findbyMotolineAndBrand(motolineId, brandId);
 					}
 				}
 				HttpSession session = request.getSession();

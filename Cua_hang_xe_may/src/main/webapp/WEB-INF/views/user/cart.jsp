@@ -43,7 +43,7 @@
             <c:set var="total" value="0"></c:set>
             <c:forEach var="item" items="${sessionScope.cart}" varStatus="i">
             	<c:set var="total" value="${total + item.productcolor.price * item.quantity }"></c:set>
-	            <div class="row rent-item m-2" id="reloadProducts">
+	            <div class="row rent-item m-2">
 	                <div class="col-lg-4">
 	                    <a href="${pageContext.request.contextPath}/details?id=${item.productcolor.id}">
 	                        <img class="img-fluid w-50" src="${pageContext.request.contextPath}/assets/user/Image/${item.productcolor.photo }" alt="">
@@ -54,20 +54,16 @@
 	                <div class="col-lg-3 d-flex justify-content-left align-items-center">
 	                    <div>
 	                        <p class="m-0"><%= messages.getString("so_luong") %></p>
-	                        <span><a href="${pageContext.request.contextPath}/cart?action=minus&index=${i.index}"><i class="fa-solid fa-minus"></i></a>  ${item.quantity }  
-	                        	<a href="${pageContext.request.contextPath}/cart?action=plus&index=${i.index}" id="index" class="btn-plus">
-	                        	<i class="fa-solid fa-plus"></i>
-	                        	</a>
-	                        </span> 
+	                        <span><a href="${pageContext.request.contextPath}/cart?action=minus&index=${i.index}"><i class="fa-solid fa-minus"></i></a>  ${item.quantity }  <a href="${pageContext.request.contextPath}/cart?action=plus&index=${i.index}"><i class="fa-solid fa-plus"></i></a></span> 
 	                    </div>
 	                    <div>
 	                        <p class="m-0"><%= messages.getString("don_gia") %></p>
 	                         <fmt:setLocale value = "vi_Vn"/>
 	                        <span style="color: black;"> <fmt:formatNumber type="currency" 
-          						value ="${item.productcolor.price }" currencySymbol="VNĐ"/></span>
+          value ="${item.productcolor.price }" currencySymbol="VNĐ"/></span>
 	                    </div>
 	                </div>
-					<div class="col-lg-3 d-flex justify-content-between align-items-center">
+<div class="col-lg-3 d-flex justify-content-between align-items-center">
 	                    <div class="mr-1">
 	                        <p class="m-0"><%= messages.getString("tong_cong") %></p>
 	                      
@@ -86,73 +82,6 @@
 	                </div>
 	            </div>
            </c:forEach>
-           <script>
-           $(document).ready(function() {
-        	    $("#index").click(function() {
-        	        var index = $(this).val();
-        	        
-        	        // Gửi yêu cầu AJAX
-        	        $.ajax({
-        	            type: 'GET',
-        	            dataType: 'json',
-        	            contentType: 'application/json; charset=utf-8',
-        	            url: '${pageContext.request.contextPath}/cart',
-        	            data: {
-        	                action: "plus",
-        	                index: index
-        	            },
-        	            success: function(data) {
-        	                var s = '';
-        	                var items = data.items;
-        	                
-        	                // Xử lý kết quả JSON và cập nhật nội dung của phần tử #results
-        	                for (var i = 0; i < items.length; i++) {
-        	                    var productColor = items[i].productcolor;
-        	                    var price = items[i].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        	                    var total = productColor.price * items[i].quantity;
-        	                    
-        	                    s += '<div class="row rent-item m-2">';
-        	                    s += '<div class="col-lg-4">';
-        	                    s += '<a href="${pageContext.request.contextPath}/details?id=' + items[i].id + '">';
-        	                    s += '<img class="img-fluid w-50" id="img_open" src="${pageContext.request.contextPath}/assets/user/Image/' + productColor.photo + '">';
-        	                    s += '<h4 class="text-uppercase nameProduct">' + productColor.color + '</h4>';
-        	                    s += '</a>';
-        	                    s += '</div>';
-        	                    s += '<div class="col-lg-5 d-flex justify-content-left align-items-center">';
-        	                    s += '<div>';
-        	                    s += '<p class="m-0">Số Lượng</p>';
-        	                    s += '<span class="quantity">' + items[i].quantity + '</span>';
-        	                    s += '</div>';
-        	                    s += '<div>';
-        	                    s += '<p class="m-0">Đơn Giá</p>';
-        	                    s += '<span class="price" style="color: black;">' + price + '</span>';
-        	                    s += '</div>';
-        	                    s += '</div>';
-        	                    s += '<div class="col-lg-3 d-flex justify-content-end align-items-center">';
-        	                    s += '<div class="mr-1">';
-        	                    s += '<p class="m-0">Tổng Cộng</p>';
-        	                    s += '<span style="color: black;" class="totalPrice">' + total + '</span>';
-        	                    s += '</div>';
-        	                    s += '<button type="button" class="openAppent btn btn-primary" data-id="' + items[i].index + '" data-bs-toggle="modal" data-bs-target="#exampleModal">Xem Ngay</button>';
-        	                    s += '</div>';
-        	                    s += '<div class="col-lg-2 d-flex justify-content-start align-items-center">';
-        	                    s += '<a href="${pageContext.request.contextPath}/cart?action=remove&index=' + items[i].index + '" class="btn btn-danger">Xóa</a>';
-        	                    s += '<input type="checkbox" style="transform: scale(1.5);" name="tick" class="tick ml-3" data-id="' + items[i].index + '">';
-        	                    s += '</div>';
-        	                    s += '</div>';
-        	                }
-        	                
-        	                $('.showlist').html(s);
-        	            },
-        	            error: function(xhr, status, error) {
-        	                console.error('Lỗi:', error);
-        	            }
-        	        });
-        	    });
-        	});
-
-
-</script>
            <script>
           	$(document).ready(function() {
           		$(".openAppent").click(function() {
@@ -202,7 +131,7 @@
           			  	console.log(itemId);
           			  $.ajax({
           				type : 'GET' ,
-						url: '${pageContext.request.contextPath}/cart',
+url: '${pageContext.request.contextPath}/cart',
           				data : {
           					itemId : itemId,
           					action : 'additem'	
