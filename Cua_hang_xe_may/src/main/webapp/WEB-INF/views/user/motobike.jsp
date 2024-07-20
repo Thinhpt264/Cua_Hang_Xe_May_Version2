@@ -54,7 +54,7 @@
             		 <div class="row mx-n2">
 	                    <div class="col-xl-3 col-lg-4 col-md-6 px-3">
 	                    <!-- Hiển Thị Tất Cả Các Option Của Hãng Trong Cơ Sở Dữ Liệu  -->
-	                        <select class="custom-select px-4 mb-3" style="height: 50px;" name="brandFilter" >
+	                        <select class="custom-select px-4 mb-3" style="height: 50px;" name="brandFilter" id="brandFilter">
 	                            <option selected value="0"><%= messages.getString("nhan_hieu")  %></option>
 	                            <%for(Brand b: brands)  {%>
 	                            <option value="<%=b.getId() %>"><%=b.getName() %></option>
@@ -77,65 +77,54 @@
             	</form>
             	<div id="results"></div>
             	<script>
-        $(document).ready(function() {
-            $('#filterForm').on('submit', function(event) {
-                event.preventDefault(); // Ngăn chặn hành động nộp form mặc định
+            	document.getElementById('brandFilter').addEventListener('change', function() {
+        		 var brandFilter = $(this).val();
+        		 
 
                 // Lấy giá trị của các ô chọn
-                var brandFilter = $('#brandFilter').val();
-                var motolineFilter = $('#motolineFilter').val();
-
+               
+           
+			
                 // Gửi yêu cầu AJAX
                 $.ajax({
-                    url: $(this).attr('action'), // URL của form
-                    method: 'GET',
+                	type: 'GET',
+					dataType: 'json',
+					contentType: 'application/json; charset=utf-8',
+					url: '${pageContext.request.contextPath}/motobike',
                     data: {
+                    	action: "filterByBrand",
                         brandFilter: brandFilter,
-                        motolineFilter: motolineFilter
                     },
-                    success: function(response) {
+                    success: function(products) {
+                    	var s = '';
                         // Xử lý kết quả JSON và cập nhật nội dung của phần tử #results
-                        var products = JSON.parse(response);
-                        var html = '<div class="row list">';
-                        if (products.length > 0) {
-                            for (var i = 0; i < products.length; i++) {
-                                var p = products[i];
-                                html += '<div class="col-lg-3 col-md-6 mb-2 item">' +
-                                    '<div class="rent-item mb-4">' +
-                                    '<img class="img-fluid mb-4" style="width: 230px; height: 170px;" src="${pageContext.request.contextPath}/assets/user/Image/' + p.avatar + '">' +
-                                    '<h4 class="text-uppercase mb-4">' + p.name + '</h4>' +
-                                    '<div class="d-flex justify-content-center mb-4">' +
-                                    '<div class="px-2">' +
-                                    '<value="vi_Vn"/>' +
-                                    '<value="' + p.price + '" currencySymbol="VNĐ"/>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<a class="btn btn-primary px-3" href="${pageContext.request.contextPath}/details?id=' + p.id + '">' + '<%= messages.getString("xem_chi_tiet") %>' + '</a>' +
-                                    '</div>' +
-                                    '</div>';
-                            }
-                        } else {
-                            html += '<p>No products found.</p>';
-                        }
-                        html += '</div>';
-
-                        // Cập nhật nội dung của phần tử #results
-                        $('#results').html(html);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX Error:', status, error);
-                    }
+                       for (var i = 0; i < products.length; i++) {
+                    	   var price = products[i].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                       	s += '<div class="col-lg-3 col-md-6 mb-2 item">';
+                       	s += 	'<div class="rent-item mb-4">';
+                       	s += 		'<img class="img-fluid mb-4"  style="width:230px ; height : 170px" src="${pageContext.request.contextPath}/assets/user/Image/'+products[i].avatar +'">'
+        				s += 		' <h4 class="text-uppercase mb-4">'+ products[i].name+'</h4>'   ;            
+		                s+=         ' <div class="d-flex justify-content-center mb-4">'      ;
+                       	s+=			'<div class="px-2">';
+                       	s+=        '<span>'+ price +' </span>';
+                       	s+=  '</div> </div>'
+                       	s+= '<a class="btn btn-primary px-3" href="${pageContext.request.contextPath}/details?id='+ products[i].id+'">Xem Chi Tiết</a>';
+                       	s+= '</div> </div>'
+	                       }
+                       $('#reloadProducts').html(s);
+						
+                        },
+                   
                 });
             });
-        });
+        
     </script>
             </div>
             <!-- Search End -->
-            <div class="row list" style="display: none;">	
+            <div class="row list" style="display: none;" id="reloadProducts">	
 				<%for(Product p: products) { %>
                 <div class="col-lg-3 col-md-6 mb-2 item">
                     <div class="rent-item mb-4">
-                   
                         <img class="img-fluid mb-4"  style="width:230px ; height : 170px" src="${pageContext.request.contextPath}/assets/user/Image/<%=p.getAvatar() %>">
                         <h4 class="text-uppercase mb-4"><%=p.getName() %></h4>
                         <div class="d-flex justify-content-center mb-4">
