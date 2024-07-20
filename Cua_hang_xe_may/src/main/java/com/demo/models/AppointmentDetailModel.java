@@ -154,4 +154,24 @@ public class AppointmentDetailModel {
 		AppointmentDetail a = new AppointmentDetail();
 		System.out.println(appointmentDetailModel.findAppointmentDetailById(12).toString());
 	}
+	public boolean update(AppointmentDetail appointmentDetail) {
+		boolean result = true;
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("update appoitntmentdetail set appointmentId=?,"
+					+ "productColorId=?, quantity=?,total=? where id=? ");
+			preparedStatement.setInt(1, appointmentDetail.getId_appoiment());
+			preparedStatement.setInt(2, appointmentDetail.getId_color());
+			preparedStatement.setInt(3, appointmentDetail.getQuantity());
+			preparedStatement.setDouble(4, appointmentDetail.getTotal());
+			preparedStatement.setInt(5, appointmentDetail.getId());
+			result = preparedStatement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = false;
+		}finally {
+			ConnectDB.disconnect();
+		}		
+		return result;	
+	}
 }

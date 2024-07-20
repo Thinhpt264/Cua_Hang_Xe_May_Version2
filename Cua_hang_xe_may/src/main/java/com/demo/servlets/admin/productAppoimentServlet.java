@@ -38,8 +38,6 @@ public class productAppoimentServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		if(action == null) {
 			doGet_Index(request, response);
-		}else if(action.equalsIgnoreCase("undo")) {
-			doGet_UndoProduct(request, response);
 		}
 		// TODO Auto-generated method stub
 		
@@ -48,13 +46,30 @@ public class productAppoimentServlet extends HttpServlet {
 		AppointmentDetailModel appointmentDetailModel = new  AppointmentDetailModel();
 		List<ProductApointment> productcolors = appointmentDetailModel.findAllProductColor();
 		request.setAttribute("items", productcolors);
+		System.out.println(productcolors.toString());
 		String currentPath = "/admin/productAppoinment"; // Đường dẫn mong muốn
         request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/productappointment.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}
-	protected void doGet_UndoProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String action = request.getParameter("action");
+		if(action == null) {
+			doGet_Index(request, response);
+		}else if(action.equalsIgnoreCase("undo")) {
+			doPost_UndoProduct(request, response);
+		}
+		// TODO Auto-generated method stub
+	}
+	protected void doPost_UndoProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		System.out.println(id);
 		int id1 = Integer.parseInt(id);
 		AppointmentDetailModel appointmentDetailModel = new  AppointmentDetailModel();
@@ -64,24 +79,23 @@ public class productAppoimentServlet extends HttpServlet {
 		System.out.println(appointmentDetail.getId_color());
 		ProductColor color = colorModel.findColorById(appointmentDetail.getId_color());
 		int quantityold = color.getQuantity();
-		
-		if(appointmentDetailModel.delete(appointmentDetail.getId())) {
-			color.setQuantity(quantityold+appointmentDetail.getQuantity());
+		int quantityDetail = appointmentDetail.getQuantity();
+		if(quantity < quantityDetail) {
+			appointmentDetail.setQuantity(quantityDetail-quantity);
+			color.setQuantity(quantityold + quantity);
 			colorModel.update(color);
+			appointmentDetailModel.update(appointmentDetail);
 			response.sendRedirect("productAppoinment");
-		}else {
-			response.sendRedirect("productAppoinment");
+		}else if(quantity == quantityDetail) {
+			color.setQuantity(quantityold + quantity);
+			colorModel.update(color);
+			if(appointmentDetailModel.delete(appointmentDetail.getId())) {
+				response.sendRedirect("productAppoinment");
+			}
+			
 		}
+				
 		
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

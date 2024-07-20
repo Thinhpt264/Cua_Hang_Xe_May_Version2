@@ -104,7 +104,14 @@
 				                            value ="<%= i.getProductColor().getPrice() %>" currencySymbol="VNĐ"/> </td>
                                         <td><%= i.getQuantity() %></td>
                                        	<td> Đã Được Đặt Cọc </td>
-                                       	<td> <a href="${pageContext.request.contextPath}/admin/productAppoinment?action=undo&id=<%=i.getId() %>"> Hoàn Về Kho </a> </td>
+                                       	<td>
+                                       		<form action="${pageContext.request.contextPath}/admin/productAppoinment?action=undo&id=<%=i.getId() %>" method="POST">
+                                       		<input type="number" min="1" name="quantity">
+                                       			<button type="submit">
+                                       	 		Hoàn Về Kho 
+                                       		 	</buton> 
+                                       		</form>
+                                       	 </td>
                                     </tr>
                         	<% } %>
                     
