@@ -1,3 +1,5 @@
+<%@page import="com.demo.models.AppointmentModel"%>
+<%@page import="com.demo.entities.ProductApointment"%>
 <%@page import="com.demo.entities.Item"%>
 <%@page import="com.demo.models.ProductModel"%>
 <%@page import="java.util.ArrayList"%>
@@ -7,8 +9,9 @@
     pageEncoding="UTF-8" isELIgnored = "false"%>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%
-		List<Item> items = (List<Item>) request.getAttribute("items");
+		List<ProductApointment> items = (List<ProductApointment>) request.getAttribute("items");
 		if(items == null) items = new ArrayList<>();
+		AppointmentModel appointmentModel = new AppointmentModel();
 	%>
 <div class="content-header">
         <div class="container-fluid">
@@ -61,13 +64,14 @@
                           <thead>
                             <tr>
                               <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                                aria-sort="ascending" aria-label="Id: activate to sort column descending">STT</th>
+                                aria-sort="ascending" aria-label="Id: activate to sort column descending">Mã Đơn</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                                aria-label="Ten_Nhan_Vien: activate to sort column ascending">Tên Xe</th>
-                              <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                                aria-label="Anh: activate to sort column ascending">Tên Phiên Bản</th>
+                                aria-label="Ten_Nhan_Vien: activate to sort column ascending">Tên Sản Phẩm</th>
+                            
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Ten_Nhan_Vien: activate to sort column ascending">Màu Sắc</th>
+                                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Anh: activate to sort column ascending">Tên Khách Hàng</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Ten_Nhan_Vien: activate to sort column ascending">Hình Ảnh</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
@@ -81,26 +85,27 @@
                             </tr>
                           </thead>
                         <tbody>
-                        	<%for(Item i: items) { %>
+                        	<%for(ProductApointment i: items) { %>
                         		 <tr>
-                                        <td><%= i.getProductcolor().getId()  %> </td>
+                                        <td><%= i.getId()  %> </td>
                                          <%ProductModel productModel = new ProductModel();
                                         %>
-                                        <td><%= productModel.findProductById(productModel.findProductVersionById(i.getProductcolor().getVersionID()).getProductID()).getName() %></td>
-                                       
-                                        <td><%= productModel.findProductVersionById(i.getProductcolor().getVersionID()).getVersionName() %> </td>
-                                        <td><%= i.getProductcolor().getColor() %></td>
-                                        <td class="text-center"><img src="${pageContext.request.contextPath}/assets/user/Image/<%=i.getProductcolor().getPhoto() %>" style="width: 50px"></td>
+                                        <td>
+                                        <%= productModel.findProductById(productModel.findProductVersionById(i.getProductColor().getVersionID()).getProductID()).getName() %>
+                                        - 
+                                        <%= productModel.findProductVersionById(i.getProductColor().getVersionID()).getVersionName() %>
+                                        </td>
+                                         <td><%= i.getProductColor().getColor() %></td>
+                                        <td> <%=appointmentModel.findAppointmentById(i.getAppointmentId()).getName() %> </td>
+                                      
+                                        <td class="text-center"><img src="${pageContext.request.contextPath}/assets/user/Image/<%=i.getProductColor().getPhoto() %>" style="width: 50px"></td>
                                         <td class="text-center"><fmt:setLocale value = "vi_Vn"/>
 				                         <fmt:formatNumber type="currency" 
-				                            value ="<%= i.getProductcolor().getPrice() %>" currencySymbol="VNĐ"/> </td>
+				                            value ="<%= i.getProductColor().getPrice() %>" currencySymbol="VNĐ"/> </td>
                                         <td><%= i.getQuantity() %></td>
                                        	<td> Đã Được Đặt Cọc </td>
-                                       	<td> <a href=""> Hoàn Về Kho </a> </td>
+                                       	<td> <a href="${pageContext.request.contextPath}/admin/productAppoinment?action=undo&id=<%=i.getId() %>"> Hoàn Về Kho </a> </td>
                                     </tr>
-                        		
-           
-                        		
                         	<% } %>
                     
                          </tbody>

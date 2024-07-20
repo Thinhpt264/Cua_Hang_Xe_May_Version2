@@ -10,6 +10,7 @@ import com.demo.entities.Appointment;
 import com.demo.entities.AppointmentDetail;
 import com.demo.entities.ConnectDB;
 import com.demo.entities.Item;
+import com.demo.entities.ProductApointment;
 import com.demo.entities.ProductColor;
 
 public class AppointmentDetailModel {
@@ -31,9 +32,37 @@ public class AppointmentDetailModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result = null;
+		}finally {
+			ConnectDB.disconnect();
 		}
 		return result;
 	}
+	
+	public AppointmentDetail findAppointmentDetailById(int id) {
+		AppointmentDetail result = new AppointmentDetail();
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("select * from appoitntmentdetail where id = ?");
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				result.setId(resultSet.getInt("id"));
+				result.setId_appoiment(resultSet.getInt("id"));
+				result.setId_appoiment(resultSet.getInt("appointmentId"));
+				result.setId_color(resultSet.getInt("productColorId"));
+				result.setQuantity(resultSet.getInt("quantity"));
+				result.setTotal(resultSet.getDouble("total"));
+		
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = null;
+		} finally {
+			ConnectDB.disconnect();
+		}
+		return result;
+	}
+	
 	
 	public List<AppointmentDetail> findAppointmentDetailByAppoitntmentId(int id) {
 		List<AppointmentDetail> result = new ArrayList<AppointmentDetail>();
@@ -55,6 +84,8 @@ public class AppointmentDetailModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result = null;
+		}finally {
+			ConnectDB.disconnect();
 		}
 		return result;
 	}
@@ -71,19 +102,23 @@ public class AppointmentDetailModel {
 		}catch (Exception e) {
 			// TODO: handle exception
 			result = false;
+		}finally {
+			ConnectDB.disconnect();
 		}
 		
 		return result;
 	}
-	public List<Item> findAllProductColor() {
-		List<Item> items = new ArrayList<Item>();
+	public List<ProductApointment> findAllProductColor() {
+		List<ProductApointment> items = new ArrayList<ProductApointment>();
 		ColorModel colorModel = new ColorModel();
 		try {
-			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("SELECT productColorId, COUNT(*) AS quantity FROM `appoitntmentdetail` GROUP BY productColorId");
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("SELECT  * FROM appoitntmentdetail");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
-				Item i = new Item();
-				i.setProductcolor(colorModel.findColorById(resultSet.getInt("productColorId")));
+				ProductApointment i = new ProductApointment();
+				i.setId(resultSet.getInt("id"));
+				i.setAppointmentId(resultSet.getInt("appointmentId"));
+				i.setProductColor(colorModel.findColorById(resultSet.getInt("productColorId")));
 				i.setQuantity(resultSet.getInt("quantity"));
 				items.add(i);
 			}
@@ -97,9 +132,26 @@ public class AppointmentDetailModel {
 		
 		return items;
 	}
+	public boolean delete(int id) {
+		boolean result = true;
+		try {
+			PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("delete from appoitntmentdetail where id = ?");
+			preparedStatement.setInt(1, id);
+			result = preparedStatement.executeUpdate() >0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = false;
+		}finally {
+			ConnectDB.disconnect();
+		}
+		return result;
+		
+	
+}
 	public static void main(String[] args) {
 		AppointmentDetailModel appointmentDetailModel = new AppointmentDetailModel();
 		AppointmentDetail a = new AppointmentDetail();
-		System.out.println(appointmentDetailModel.findAllProductColor());
+		System.out.println(appointmentDetailModel.findAppointmentDetailById(12).toString());
 	}
 }
