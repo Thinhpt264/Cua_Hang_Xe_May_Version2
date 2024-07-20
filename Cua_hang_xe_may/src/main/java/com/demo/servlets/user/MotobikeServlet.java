@@ -16,6 +16,7 @@ import com.demo.entities.Product;
 import com.demo.models.BrandModel;
 import com.demo.models.MotolineModel;
 import com.demo.models.ProductModel;
+import com.google.gson.Gson;
 import com.google.protobuf.Internal.ListAdapter;
 @WebServlet("/motobike")
 /**
@@ -37,11 +38,42 @@ public class MotobikeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		if(action == null) {
-			doGet_Index(request, response);
-		}
-		
+		if ("ajax".equals(action)) {
+            doGet_Ajax(request, response);
+        } else {
+            doGet_Index(request, response);
+        }
 	}
+	protected void doGet_Ajax(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String idB = request.getParameter("brandFilter");
+        String idM = request.getParameter("motolineFilter");
+        ProductModel productModel = new ProductModel();
+        List<Product> products;
+        if (idB == null && idM == null) {
+            products = productModel.findAll();
+        } else {
+            int brandId = Integer.parseInt(idB);
+            int motolineId = Integer.parseInt(idM);
+            if (brandId == 0 && motolineId == 0) {
+                products = productModel.findAll();
+            } else if (brandId == 0) {
+                products = productModel.findbyMotoline(motolineId);
+            } else if (motolineId == 0) {
+                products = productModel.findbyBrand(brandId);
+            } else {
+                products = productModel.findbyMotolineAndBrand(motolineId, brandId);
+            }
+        }
+
+        // Set the response type to JSON
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // Convert products list to JSON and write to response
+        Gson gson = new Gson();
+        String json = gson.toJson(products);
+        response.getWriter().write(json);
+    }
 	
 	protected void doGet_Index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

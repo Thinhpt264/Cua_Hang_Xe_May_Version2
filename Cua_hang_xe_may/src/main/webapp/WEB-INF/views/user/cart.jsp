@@ -77,7 +77,7 @@
 					 </div>
 	             
 	                <div class="col-lg-2 d-flex justify-content-start align-items-center">
-	                    <a href="${pageContext.request.contextPath}/cart?action=remove&index=${i.index}" class="btn btn-danger"><%= messages.getString("xoa") %>></a>
+	                    <a href="${pageContext.request.contextPath}/cart?action=remove&index=${i.index}" class="btn btn-danger"><%= messages.getString("xoa") %></a>
 	                    <input type="checkbox" style=" transform: scale(1.5);"   name="tick " class="tick ml-3" data-id="${i.index}"> 
 	                </div>
 	            </div>
@@ -203,11 +203,11 @@ url: '${pageContext.request.contextPath}/cart',
           	});
 </script>
            <div class="row mt-5 m-2">
-                    <div class="col-lg-10 d-flex justify-content-end align-items-center" style="color:black"><%= messages.getString("tong_cong") %>></div>
+                    <div class="col-lg-10 d-flex justify-content-end align-items-center" style="color:black"><%= messages.getString("tong_cong") %></div>
                     <div class="col-lg-2 d-flex justify-content-start align-items-center" style="color:black;"> <fmt:formatNumber type="currency" 
           value ="${total }" currencySymbol="VNĐ" /></div>
             </div>
-             <button type="button" class="openAppentTotal btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal"><%= messages.getString("mua_tat_ca") %></button>
+             <button type="button" class="openAppentTotal btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal"><%=messages.getString("mua_tat_ca") %></button>
         </div>
         	
         <div class="modal fade" id="exampleModal"tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -229,7 +229,7 @@ url: '${pageContext.request.contextPath}/cart',
       <div class="modal-body">
         <form action="${pageContext.request.contextPath }/appoinment?action=oneProduct" method="post">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Tên Của Bạn:</label>
+            <label for="recipient-name" class="col-form-label"><%=messages.getString("ten_cua_ban") %>:</label>
                <input type="text" id="recipient-name" name="name" class="form-control" placeholder="Nguyễn Văn A" required="required">
           </div>
           <div class="mb-2">
@@ -237,20 +237,20 @@ url: '${pageContext.request.contextPath}/cart',
              <input type="email" id="email" name="email" class="form-control" placeholder="vanA@gmail.com" required="required">
           </div>
           <div class="mb-2">
-            <label for="phone" class="col-form-label">Số Điện Thoại:</label>
+            <label for="phone" class="col-form-label"><%=messages.getString("so_dien_thoai") %>:</label>
              <input type="number" id="phone" name="phone" class="form-control" placeholder="0123456789" required="required">
              <input type="hidden" class="accountId" value="${sessionScope.account.id }" name ="accountId"> 
           </div>
           <div class="mb-2">
-            <label for="cccd" class="col-form-label">CCCD/CMND:</label>
+            <label for="cccd" class="col-form-label"><%=messages.getString("cccd") %>:</label>
              <input type="number" id="cccd" name="cccd" class="form-control" placeholder="" required="required">
           </div>
           <div class="mb-5">
-            <label for="date" class="col-form-label">Ngày Đến Xem:</label>
+            <label for="date" class="col-form-label"><%=messages.getString("ngay_den_xem") %>:</label>
              <input type="date" id="date" name="date" class="form-control" placeholder="date" required="required">
           </div>
           <div class="mb-5">
-            <label for="date" class="col-form-label">Ghi Chú</label>
+            <label for="date" class="col-form-label"><%=messages.getString("ghi_chu") %></label>
              <input type="text" id="content" name="content" class="form-control" placeholder="Gửi lời nhắn tới chúng tôi" required="required">
           </div>
            		<div class="showlist">
@@ -262,20 +262,20 @@ url: '${pageContext.request.contextPath}/cart',
 	                        <h4 class="text-uppercase nameProduct"> Ab2020</h4>
 	                    </a>
 	                </div>
-<div class="col-lg-5 d-flex justify-content-left align-items-center">
+						<div class="col-lg-5 d-flex justify-content-left align-items-center">
 	                    <div>
-	                        <p class="m-0">Số Lượng</p>
+	                        <p class="m-0"><%=messages.getString("so_luong") %></p>
 	                        <span class="quantity">1</span> 
 	                    </div>
 	                    <div>
-	                        <p class="m-0">Đơn Giá</p>
+	                        <p class="m-0"><%=messages.getString("don_gia") %></p>
 	                         
 	                        <span class="price" style="color: black;"> 111111vvb</span>
 	                    </div>
 	                </div>
 	                <div class="col-lg-3 d-flex justify-content-end align-items-center">
 	                    <div class="mr-1">
-	                        <p class="m-0" >Tổng Cộng</p>
+	                        <p class="m-0" ><%=messages.getString("tong_cong") %></p>
 	                      
 	                        <span style="color: black;" class="totalPrice"> 
 	                        1234vnđ
@@ -293,7 +293,7 @@ url: '${pageContext.request.contextPath}/cart',
            		
           <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%=messages.getString("huy") %></button>
-        <button type="submit" class="btn btn-primary"><%= messages.getString("gui_lich_hen") %></button>
+        <button type="submit" class="btn btn-primary"><%=messages.getString("gui_lich_hen") %></button>
         </c:if>
       </div>
       </c>
