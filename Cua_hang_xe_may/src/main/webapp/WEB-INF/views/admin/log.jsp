@@ -18,11 +18,15 @@
     		
     	}
     	.danger {
-    		background-color: #dc3545
+    		background-color: #CC0000
     		
     	}
     	.warning {
     		background-color: #ffc107
+    		
+    	}
+    	.alert {
+    		background-color: #f8d7da
     		
     	}
     </style>

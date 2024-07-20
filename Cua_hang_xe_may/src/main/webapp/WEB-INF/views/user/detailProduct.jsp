@@ -176,7 +176,7 @@
            <a href="${pageContext.request.contextPath}/cart?action=buynow&id=<%=productColor.getId()%>" id="cartId" style="text-decoration: none;">
            <button id="btnCart" class="btn btn-primary btn-lg btn-block" name="btnDatHang" style="width: 200px;height: 70px;">
            
-           Thêm Vào Giỏ Hàng
+           <%=messages.getString("them_san_pham_vao_gio_hang") %>
            </button>
            </a> 
         </div>
