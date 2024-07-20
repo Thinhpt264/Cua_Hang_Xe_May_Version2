@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.demo.models.AppointmentDetailModel;
 import com.demo.models.AppointmentModel;
+import com.demo.models.ColorModel;
 import com.demo.entities.Appointment;
 import com.demo.entities.AppointmentDetail;
 import com.demo.entities.Item;
@@ -53,6 +54,7 @@ public class AppointmentServlet extends HttpServlet {
 		}
 
 		private void doPost_Insert(HttpServletRequest request, HttpServletResponse response) {
+			ColorModel colorModel = new ColorModel();
 			// TODO Auto-generated method stub
 			AppointmentModel appointmentModel = new AppointmentModel();
 			String name = request.getParameter("name");
@@ -98,13 +100,16 @@ public class AppointmentServlet extends HttpServlet {
 					AppointmentDetailModel appointmentDetailModel = new AppointmentDetailModel();
 					for (int i = 0; i < colors.length; i++ ) {
 						int idC = Integer.parseInt(colors[i].trim());
+						ProductColor color = colorModel.findColorById(idC);
+						int quantityold = color.getQuantity();
+						color.setQuantity(quantityold - Integer.parseInt(quantity[i].trim()));
+						colorModel.update(color);
 						AppointmentDetail appointmentDetail = new AppointmentDetail();
 						appointmentDetail.setId_color(idC);
 						appointmentDetail.setId_appoiment(id);
 						appointmentDetail.setQuantity(Integer.parseInt(quantity[i].trim()));
 						appointmentDetail.setTotal(Double.parseDouble(total_color[i].trim()));
 						appointmentDetailModel.create(appointmentDetail);
-						
 					}
 							try {
 								
