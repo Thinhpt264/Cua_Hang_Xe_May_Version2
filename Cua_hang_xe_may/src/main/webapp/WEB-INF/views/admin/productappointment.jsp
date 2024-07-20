@@ -76,6 +76,8 @@
                                 aria-label="Muc_Luong: activate to sort column ascending">Số Lượng</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Muc_Luong: activate to sort column ascending">Trạng Thái</th>
+                              <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Muc_Luong: activate to sort column ascending">Hành Động</th>
                             </tr>
                           </thead>
                         <tbody>
@@ -83,7 +85,6 @@
                         		 <tr>
                                         <td><%= i.getProductcolor().getId()  %> </td>
                                          <%ProductModel productModel = new ProductModel();
-                                        	
                                         %>
                                         <td><%= productModel.findProductById(productModel.findProductVersionById(i.getProductcolor().getVersionID()).getProductID()).getName() %></td>
                                        
@@ -95,9 +96,10 @@
 				                            value ="<%= i.getProductcolor().getPrice() %>" currencySymbol="VNĐ"/> </td>
                                         <td><%= i.getQuantity() %></td>
                                        	<td> Đã Được Đặt Cọc </td>
+                                       	<td> <a href=""> Hoàn Về Kho </a> </td>
                                     </tr>
                         		
-                        		
+           
                         		
                         	<% } %>
                     
