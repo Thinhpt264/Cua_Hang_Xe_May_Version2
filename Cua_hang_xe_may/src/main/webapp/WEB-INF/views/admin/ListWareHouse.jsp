@@ -77,6 +77,8 @@
                                 aria-label="Muc_Luong: activate to sort column ascending">Dữ Liệu Màu Sắc</th>
                                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Muc_Luong: activate to sort column ascending">Số lượng</th>
+                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Muc_Luong: activate to sort column ascending">Sửa</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Xoa grade: activate to sort column ascending">Xóa</th>
                               
@@ -102,6 +104,8 @@
 				                            value ="<%= color.getPrice() %>" currencySymbol="VNĐ"/> </td>
                                         <td><%= color.getValue() %></td>
                                         <td><%= color.getQuantity() == 0 ? "Hết Hàng" : color.getQuantity() %></td>
+                                        <td class="text-center"><a href="${pageContext.request.contextPath }/admin/updatewarehouse?id=<%=color.getId()%>" class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #00040a;"></i></a>
+                        				</td>
                                         <td class="text-center"><a onclick="return handleLinkClick(event , <%= color.getId() %>)" href="${pageContext.request.contextPath }/admin/warehouse?action=delete&id=<%=color.getId()%>" class="btn btn-danger"><i class="fas fa-trash" style="color: #000000;"></i></a></td>
                                        	
                                       

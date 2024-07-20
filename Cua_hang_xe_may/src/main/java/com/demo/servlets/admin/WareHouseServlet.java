@@ -64,13 +64,7 @@ public class WareHouseServlet extends HttpServlet {
 	}
 	private void doGet_Update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ColorModel colorModel = new ColorModel();
-		List<ProductColor> productColors = colorModel.findAll();
-		request.setAttribute("productColors", productColors);
-		String currentPath = "/admin/warehouse"; // Đường dẫn mong muốn
-        request.setAttribute("currentPath", currentPath);
-		request.setAttribute("admin", "../admin/ListWareHouse.jsp");
-		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
+		
 	}
 
 	/**
