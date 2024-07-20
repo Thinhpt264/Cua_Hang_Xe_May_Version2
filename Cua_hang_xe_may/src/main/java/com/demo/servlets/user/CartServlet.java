@@ -80,7 +80,7 @@ public class CartServlet extends HttpServlet {
 			if(index == -1) {
 				cart.add(new Item(productcolor, 1));
 			} else {
-int quantity = cart.get(index).getQuantity()+1;
+				int quantity = cart.get(index).getQuantity()+1;
 				cart.get(index).setQuantity(quantity);
 			}
 			request.getSession().setAttribute("cart", cart);
