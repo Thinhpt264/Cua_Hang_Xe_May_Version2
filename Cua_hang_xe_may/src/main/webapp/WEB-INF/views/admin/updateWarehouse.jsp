@@ -52,11 +52,12 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="${pageContext.request.contextPath}/admin/updateWarehoi" method="post" enctype="multipart/form-data">
+                            <form action="${pageContext.request.contextPath}/admin/updatewarehouse?id=<%=color.getId() %>" method="post" >
                                        <div class="form-group">
                                                 <label for="valueColor">Số lượng</label>
-                                                <input type="text" style="position: relative; z-index: 999" name="quantity " class="form-control" id="quantity" value="<%=color.getQuantity() %>"
+												<input type="text" style="position: relative; z-index: 999" name="quantities" class="form-control" id="quantity" value="<%=color.getQuantity() %>"
                                                        placeholder="Đen-Vàng">
+                                                    
                                             </div>
                                         <!-- /.card-body -->
 

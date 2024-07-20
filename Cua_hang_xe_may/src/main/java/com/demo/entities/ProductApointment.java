@@ -18,10 +18,15 @@ public class ProductApointment {
 	public int getId() {
 		return id;
 	}
+	@Override
+	public String toString() {
+		return "ProductApointment [id=" + id + ", productColor=" + productColor + ", quantity=" + quantity
+				+ ", appointmentId=" + appointmentId + "]";
+	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public ProductColor getProductColor() {
 		return productColor;
 	}
@@ -40,6 +45,4 @@ public class ProductApointment {
 	public void setAppointmentId(int appointmentId) {
 		this.appointmentId = appointmentId;
 	}
-	
-	
 }

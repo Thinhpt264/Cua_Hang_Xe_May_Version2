@@ -63,7 +63,7 @@
                             <tr>
                               <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-sort="ascending" aria-label="Id: activate to sort column descending">#</th>
-                              <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Ten_Nhan_Vien: activate to sort column ascending">Tên Xe</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Anh: activate to sort column ascending">Tên Phiên Bản</th>
@@ -98,7 +98,7 @@
                                        
                                         <td><%= productModel.findProductVersionById(color.getVersionID()).getVersionName() %> </td>
                                         <td><%= color.getColor() %></td>
-                                        <td class="text-center"><img src="${pageContext.request.contextPath}/assets/user/Image/<%=color.getPhoto() %>" style="width: 50px"></td>
+										<td class="text-center"><img src="${pageContext.request.contextPath}/assets/user/Image/<%=color.getPhoto() %>" style="width: 50px"></td>
                                         <td class="text-center"><fmt:setLocale value = "vi_Vn"/>
 				                         <fmt:formatNumber type="currency" 
 				                            value ="<%= color.getPrice() %>" currencySymbol="VNĐ"/> </td>

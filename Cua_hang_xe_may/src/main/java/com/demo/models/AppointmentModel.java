@@ -202,16 +202,8 @@ public class AppointmentModel {
 	
 	public static void main(String[] args) {
 		AppointmentModel appointmentModel = new AppointmentModel();
-Appointment a = new Appointment();
-		a.setName("aaa");
-		a.setEmail("aaa");
-		a.setPhone("123");
-		a.setStatus(0);
-		a.setAppointmentDate("12/3/2003");
-		a.setCccd("2222");
-		a.setAccountId(5);
-		a.setDeposit_amount(1000000);
-		System.out.println(	appointmentModel.create(a));
+
+		System.out.println(	appointmentModel.findAppointmentById(49));
 	
 		
 	}

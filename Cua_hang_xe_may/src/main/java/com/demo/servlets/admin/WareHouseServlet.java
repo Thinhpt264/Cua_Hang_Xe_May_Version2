@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.demo.entities.ProductColor;
+import com.demo.entities.WarehouseInvoice;
 import com.demo.models.ColorModel;
+import com.demo.models.WareHouseModel;
 @WebServlet("/admin/warehouse")
 /**
  * Servlet implementation class WareHouseServlet
@@ -64,7 +66,7 @@ public class WareHouseServlet extends HttpServlet {
 	}
 	private void doGet_Update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+//		
 	}
 
 	/**
