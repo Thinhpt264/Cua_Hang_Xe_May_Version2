@@ -107,18 +107,12 @@ public class CartServlet extends HttpServlet {
 		response.sendRedirect("cart");
 	}
 	protected void doGet_Plus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("application/json; charset=utf-8");
-		request.setCharacterEncoding("utf-8");
 		int index = Integer.parseInt(request.getParameter("index"));
 		List<Item> cart = 	(List<Item>) request.getSession().getAttribute("cart");
 		int quantity = cart.get(index).getQuantity()+1;
 		cart.get(index).setQuantity(quantity);
 		request.getSession().setAttribute("cart", cart);
 		response.sendRedirect("cart");
-		PrintWriter writer = response.getWriter();
-		Gson gson = new Gson();
-		writer.print(gson.toJson(cart));
-		
 	}
 
 	protected void doGet_Minus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
