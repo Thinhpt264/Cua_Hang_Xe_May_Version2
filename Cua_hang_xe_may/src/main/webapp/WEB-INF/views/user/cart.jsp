@@ -193,6 +193,7 @@ url: '${pageContext.request.contextPath}/cart',
           						s+= '<input type="hidden" class="id_color" name="id_color[]"  value="'+ productColor.id +' ">'
           						s+= '<input type="hidden" class="quantity_color" name="quantity_color[]"  value="'+ items[i].quantity +' ">'
           						s+= '<input type="hidden" class="total_color" name="total_color[]"  value="'+ total +' ">'
+          						s+= '<input type="hidden" class="deposit_amount" name="deposit_amount" value="'+ total*5/100 +'">'
           						s+= '  </div> </div>   </div>'
           						$('.showlist').html(s);
           					}

@@ -84,7 +84,7 @@ public class AppointmentServlet extends HttpServlet {
 			List<Item> cart = (List<Item>) request.getSession().getAttribute("cart");
 			for(int i = 0; i< cart.size() ; i++) {
 				for(int j = 0 ; j < colors.length ; j++) {
-					if(cart.get(i).checkExitProductColor(Integer.parseInt(colors[j]))) {
+					if(cart.get(i).checkExitProductColor(Integer.parseInt(colors[j].trim()))) {
 						cart.remove(i);
 					}
 					
