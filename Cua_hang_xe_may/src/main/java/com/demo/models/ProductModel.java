@@ -191,6 +191,48 @@ public class ProductModel {
 		}
 		return result;
 	}
+	public List<Product> findbyName(String name) {
+		List<Product> products = new ArrayList<Product>();
+		try {
+		PreparedStatement preparedStatement = ConnectDB.connection().prepareStatement("select * from products where name like ?");
+		preparedStatement.setString(1, "%" + name + "%");
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while(resultSet.next()) {
+			Product product = new Product();
+			product.setId(resultSet.getInt("id"));
+			product.setBrandID(resultSet.getInt("brandId"));
+			product.setAvatar(resultSet.getString("avatar"));	
+			product.setPrice(resultSet.getDouble("price"));
+			product.setMotolineID(resultSet.getInt("motolineId"));
+			product.setAfterFork(resultSet.getString("afterFork"));
+			product.setBeforeFork(resultSet.getString("beforeFork"));
+			product.setCompressionRatio(resultSet.getString("compressionRatio"));
+			product.setName(resultSet.getString("name"));
+			product.setDescription(resultSet.getString("description"));
+			product.setCylinderCapacity(resultSet.getString("cylinderCapacity"));
+			product.setEngieType(resultSet.getString("engieType"));
+			product.setFuelConsumption(resultSet.getString("fuelConsumption"));
+			product.setMaxiumCapacity(resultSet.getString("maxiumCapacity"));
+			product.setMaxiumMoment(resultSet.getString("maxiumMoment"));
+			product.setOilCapacity(resultSet.getString("oilCapacity"));
+			product.setSize(resultSet.getString("size"));
+			product.setWeight(resultSet.getString("weight"));
+			product.setWheelSize(resultSet.getString("wheelSize"));
+			product.setSaddleHeight(resultSet.getString("saddleHeight"));
+			product.setPetrolCapacity(resultSet.getString("petrolCapacity"));
+			products.add(product);
+			}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				products = null;
+				
+			} finally {
+				ConnectDB.disconnect();
+			}
+			return products;
+		}
+	
 	public List<Product> findbyBrand(int brandId) {
 		List<Product> products = new ArrayList<Product>();
 		try {
@@ -409,28 +451,8 @@ public class ProductModel {
 	
 	public static void main(String[] args) {
 		ProductModel productModel = new ProductModel();
-		Product product = new Product();
-		  product.setBrandID(1);
-		  product.setAvatar("aaa");
-		  product.setMotolineID(1);
-		  product.setName("aaa");
-		  product.setDescription("aaa");
-		  product.setPrice(0);
-		  product.setWeight("aaa");
-		  product.setSize("aaa");
-		  product.setPetrolCapacity("aaa");
-		  product.setSaddleHeight("aaa");
-		  product.setWheelSize("aaa");
-		  product.setBeforeFork("aaa");
-		  product.setAfterFork("aaa");
-		  product.setMaxiumCapacity("aaa");
-		  product.setOilCapacity("aaa");
-		  product.setFuelConsumption("aaa");
-		  product.setCylinderCapacity("aaa");
-		  product.setMaxiumMoment("aaa");
-		  product.setCompressionRatio("aaa");
-		  product.setEngieType("aaa");
-		System.out.println(productModel.findAllVersionByProduct(16));
+		
+		System.out.println(productModel.findbyName("sh"));
 		 
 		 
 		 

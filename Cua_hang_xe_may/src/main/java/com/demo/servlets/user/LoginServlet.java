@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -100,6 +101,10 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	protected void doGet_Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("items") != null) {
+			session.removeAttribute("items");
+		}
 		request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
 	}
 	protected void doGet_Verify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -124,6 +129,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet_Logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("account");
 		request.getSession().removeAttribute("accountAdmin");
+	
 		response.sendRedirect("login");
 	}
 	/**

@@ -34,8 +34,8 @@ public class HomeServlet extends HttpServlet {
 		ProductModel productModel = new ProductModel();
 		List<Product> products = productModel.findAll();
 		HttpSession session = request.getSession();
-		if(session.getAttribute("item") != null) {
-			session.removeAttribute("item");
+		if(session.getAttribute("items") != null) {
+			session.removeAttribute("items");
 		}
 		
 		request.setAttribute("products", products);

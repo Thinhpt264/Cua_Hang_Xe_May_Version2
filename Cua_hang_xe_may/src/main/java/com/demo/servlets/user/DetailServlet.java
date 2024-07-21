@@ -68,8 +68,8 @@ public class DetailServlet extends HttpServlet {
 			response.sendRedirect("motobike");
 		}
 		HttpSession session = request.getSession();
-		if(session.getAttribute("item") != null) {
-			session.removeAttribute("item");
+		if(session.getAttribute("items") != null) {
+			session.removeAttribute("items");
 		}
 		
 		request.setAttribute("p", "../user/detailProduct.jsp");

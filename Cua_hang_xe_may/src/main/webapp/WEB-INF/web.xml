@@ -303,6 +303,18 @@
    	<description></description>
    	<servlet-class>com.demo.servlets.admin.UpdateWarehouseServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>Search</servlet-name>
+   	<display-name>Search</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.servlets.user.Search</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>SearchServlet</servlet-name>
+   	<display-name>SearchServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.demo.servlets.user.SearchServlet</servlet-class>
+   </servlet>
   <servlet-mapping>
   	<servlet-name>HomeServlet</servlet-name>
   	<url-pattern>/HomeServlet</url-pattern>
@@ -486,5 +498,13 @@
   <servlet-mapping>
   	<servlet-name>UpdateWarehouseServlet</servlet-name>
   	<url-pattern>/UpdateWarehouseServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Search</servlet-name>
+  	<url-pattern>/Search</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SearchServlet</servlet-name>
+  	<url-pattern>/SearchServlet</url-pattern>
   </servlet-mapping>
 </web-app>
