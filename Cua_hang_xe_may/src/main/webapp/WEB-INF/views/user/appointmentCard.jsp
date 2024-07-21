@@ -89,7 +89,7 @@
 	                    <div>
 	                        <p class="m-0">Đơn Giá</p>
 	                         
-	                        <span class="price" style="color: black;"> 111111vvb</span>
+	                        <span class="price" style="color: black;"> VNĐ</span>
 	                    </div>
 	                </div>
 	                <div class="col-lg-3 d-flex justify-content-end align-items-center">
@@ -97,7 +97,7 @@
 	                        <p class="m-0" >Tổng Cộng</p>
 	                      
 	                        <span style="color: black;" class="totalPrice"> 
-	                        1234vnđ
+	                         VNĐ
           					 </span>	
 	            	
 	            	
@@ -145,7 +145,7 @@
 						s+= '<div class="col-lg-4">';
 						s+= '<a href="${pageContext.request.contextPath}/details?id=">'
 						s+= '<img class="img-fluid w-50" id="img_open"  src="${pageContext.request.contextPath}/assets/user/Image/'+ colors[i].photo + '" >';
-						s+= '  <h4 class="text-uppercase nameProduct"> ' + products[i].name + '-' + versions[i].versionName + '-'   +  colors[i].color + ' </h4>' ;
+						s+= '  <h4 class="text-uppercase nameProduct"> ' + products[i].name + '-' + versions[i].versionName + '-'   +  colors[i].color + '</h4>' ;
 						console.log(colors[i].color);
 						s+= '</a>';
 						s+= '</div>';

@@ -43,6 +43,10 @@ public class MotobikeServlet extends HttpServlet {
 			doGet_Index(request, response);
         } else if(action.equalsIgnoreCase("filterByBrand")) {
         	filterByBrand(request, response);
+        }else if(action.equalsIgnoreCase("filterByName")) {
+        	filterByName(request, response);
+        }else if(action.equalsIgnoreCase("filterByMotoline")) {
+        	doGet_filterByMotoline(request, response);
         }
 	}
 	protected void filterByBrand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,6 +68,24 @@ public class MotobikeServlet extends HttpServlet {
                 products  = productModel.findbyBrand(brandId);
             }
             
+        }
+
+        // Convert products list to JSON and write to response
+        Gson gson = new Gson();
+        writer.print(gson.toJson(products));
+    }
+	protected void filterByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Set the response type to JSON
+		response.setContentType("application/json; charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		PrintWriter writer = response.getWriter();
+		String name = request.getParameter("name");
+        ProductModel productModel = new ProductModel();
+        List<Product> products;
+        if (name == null) {
+            products = productModel.findAll();
+        } else {
+           products = productModel.findbyName(name); 
         }
 
         // Convert products list to JSON and write to response
@@ -105,16 +127,34 @@ public class MotobikeServlet extends HttpServlet {
 					}
 				}
 				HttpSession session = request.getSession();
-				if(session.getAttribute("item") != null) {
-					session.removeAttribute("item");
+				if(session.getAttribute("items") != null) {
+					session.removeAttribute("items");
 				}
-				
-				
 				request.setAttribute("products", products);
 				request.setAttribute("p","../user/motobike.jsp");
 				request.getRequestDispatcher("/WEB-INF/views/layout/user.jsp").forward(request, response);
 	}
-	
+	protected void doGet_filterByMotoline(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Set the response type to JSON
+		response.setContentType("application/json; charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		PrintWriter writer = response.getWriter();
+		String idB = request.getParameter("motolineFilter");
+        ProductModel productModel = new ProductModel();
+        List<Product> products;
+        if (idB == null) {
+            products = productModel.findAll();
+        } else {
+            int motolineId = Integer.parseInt(idB);
+
+            if (motolineId == 0) {
+                products = productModel.findAll();
+            } else {
+                products  = productModel.findbyMotoline(motolineId);
+            }
+
+        	}
+        }
 	
 
 	/**
