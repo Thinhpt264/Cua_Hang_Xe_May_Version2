@@ -68,17 +68,25 @@ public class UpdateAppointmentServlet extends HttpServlet {
 		
 		
 		Appointment appointment = appointmentModel.findAppointmentById(id);
-//		appointment.setName(new String(name.getBytes("ISO-8859-1"), "UTF-8"));
+		Gson gson = new Gson();
+		
+		String before = gson.toJson(appointment);
 		appointment.setName(name);
 		appointment.setEmail(email);
 		appointment.setPhone(phone);
 		appointment.setAppointmentDate(appooinmentDate);
 		appointment.setCccd(cccd);
 		appointment.setDate_pay(date_pay);
-//		appointment.setContent(new String(content.getBytes("ISO-8859-1"), "UTF-8"));
 		appointment.setContent(content);
 		appointment.setDeposit_amount(deposit_amount);
+		
 		if(appointmentModel.update(appointment)) {
+			LogModel logModel = new LogModel();
+			Account a = (Account) request.getSession().getAttribute("accountAdmin");
+			System.out.println(a);
+			Appointment productAfter = appointmentModel.findAppointmentById(id);
+			String after = gson.toJson(productAfter);
+			logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"warning" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), "Cập Nhật Cuộc Hẹn", before, after ,a.getId() ) );
 			request.getSession().setAttribute("message", " Thanh Cong");
 			response.sendRedirect("appointment");
 		}else {

@@ -139,7 +139,7 @@ public class addNewProductsServlet extends HttpServlet {
 		  if(productModel.create(product)) {
 			  Product productS =  productModel.findLast();
 			  String after = gson.toJson(productS);
-			  logModel.create(new Log(IPAddressUtil.getPublicIPAddress(), "info" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()) , null , after , 5 ));
+			  logModel.create(new Log(IPAddressUtil.getPublicIPAddress(), "info" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()),"Thêm Sản Phẩm" , null , after , 5 ));
 			 VersionModel versionModel = new VersionModel();
 			 ProductVersion productversion = new ProductVersion();
 			 for (Part part2 : fileParts) {

@@ -321,11 +321,18 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
+                  <a href="${pageContext.request.contextPath }/admin/statistical" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/statistical") ? "active" : " " %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Thống Kê</p>  
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="${pageContext.request.contextPath }/admin/log" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/log") ? "active" : " " %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Log</p>  
                   </a>
-                </li>                 
+                </li>    
+                               
               </ul>
             </li>
             

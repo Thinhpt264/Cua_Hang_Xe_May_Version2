@@ -228,9 +228,9 @@ public class AccountModel {
 	public static void main(String[] args) {
 		AccountModel accountModel = new AccountModel();
 		Account account = accountModel.findAccountByUsername("trantrung");
-		account.setUsername("thanhvu");
+		
 
-		System.out.println(accountModel.update(account));
+		System.out.println(accountModel.findAccountById(5).getUsername());
 		
 	}
 }

@@ -124,7 +124,7 @@ public class UpdateProductServlet extends HttpServlet {
 		if(productModel.update(product)) {
 			Product productAfter = productModel.findProductById(id);
 			String after = gson.toJson(productAfter);
-			logModel.create(new Log(IPAddressUtil.getPublicIPAddress(), "danger",  ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()) , before, after , 5));
+			logModel.create(new Log(IPAddressUtil.getPublicIPAddress(), "danger",  ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime())," Cập Nhật Sản Phẩm" , before, after , 5));
 			response.sendRedirect("listproduct");
 			System.out.println("cap nhat thanh cong");
 		}	
