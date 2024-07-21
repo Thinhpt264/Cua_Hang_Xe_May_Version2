@@ -157,7 +157,7 @@ public class CartServlet extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		int index = Integer.parseInt(request.getParameter("itemId"));
-		
+		Map<String, Object> data = new HashMap<String, Object>();
 		System.out.println(index);
 		List<Item> cart = 	(List<Item>) request.getSession().getAttribute("cart");
 		Item item = cart.get(index);
@@ -165,19 +165,22 @@ public class CartServlet extends HttpServlet {
 		if(request.getSession().getAttribute("items")== null) {
 			List<Item> items = new ArrayList<Item>();
 			items.add(item);
+			data.put("items", items);
 			request.getSession().setAttribute("items", items);
 			System.out.println(items);
 		}else {
 			List<Item> items = (List<Item>) request.getSession().getAttribute("items");
 			items.add(item);
+			data.put("items", items);
 			request.getSession().setAttribute("items", items);
 			System.out.println(items);
 		}
-		
+	
 		String message = "Thanh Cong";
+		data.put("message", message);
 		PrintWriter writer = response.getWriter();
 		Gson gson = new Gson();
-		writer.print(gson.toJson(message));
+		writer.print(gson.toJson(data));
 	}
 	protected void doGet_removeItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
@@ -202,8 +205,6 @@ public class CartServlet extends HttpServlet {
 		Gson gson = new Gson();
 		writer.print(gson.toJson(data));
 	}
-	
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

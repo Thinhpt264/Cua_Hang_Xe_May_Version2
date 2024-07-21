@@ -274,7 +274,7 @@
               </ul>
             </li>
              <li class="nav-header">Quản Lí Kho Hàng</li>
-            <li class="nav-item <%= currentPath.equalsIgnoreCase("/admin/importProduct") || currentPath.equalsIgnoreCase("/admin/warehouse")|| currentPath.equalsIgnoreCase("/admin/productAppoinment") ? "menu-open" : " " %>">
+            <li class="nav-item <%= currentPath.equalsIgnoreCase("/admin/importProduct") || currentPath.equalsIgnoreCase("/admin/warehouse")||currentPath.equalsIgnoreCase("/admin/appointment")|| currentPath.equalsIgnoreCase("/admin/productAppoinment") ? "menu-open" : " " %>">
               <a href="#" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/importProduct") || currentPath.equalsIgnoreCase("/admin/productAppoinment") || currentPath.equalsIgnoreCase("/admin/warehouse")  ? "active" : " " %>">
                 <i class="nav-icon fas fa-table" style="color: #e1e2e5;"></i>
                 <p>
@@ -293,6 +293,12 @@
                   <a href="${pageContext.request.contextPath }/admin/warehouse" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/warehouse") ? "active" : " " %>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Dữ Liệu Kho Hàng</p>  
+                  </a>
+                </li>  
+                 <li class="nav-item">
+                  <a href="${pageContext.request.contextPath }/admin/appointment" class="nav-link <%= currentPath.equalsIgnoreCase("/admin/appointment") ? "active" : " " %>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Dữ Liệu Đặt Cọc</p>  
                   </a>
                 </li>  
                 <li class="nav-item">

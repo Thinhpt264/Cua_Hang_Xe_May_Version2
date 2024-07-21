@@ -52,8 +52,8 @@
 							        	%>
 							        <%if(msg1 == null) { %>
 				        			<span ></span>
-				        		<% }else if(msg1.equalsIgnoreCase("Chỉnh Sửa Không Thành Công")) { %>
-				        			<span style='color:red;'> <%=msg1 %></span>
+				        		<% }else if(msg1.equalsIgnoreCase("Hoàn Thất Bại")) { %>
+				        			<span style='color:red; margin-left: 5px; ' > <%=msg1 + " Số Lượng Hoàn Về Lớn Hơn Dữ Liệu Đang Cọc" %></span>
 				        		
 				        		<% }else { %>
 									<span style='color:green;'> <%=msg1 %></span>

@@ -123,6 +123,7 @@
                                 <div class="dropdown-menu rounded-0 m-0">
                                 <c:if test="${sessionScope.account == null }">
                         	        <a href="${pageContext.request.contextPath }/login" class="dropdown-item"><%=messages.getString("dang_nhap")%></a>
+                        	        <a href="${pageContext.request.contextPath }/cart"  class="dropdown-item"><i style="font-size: 120%" class="fa-solid fa-bag-shopping"></i>( <%=cart.size() %>)</a> 
                         	    </c:if>
                         	    <c:if test="${sessionScope.account != null }">
                         	       <a href="${pageContext.request.contextPath }/cart"  class="dropdown-item"><i style="font-size: 120%" class="fa-solid fa-bag-shopping"></i>( <%=cart.size() %>)</a> 
