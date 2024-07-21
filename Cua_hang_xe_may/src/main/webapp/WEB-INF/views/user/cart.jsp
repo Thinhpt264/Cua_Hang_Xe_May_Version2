@@ -117,8 +117,6 @@
           					$('.deposit_amount').attr('value',totalPrice*5/100);
           					console.log(productColor.photo);
           				}
-          				
-          				
           			})
           		});
           	});
@@ -136,8 +134,10 @@ url: '${pageContext.request.contextPath}/cart',
           					itemId : itemId,
           					action : 'additem'	
           				},
-          				success: function(message) {
-          					var message = message;
+          				success: function(data) {
+          					var message = data.message;
+          					var items = data.items;
+          					$('#buyAll').html('Mua ' + items.length + ' Sản Phẩm'); 
           				  return confirm(message);
 						}
           			  
@@ -208,7 +208,7 @@ url: '${pageContext.request.contextPath}/cart',
                     <div class="col-lg-2 d-flex justify-content-start align-items-center" style="color:black;"> <fmt:formatNumber type="currency" 
           value ="${total }" currencySymbol="VNĐ" /></div>
             </div>
-             <button type="button" class="openAppentTotal btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal"><%=messages.getString("mua_tat_ca") %></button>
+             <button type="button" class="openAppentTotal btn btn-primary" id="buyAll"  data-bs-toggle="modal" data-bs-target="#exampleModal"><%=messages.getString("mua_tat_ca") %></button>
         </div>
         	
         <div class="modal fade" id="exampleModal"tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

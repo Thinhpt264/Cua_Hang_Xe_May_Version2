@@ -85,14 +85,19 @@ public class productAppoimentServlet extends HttpServlet {
 			color.setQuantity(quantityold + quantity);
 			colorModel.update(color);
 			appointmentDetailModel.update(appointmentDetail);
+			request.getSession().setAttribute("message", "Hoàn Thành Công");
 			response.sendRedirect("productAppoinment");
 		}else if(quantity == quantityDetail) {
 			color.setQuantity(quantityold + quantity);
 			colorModel.update(color);
 			if(appointmentDetailModel.delete(appointmentDetail.getId())) {
+				request.getSession().setAttribute("message", "Hoàn Thành Công");
 				response.sendRedirect("productAppoinment");
 			}
 			
+		}else {
+			request.getSession().setAttribute("message", "Hoàn Thất Bại");
+			response.sendRedirect("productAppoinment");
 		}
 				
 		
