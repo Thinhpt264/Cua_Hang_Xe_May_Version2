@@ -1,6 +1,8 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,10 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.demo.entities.Account;
+import com.demo.entities.Log;
 import com.demo.entities.ProductColor;
 import com.demo.entities.WarehouseInvoice;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.models.ColorModel;
+import com.demo.models.LogModel;
 import com.demo.models.WareHouseModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/warehouse")
 /**
  * Servlet implementation class WareHouseServlet
@@ -60,6 +68,11 @@ public class WareHouseServlet extends HttpServlet {
 		List<ProductColor> productColors = colorModel.findAll();
 		request.setAttribute("productColors", productColors);
 		String currentPath = "/admin/warehouse"; // Đường dẫn mong muốn
+		Account a = (Account) request.getSession().getAttribute("accountAdmin");
+		LogModel logModel = new LogModel();
+		Gson gson = new Gson();
+		String after = gson.toJson(colorModel);
+		logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"danger" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), "Xóa 1 Sản Phẩm", null, after ,a.getId() ) );
         request.setAttribute("currentPath", currentPath);
 		request.setAttribute("admin", "../admin/ListWareHouse.jsp");
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);

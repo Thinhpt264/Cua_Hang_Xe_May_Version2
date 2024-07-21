@@ -1,6 +1,8 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.servlet.http.Part;
 import javax.servlet.ServletException;
@@ -11,9 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.demo.entities.Account;
+import com.demo.entities.Appointment;
 import com.demo.entities.Brand;
+import com.demo.entities.Log;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.helpers.UploadFileHelper;
 import com.demo.models.BrandModel;
+import com.demo.models.LogModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/addNewBrand")
 @MultipartConfig(
 		maxFileSize = 1024 * 1024 * 5 ,
@@ -58,6 +67,7 @@ public class addNewBrand extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		BrandModel brandModel = new BrandModel();
+		int id = Integer.parseInt(request.getParameter("id"));
 		Brand brand = new Brand();
 		String name = request.getParameter("nameBrand");
 		Part photo2 =  request.getPart("photo");
@@ -66,6 +76,11 @@ public class addNewBrand extends HttpServlet {
 		brand.setName(name);
 		brand.setDescription(new String (description.getBytes("ISO-8859-1"),"UTF-8"));
 		brand.setPhoto(newAvatar);
+		Account a = (Account) request.getSession().getAttribute("accountAdmin");
+		LogModel logModel = new LogModel();
+		Gson gson = new Gson();
+		String after = gson.toJson(brand);
+		logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"alert" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), "Thêm Thương Hiệu", null, after ,a.getId() ) );
 		if(brandModel.create(brand)) {
 			response.sendRedirect("listbrand");
 		} else {

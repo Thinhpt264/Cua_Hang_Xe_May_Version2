@@ -352,6 +352,7 @@ public class ProductModel {
 				productColor.setColor(resultSet.getString("color"));
 				productColor.setPrice(resultSet.getDouble("price"));
 				productColor.setValue(resultSet.getString("value"));
+				productColor.setQuantity(resultSet.getInt("quantity"));
 				productColors.add(productColor);
 			}
 		} catch (SQLException e) {

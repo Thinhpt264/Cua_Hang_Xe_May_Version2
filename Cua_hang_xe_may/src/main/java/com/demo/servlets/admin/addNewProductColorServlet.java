@@ -1,6 +1,9 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.demo.entities.Account;
+import com.demo.entities.Log;
 import com.demo.entities.ProductColor;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.helpers.UploadFileHelper;
 import com.demo.models.ColorModel;
+import com.demo.models.LogModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/addNewProductColor")
 @MultipartConfig(
 		
@@ -70,6 +79,11 @@ public class addNewProductColorServlet extends HttpServlet {
 		color.setPhoto(avatar);
 		color.setValue(valueColor);
 		ColorModel colorModel = new ColorModel();
+		Account a = (Account) request.getSession().getAttribute("accountAdmin");
+		LogModel logModel = new LogModel();
+		Gson gson = new Gson();
+		String after = gson.toJson(color);
+		logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"alert" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), "Thêm Màu Xe Mới", null, after ,a.getId() ) );
 		if(colorModel.create(color)) {
 			response.sendRedirect("productcolor");
 		} else {

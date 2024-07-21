@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,6 +73,8 @@ public class PaymentServlet extends HttpServlet {
 				appointment.setStatus(0);
 				appointment.setDate_pay((String) dateFormat2.format(dateFormat.parse(req.getParameter("vnp_PayDate"))));
 				if(appointmentModel.update(appointment)) {
+					DecimalFormat df = new DecimalFormat("#,###.##");
+					String price = df.format(appointment.getDeposit_amount());
 					String email = appointment.getEmail();
 //					NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 //			          = currencyFormatter.format(appointment.getDeposit_amount());
@@ -127,7 +130,7 @@ public class PaymentServlet extends HttpServlet {
 							+ "										<tr>\r\n"
 							+ "											<td style=\"padding-bottom: 30px; padding-left: 20px; padding-right: 20px;\" align=\"center\" valign=\"top\" class=\"subTitle\">\r\n"
 							+ "												<h3 class=\"text\" style=\"color:#999;font-family:Poppins,Helvetica,Arial,sans-serif;font-size:16px;font-weight:500;font-style:normal;letter-spacing:normal;line-height:24px;text-transform:none;text-align:center;padding:0;margin:0\">Bạn Đã Đặt Cọc Thành Công Lịch Hẹn Xem Xe Với Số Tiền </h3>\r\n"
-							+ "												<h4 style=\"color:#030202;font-family:Poppins,Helvetica,Arial,sans-serif;font-size:16px;font-weight:500;font-style:normal;letter-spacing:normal;line-height:24px;text-transform:none;text-align:center;padding:0;margin:0\">" + appointment.getDeposit_amount() +" VNĐ </h4>\r\n"
+							+ "												<h4 style=\"color:#030202;font-family:Poppins,Helvetica,Arial,sans-serif;font-size:16px;font-weight:500;font-style:normal;letter-spacing:normal;line-height:24px;text-transform:none;text-align:center;padding:0;margin:0\">" + price +" VNĐ </h4>\r\n"
 							+ "											</td>\r\n"
 							+ "										</tr>\r\n"
 							+ "										<tr>\r\n"

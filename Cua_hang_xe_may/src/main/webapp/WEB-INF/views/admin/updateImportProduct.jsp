@@ -17,7 +17,7 @@
 <%	
 	VersionModel versionModel = new VersionModel();
 	WarehouseInvoice warehouseInvoice = (WarehouseInvoice)request.getAttribute("invoice1");
-	DecimalFormat df = new DecimalFormat("########");
+	DecimalFormat df = new DecimalFormat("#.##");
 %>
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -89,7 +89,7 @@
                                             <div class="form-group">
                                                 <label for="valueColor">Đơn giá(/chiếc)</label>
                                                 <input type="text" style="position: relative; z-index: 999" name="price1" class="form-control" id="price" 
-                                                       placeholder="vd: 50000000" value = "<%= warehouseInvoice.getPrice()%>">
+                                                       placeholder="vd: 50000000" value = "<%= df.format(warehouseInvoice.getPrice())%> ">
                                             </div>
                                          
                                         </div>

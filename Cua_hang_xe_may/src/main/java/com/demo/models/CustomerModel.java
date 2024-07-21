@@ -70,7 +70,7 @@ public class CustomerModel {
 		
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection()
-					.prepareStatement("insert into customers (name, phone, address, card) "
+					.prepareStatement("insert into customers (name, phone, address, card, email) "
 							+ "values(?, ?, ?, ?,?)");
 			preparedStatement.setString(1, customer.getName());
 			preparedStatement.setString(2, customer.getPhone());

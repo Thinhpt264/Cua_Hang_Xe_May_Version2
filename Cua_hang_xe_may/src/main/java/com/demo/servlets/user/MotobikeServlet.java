@@ -152,8 +152,9 @@ public class MotobikeServlet extends HttpServlet {
             } else {
                 products  = productModel.findbyMotoline(motolineId);
             }
-
         	}
+        Gson gson = new Gson();
+        writer.print(gson.toJson(products));
         }
 	
 

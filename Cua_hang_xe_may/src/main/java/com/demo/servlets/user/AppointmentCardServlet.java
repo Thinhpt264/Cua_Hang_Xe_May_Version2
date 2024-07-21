@@ -76,7 +76,8 @@ public class AppointmentCardServlet extends HttpServlet {
 	protected void doGet_Show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		int appointId = Integer.parseInt(request.getParameter("itemId"));
 		AppointmentDetailModel appointmentDetailModel = new AppointmentDetailModel();
 		VersionModel versionModel = new VersionModel();

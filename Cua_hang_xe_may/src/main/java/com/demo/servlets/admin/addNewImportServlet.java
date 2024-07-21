@@ -1,16 +1,25 @@
  package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.demo.entities.Account;
+import com.demo.entities.Log;
 import com.demo.entities.ProductColor;
 import com.demo.entities.WarehouseInvoice;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.models.ColorModel;
+import com.demo.models.LogModel;
 import com.demo.models.WareHouseModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/addNewImport")
 /**
  * Servlet implementation class addNewImportServlet
@@ -65,6 +74,11 @@ public class addNewImportServlet extends HttpServlet {
 		whi.setTradeDate(date);
 		whi.setPrice(price);
 		WareHouseModel whModel = new WareHouseModel();
+		Account a = (Account) request.getSession().getAttribute("accountAdmin");
+		LogModel logModel = new LogModel();
+		Gson gson = new Gson();
+		String after = gson.toJson(whi);
+		logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"warning" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), "Nhập Hàng", null, after ,a.getId() ) );
 		if(whModel.create(whi)) {
 			
 			int quantity_old = color.getQuantity();

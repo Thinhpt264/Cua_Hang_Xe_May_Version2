@@ -72,6 +72,7 @@ public class UpdateAppointmentServlet extends HttpServlet {
 		
 		String before = gson.toJson(appointment);
 		appointment.setName(name);
+		
 		appointment.setEmail(email);
 		appointment.setPhone(phone);
 		appointment.setAppointmentDate(appooinmentDate);
