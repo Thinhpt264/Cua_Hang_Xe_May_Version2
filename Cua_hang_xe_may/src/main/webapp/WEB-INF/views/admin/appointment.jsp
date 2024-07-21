@@ -83,7 +83,7 @@
                                   <td><%=a.getEmail() %>  </td>
                                    <td><%=a.getPhone() %>  </td>
                                     <td><%=a.getAppointmentDate() %>  </td>
-                                     <td><%=a.getStatus() == 1 ? "Đã Xong" : "Chờ" %>  </td>
+                                     <td><%=a.getStatus() == 0 ? "Đã Xong" : "Chờ" %>  </td>
                                        <td><%= df.format(a.getDeposit_amount()) %>  </td>
                                        	<td><%=a.getDate_pay() %>  </td>
                                			 <td><textarea class="form-control" rows="3" cols="3" disabled placeholder="Ghi chú ..."> <%= a.getContent() %></textarea></td>

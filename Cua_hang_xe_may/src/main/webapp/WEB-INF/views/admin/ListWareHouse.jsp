@@ -11,6 +11,24 @@
  		colors = new ArrayList<>();
  	}
 %>
+<style> 
+    	.info {
+    		background-color: #17a2b8
+    		
+    	}
+    	.danger {
+    		background-color: #CC0000
+    		
+    	}
+    	.warning {
+    		background-color: #ffc107
+    		
+    	}
+    	.alert {
+    		background-color: #f8d7da
+    		
+    	}
+    </style>
 <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
@@ -103,7 +121,8 @@
 				                         <fmt:formatNumber type="currency" 
 				                            value ="<%= color.getPrice() %>" currencySymbol="VNĐ"/> </td>
                                         <td><%= color.getValue() %></td>
-                                        <td><%= color.getQuantity() == 0 ? "Hết Hàng" : color.getQuantity() %></td>
+                                        <td class="<% if(color.getQuantity() == 0 ) { %> danger <% } else 
+                                        	if (color.getQuantity() < 10) {%> warning <%}%> "><%= color.getQuantity() == 0 ? "Hết Hàng" : color.getQuantity() %></td>
                                         <td class="text-center"><a href="${pageContext.request.contextPath }/admin/updatewarehouse?id=<%=color.getId()%>" class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #00040a;"></i></a>
                         				</td>
                                         <td class="text-center"><a onclick="return handleLinkClick(event , <%= color.getId() %>)" href="${pageContext.request.contextPath }/admin/warehouse?action=delete&id=<%=color.getId()%>" class="btn btn-danger"><i class="fas fa-trash" style="color: #000000;"></i></a></td>

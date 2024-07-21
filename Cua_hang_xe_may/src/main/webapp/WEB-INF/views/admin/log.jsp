@@ -84,6 +84,8 @@
                               aria-label="Id: activate to  column descending">Id</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="time: activate to sort column descending">Thời Gian</th>
+                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="time: activate to sort column descending">Hành Động</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
                                 aria-label="Level: activate to sort column descending">Level</th>
                               <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
@@ -104,6 +106,7 @@
                             <tr class="" >
                             	<td> <%= l.getId() %></td>		
                             	<td> <%= l.getTime() %></td>		
+                            	<td> <%= l.getTitle() %></td>		
                             	<td class="<%= l.getLevel() %>"> <%= l.getLevel() %></td>		
                             	<td> <%= l.getIp() %></td>		
                             	<td > <%= l.getNational() %></td>		
@@ -112,7 +115,7 @@
                             	<td>  <% if(accountModel.findAccountById(l.getAccountId()) == null) { %>
                             			Người Dùng Ẩn Danh
                             			<% } else { %>
-                            	<%= accountModel.findAccountById(l.getAccountId()).getUsername() %>
+                            			<%= accountModel.findAccountById(l.getAccountId()).getUsername() %>
                             		<% } %>
                             	</td>		
                             </tr>

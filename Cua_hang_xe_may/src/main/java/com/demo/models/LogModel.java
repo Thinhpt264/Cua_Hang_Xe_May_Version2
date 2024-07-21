@@ -28,6 +28,7 @@ public class LogModel {
 				log.setLevel(resultSet.getString("level"));
 				log.setNational(resultSet.getString("national"));
 				log.setTime(resultSet.getTimestamp("time"));
+				log.setTitle(resultSet.getString("title"));
 				log.setBeforeValue(resultSet.getString("beforeValue"));
 				log.setAfterValue(resultSet.getString("afterValue"));
 				log.setAccountId(resultSet.getInt("accountId"));;
@@ -54,6 +55,7 @@ public class LogModel {
 						log.setLevel(resultSet.getString("level"));
 						log.setNational(resultSet.getString("national"));
 						log.setTime(resultSet.getTimestamp("time"));
+						log.setTitle(resultSet.getString("title"));
 						log.setBeforeValue(resultSet.getString("beforeValue"));
 						log.setAfterValue(resultSet.getString("afterValue"));
 						log.setAccountId(resultSet.getInt("accountId"));;
@@ -70,14 +72,15 @@ public class LogModel {
 		boolean status = true;
 		try {
 			PreparedStatement preparedStatement = ConnectDB.connection()
-					.prepareStatement("INSERT INTO log(ip, level, national, time, beforeValue, afterValue, accountId) VALUES (?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO log(ip, level, national, time,title, beforeValue, afterValue, accountId) VALUES (?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, log.getIp());
 			preparedStatement.setString(2, log.getLevel());
 			preparedStatement.setString(3, log.getNational());
 			preparedStatement.setTimestamp(4, new Timestamp(new Date().getTime()));
-			preparedStatement.setString(5, log.getBeforeValue());
-			preparedStatement.setString(6, log.getAfterValue());
-			preparedStatement.setInt(7, log.getAccountId());
+			preparedStatement.setString(5, log.getTitle());
+			preparedStatement.setString(6, log.getBeforeValue());
+			preparedStatement.setString(7, log.getAfterValue());
+			preparedStatement.setInt(8, log.getAccountId());
 			status = preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

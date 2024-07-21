@@ -8,10 +8,11 @@ public class Log {
 	private String level;
 	private String national;
 	private Date time;
+	private String title;
 	private String beforeValue;
 	private String afterValue;
 	private int accountId;
-	public Log(int id, String ip, String level, String national, Date time, String beforeValue, String afterValue,
+	public Log(int id, String ip, String level, String national, Date time, String title, String beforeValue, String afterValue,
 			int accountId) {
 		super();
 		this.id = id;
@@ -19,6 +20,7 @@ public class Log {
 		this.level = level;
 		this.national = national;
 		this.time = time;
+		this.title = title;
 		this.beforeValue = beforeValue;
 		this.afterValue = afterValue;
 		this.accountId = accountId;
@@ -74,27 +76,35 @@ public class Log {
 	public void setAccountId(int accountId) {
 		this.accountId = accountId;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	@Override
 	public String toString() {
 		return "Log [id=" + id + ", ip=" + ip + ", level=" + level + ", national=" + national + ", time=" + time
 				+ ", beforeValue=" + beforeValue + ", afterValue=" + afterValue + ", accountId=" + accountId + "]";
 	}
-	public Log(String ip, String level, String national, Date time, String beforeValue, String afterValue, int accountId) {
+	public Log(String ip, String level,  String national, Date time,String title, String beforeValue, String afterValue, int accountId) {
 		super();
 		this.ip = ip;
 		this.level = level;
 		this.national = national;
 		this.time = time;
+		this.title = title;
 		this.beforeValue = beforeValue;
 		this.afterValue = afterValue;
 		this.accountId = accountId;
 	}
-	public Log(String ip, String level, String national, Date time, String beforeValue, String afterValue) {
+	public Log(String ip, String level, String national, Date time,String title, String beforeValue, String afterValue) {
 		super();
 		this.ip = ip;
 		this.level = level;
 		this.national = national;
 		this.time = time;
+		this.title = title;
 		this.beforeValue = beforeValue;
 		this.afterValue = afterValue;
 	}
