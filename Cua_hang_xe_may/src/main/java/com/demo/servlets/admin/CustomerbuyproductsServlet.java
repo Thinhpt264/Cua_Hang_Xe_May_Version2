@@ -81,8 +81,6 @@ public class CustomerbuyproductsServlet extends HttpServlet {
 		}
 	}
 	protected void doPost_update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
 		int  id = Integer.parseInt(request.getParameter("id")) ;
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");

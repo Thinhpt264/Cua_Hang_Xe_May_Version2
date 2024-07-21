@@ -138,7 +138,7 @@ url: '${pageContext.request.contextPath}/cart',
           					var message = data.message;
           					var items = data.items;
           					$('#buyAll').html('Mua ' + items.length + ' Sản Phẩm'); 
-          				  return confirm(message);
+          				 
 						}
           			  
           			  })

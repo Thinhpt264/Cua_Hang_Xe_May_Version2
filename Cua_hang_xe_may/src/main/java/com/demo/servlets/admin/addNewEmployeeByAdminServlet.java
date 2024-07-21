@@ -1,6 +1,9 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,9 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.demo.entities.Account;
+import com.demo.entities.Appointment;
 import com.demo.entities.Employee;
+import com.demo.entities.Log;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.models.AccountModel;
 import com.demo.models.EmployeeModel;
+import com.demo.models.LogModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/addNewEmployeeByAdmin")
 /**
  * Servlet implementation class addNewEmployeeByAdminServlet
@@ -56,6 +65,11 @@ public class addNewEmployeeByAdminServlet extends HttpServlet {
 		employee.setAccountID(id);
 		employee.setCardID(card);
 		employee.setSalary(salary);
+		Account a = (Account) request.getSession().getAttribute("accountAdmin");
+		LogModel logModel = new LogModel();
+		Gson gson = new Gson();
+		String after = gson.toJson(employee);
+		logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"alert" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), "Có Khách Mới", null, after ,a.getId() ) );
 		if(employeeModel.create(employee)) {
 			
 				account.setRole("1");

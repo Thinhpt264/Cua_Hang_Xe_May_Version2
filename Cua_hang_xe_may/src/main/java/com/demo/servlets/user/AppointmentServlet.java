@@ -1,6 +1,7 @@
 package com.demo.servlets.user;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -52,7 +53,9 @@ public class AppointmentServlet extends HttpServlet {
 			}
 		}
 
-		private void doPost_Insert(HttpServletRequest request, HttpServletResponse response) {
+		private void doPost_Insert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
 			ColorModel colorModel = new ColorModel();
 			// TODO Auto-generated method stub
 			AppointmentModel appointmentModel = new AppointmentModel();
@@ -71,10 +74,10 @@ public class AppointmentServlet extends HttpServlet {
 			appointment.setCccd(cccd);
 			appointment.setEmail(email);
 			appointment.setPhone(phone);
-			appointment.setName(name);
+			appointment.setName(new String(name.getBytes("ISO-8859-1"), "UTF-8"));
 			appointment.setStatus(1);
 			appointment.setDeposit_amount(deposit_amount);
-			appointment.setContent(content);
+			appointment.setContent(new String(content.getBytes("ISO-8859-1"), "UTF-8"));
 			String[] colors =  request.getParameterValues("id_color[]");
 			appointment.setAccountId(accountId);
 			String[] quantity =  request.getParameterValues("quantity_color[]");

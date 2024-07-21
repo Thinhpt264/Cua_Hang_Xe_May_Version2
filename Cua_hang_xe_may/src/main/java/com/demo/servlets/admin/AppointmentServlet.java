@@ -1,16 +1,25 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.demo.entities.Account;
 import com.demo.entities.Appointment;
+import com.demo.entities.Log;
 import com.demo.entities.WarehouseInvoice;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.models.AppointmentModel;
+import com.demo.models.LogModel;
 import com.demo.models.WareHouseModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/appointment")
 /**
  * Servlet implementation class AppointmentServlet
@@ -47,6 +56,8 @@ public class AppointmentServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/layout/admin.jsp").forward(request, response);
 	}
 	protected void doGet_updateAppointment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		AppointmentModel appointmentModel = new AppointmentModel();
 		int id = Integer.parseInt(request.getParameter("id"));
 		Appointment appointment = appointmentModel.findAppointmentById(id);
@@ -58,6 +69,11 @@ public class AppointmentServlet extends HttpServlet {
 	protected void doGet_deleteAppointment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AppointmentModel appointmentModel = new AppointmentModel();
 		int id = Integer.parseInt(request.getParameter("id"));
+		Account a = (Account) request.getSession().getAttribute("accountAdmin");
+		LogModel logModel = new LogModel();
+		Gson gson = new Gson();
+		String after = gson.toJson(appointmentModel);
+		logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"danger" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), "Xóa Cuộc Hẹn", null, after ,a.getId() ) );
 		if(appointmentModel.delete(id)) {
 			response.sendRedirect("appointment");
 		}else {

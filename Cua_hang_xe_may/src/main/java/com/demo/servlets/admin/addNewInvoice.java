@@ -1,6 +1,7 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -9,10 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.demo.entities.Account;
 import com.demo.entities.Invoice;
+import com.demo.entities.Log;
 import com.demo.entities.ProductColor;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
 import com.demo.models.ColorModel;
 import com.demo.models.InvoiceModel;
+import com.demo.models.LogModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/addNewInvoice")
 /**
  * Servlet implementation class addNewInvoice
@@ -59,6 +66,11 @@ public class addNewInvoice extends HttpServlet {
 		invoice.setEmployeeId(employeeId);
 		invoice.setTradeDate(tradeDate);
 		invoice.setPrice(price);
+		Account a = (Account) request.getSession().getAttribute("accountAdmin");
+		LogModel logModel = new LogModel();
+		Gson gson = new Gson();
+		String after = gson.toJson(invoice);
+		logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"warning" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), "Nhập Hóa Đơn", null, after ,a.getId() ) );
 		if(invoiceModel.create(invoice)) {
 			response.sendRedirect("home");
 		}

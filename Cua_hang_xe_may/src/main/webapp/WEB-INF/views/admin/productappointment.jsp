@@ -53,7 +53,7 @@
 							        <%if(msg1 == null) { %>
 				        			<span ></span>
 				        		<% }else if(msg1.equalsIgnoreCase("Hoàn Thất Bại")) { %>
-				        			<span style='color:red; margin-left: 5px; ' > <%=msg1 + "Số Lượng Hoàn Về Lớn Hơn Dữ Liệu Đang Cọc" %></span>
+				        			<span style='color:red; margin-left: 5px; ' > <%=msg1 + " Số Lượng Hoàn Về Lớn Hơn Dữ Liệu Đang Cọc" %></span>
 				        		
 				        		<% }else { %>
 									<span style='color:green;'> <%=msg1 %></span>
@@ -103,7 +103,7 @@
 				                         <fmt:formatNumber type="currency" 
 				                            value ="<%= i.getProductColor().getPrice() %>" currencySymbol="VNĐ"/> </td>
                                         <td><%= i.getQuantity() %></td>
-                                       	<td> Đã Được Đặt Cọc </td>
+                                       	<td> <%=appointmentModel.findAppointmentById(i.getAppointmentId()).getStatus() == 0 ? "Đã Thanh Toán" : "Chưa Thanh Toán" %> </td>
                                        	<td>
                                        		<form action="${pageContext.request.contextPath}/admin/productAppoinment?action=undo&id=<%=i.getId() %>" method="POST">
                                        		<input type="number" min="1" name="quantity">

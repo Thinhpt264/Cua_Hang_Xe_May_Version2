@@ -26,11 +26,13 @@
       int idproduct = Integer.parseInt(id);
       Product product = (Product) request.getAttribute("product");
    %>
-     <%ProductModel productModel = new ProductModel(); 
-                    List<ProductVersion> productVersions = productModel.findAllVersionByProduct(idproduct);
+     <%				ProductModel productModel = new ProductModel(); 
+                    List<ProductVersion> productVersions = productModel.findAllVersionByProduct(product.getId());
+                    	System.out.println(productVersions);
                     	int productVersionID = productVersions.get(0).getId();
                         List<ProductColor> productColorsFirst = productModel.findAllColorByProductVersion(productVersionID);
                         ProductColor productColor = productColorsFirst.get(0);
+                        System.out.println(productColorsFirst);
                         if(productVersions == null) productVersions = new ArrayList<>();
                         
         CommentModel commentModel = new CommentModel();
@@ -82,7 +84,7 @@
 								var price = color.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 								$('#img').attr('src', '${pageContext.request.contextPath}/assets/user/Image/' + color.photo);
 								$('#price').html('Giá ' + price +' VNĐ');
-								$('#quantity').html('Còn ' + color.quantity +' Sản Phẩm');
+								$('#quantity').html(color.quantity +' Sản Phẩm Có Sẵn');
 								$('#versionName').html( version.versionName);
 								$('#ColornName').html(color.color);
 								console.log(color.quantity === 0)
@@ -117,7 +119,7 @@
                 <div class="header mr-5">
                     <h1><%=product.getName() %>  </h1>  <h1  id="versionName"> <%= productVersions.get(0).getVersionName() %></h1>	<h1  id="ColornName"> <%=productColor.getColor() %></h1>
                     <div id="price" style="font-size: 30px;"><%=messages.getString("don_gia")%> <fmt:formatNumber type="number" value="<%= productColor.getPrice()%>" pattern="#,##0"/> VNĐ </div>
-                    <div id="quantity" style="font-size: 30px;"><%= productColor.getQuantity() %> Sản Phẩm </div>
+                    <div id="quantity" style="font-size: 20px;"><%= productColor.getQuantity() %> Sản Phẩm Có Sẵn</div>
                 </div>
            	
             

@@ -20,12 +20,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Danh Sách Cuộc Hẹn</h1>
+              <h1 class="m-0">Dữ liệu đặt cọc</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
-                <li class="breadcrumb-item active">Danh Sách Cuộc Hẹn</li>
+                <li class="breadcrumb-item active">Dữ liệu đặt cọc</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->

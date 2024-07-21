@@ -1,14 +1,23 @@
 package com.demo.servlets.admin;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.demo.entities.Account;
+import com.demo.entities.Log;
 import com.demo.entities.ProductVersion;
+import com.demo.helpers.ConfigIP;
+import com.demo.helpers.IPAddressUtil;
+import com.demo.models.LogModel;
 import com.demo.models.VersionModel;
+import com.google.gson.Gson;
 @WebServlet("/admin/addNewVersion")
 /**
  * Servlet implementation class addNewVersion
@@ -53,6 +62,11 @@ public class addNewVersionServlet extends HttpServlet {
 		productVersion.setVersionName(new String(versionName.getBytes("ISO-8859-1"), "UTF-8"));
 		productVersion.setProductID(productID);
 		productVersion.setPrice(price);
+		Account a = (Account) request.getSession().getAttribute("accountAdmin");
+		LogModel logModel = new LogModel();
+		Gson gson = new Gson();
+		String after = gson.toJson(productVersion);
+		logModel.create(new Log(IPAddressUtil.getPublicIPAddress(),"alert" , ConfigIP.ipconfig(request).getCountryLong(), new Timestamp(new Date().getTime()), "Thêm Phiên Bản", null, after ,a.getId() ) );
 		if(versionModel.create(productVersion)) {
 			response.sendRedirect("addNewProductColor");
 		}else {

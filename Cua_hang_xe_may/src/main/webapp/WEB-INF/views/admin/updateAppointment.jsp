@@ -26,12 +26,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="ml-2">Sửa Dữ Liệu Nhập Hàng</h1>
+                        <h1 class="ml-2">Sửa Thông Tin Cuộc Hẹn</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="${pageContext.request.contextPath }/admin/home">Trang Chủ</a></li>
-                            <li class="breadcrumb-item active">Sửa Dữ Liệu Nhập Hàng</li>
+                            <li class="breadcrumb-item active">Sửa Thông Tin Cuộc Hẹn</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -46,7 +46,7 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="col-md-8 d-flex justify-content-center">
-                                <h2 class="m-3 pl-lg-3 w-0">Nhập Hàng </h2>
+                                <h2 class="m-3 pl-lg-3 w-0">Nhập Thông tin </h2>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->

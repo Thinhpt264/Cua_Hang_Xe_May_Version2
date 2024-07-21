@@ -71,7 +71,7 @@
 	                        </select>
 	                    </div>
 	                    <div class="col-xl-3 col-lg-4 col-md-6 px-3">
-  							<input type="text" id="filterByName" onkeyup="handleInput(event)" class="mb-3 px-4"  style="height: 50px;">
+  							<input type="text" id="filterByName"  class="mb-3 px-4"  style="height: 50px;" placeholder="Nhập Tên Xe">
 	                        	
 	                    </div>
 	                    <div class="col-xl-3 col-lg-4 col-md-6 px-3">
@@ -181,6 +181,7 @@
                         motolineFilter: motolineFilter,
                     },
                     success: function(products) {
+                    	console.log(products);
                     	var s = '';
                         // Xử lý kết quả JSON và cập nhật nội dung của phần tử #results
                        for (var i = 0; i < products.length; i++) {
@@ -202,7 +203,7 @@
                    
                 });
             });
-        
+       
     </script>
             </div>
             <!-- Search End -->
